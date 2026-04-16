@@ -429,7 +429,7 @@
     <p>A complete reference guide for managing, updating, and handing off the lakejuliawi.org website — written for both technical and non-technical readers of the Lake Julia Association, Inc. Board of Directors.</p>
     <div class="doc-meta">
       <div class="doc-meta-item"><strong>Live URL</strong><a href="https://lakejuliawi.org" style="color:rgba(255,255,255,0.65);">lakejuliawi.org</a></div>
-      <div class="doc-meta-item"><strong>Hosted On</strong>Synology DS220+ NAS</div>
+      <div class="doc-meta-item"><strong>Hosted On</strong>GitHub Pages (sschlueter86/LJA)</div>
       <div class="doc-meta-item"><strong>Last Updated</strong>April 2026</div>
       <div class="doc-meta-item"><strong>Built By</strong>Scott Schlueter</div>
     </div>
@@ -452,7 +452,7 @@
     <a href="#files">Folder layout</a>
     <a href="#images">Images</a>
     <a href="#infrastructure" class="toc-section">Infrastructure</a>
-    <a href="#synology">Synology NAS</a>
+    <a href="#github">GitHub Pages</a>
     <a href="#cloudflare">Cloudflare</a>
     <a href="#accounts" class="toc-section">Accounts</a>
     <a href="#accounts">Logins & access</a>
@@ -472,18 +472,18 @@
       <p class="section-label">Overview</p>
       <h2>About this website</h2>
       <p>The Lake Julia Association website is a <strong>static HTML site</strong> — meaning it is built entirely from plain HTML, CSS, and JavaScript files with no database, no WordPress, no server-side code, and no ongoing software to update. This makes it extremely simple to maintain and very reliable to host.</p>
-      <p>The site replaces a previous Google Sites page, preserving and expanding on its content. It was designed and built in early 2026 by Scott Schlueter, technolgoy officer of the Association, and is self-hosted on a Synology NAS at a private residence. Traffic is routed through Cloudflare for security and HTTPS encryption.</p>
+      <p>The site replaces a previous Google Sites page, preserving and expanding on its content. It was designed and built in early 2026 by Scott Schlueter, technology officer of the Association. As of April 2026, the site is hosted on GitHub Pages and the domain is managed through Cloudflare for DNS and HTTPS.</p>
 
       <h3>Technology summary</h3>
       <table class="detail-table">
         <thead><tr><th>Component</th><th>What it is</th><th>Why it was chosen</th></tr></thead>
         <tbody>
           <tr><td>HTML/CSS/JS</td><td>Plain web files, no framework</td><td>Simple, fast, no dependencies, easy to hand off</td></tr>
-          <tr><td>Synology DS220+</td><td>Network attached storage device</td><td>Already owned by a member; free to host</td></tr>
-          <tr><td>Synology Web Station</td><td>Built-in web server (Nginx)</td><td>Serves the HTML files over the local network</td></tr>
-          <tr><td>Cloudflare Tunnel</td><td>Secure connection to the internet</td><td>No open router ports; free; secure</td></tr>
+          <tr><td>GitHub Pages</td><td>Free static site hosting by GitHub</td><td>Zero cost, high uptime, version-controlled, no hardware dependency</td></tr>
+          
+          <tr><td>Git / GitHub</td><td>Version control and publishing workflow</td><td>Every change is tracked; push to deploy; easy to roll back</td></tr>
           <tr><td>Cloudflare DNS + SSL</td><td>Domain name and HTTPS certificate</td><td>Free; automatic certificate renewal</td></tr>
-          <tr><td>Docker / Container Manager</td><td>Runs the Cloudflare tunnel software</td><td>Keeps the tunnel running automatically</td></tr>
+          
         </tbody>
       </table>
     </section>
@@ -708,7 +708,7 @@
       <h3>How to move an item from "In Development" to live</h3>
       <ol class="step-list">
         <li><span>Build and test the new page locally following the instructions in <a href="#adding-pages">Adding a new page</a></span></li>
-        <li><span>Deploy the file to <code>/volume1/web/lakejulia/</code> on the Synology</span></li>
+        <li><span>Add the file to your local repo folder, commit, and push to GitHub — the page will be live at lakejuliawi.org within ~30 seconds</span></li>
         <li><span>Add the page to the visual sitemap and page list in the <strong>Site Map</strong> section of this readme</span></li>
         <li><span>Add the file to the <strong>File Structure</strong> section folder layout</span></li>
         <li><span>Add any applicable annual maintenance tasks to the <strong>Annual tasks</strong> table in <a href="#maintenance">Maintenance</a></span></li>
@@ -720,7 +720,7 @@
     <section id="files">
       <p class="section-label">File Structure</p>
       <h2>Folder layout</h2>
-      <p>All website files live on the Synology NAS at <code>/volume1/web/lakejulia/</code>. The structure is straightforward:</p>
+      <p>All website files live in the GitHub repository at <a href="https://github.com/sschlueter86/LJA">github.com/sschlueter86/LJA</a>. The local working copy is maintained at <code>D:\LakeJulia_GIS\LakeJulia_stage</code> on Scott's PC. The folder structure is straightforward:</p>
 
       <div class="file-tree">
         <span class="dir">lakejulia/</span><br>
@@ -761,60 +761,54 @@
     <section id="infrastructure">
       <p class="section-label">Infrastructure</p>
       <h2>How the hosting works</h2>
-      <p>The site is self-hosted — meaning it runs on hardware owned by a member rather than a paid hosting service. This keeps ongoing costs near zero (just the domain name, ~$10/year).</p>
+      <p>The site is hosted on <strong>GitHub Pages</strong> — a free static site hosting service provided by GitHub. Files are stored in a Git repository and published automatically when changes are pushed. The domain is managed through Cloudflare for DNS and HTTPS. Ongoing costs are essentially zero (just the domain name, ~$10/year).</p>
 
-        <div class="callout warning">
-          <div class="callout-icon">⚡</div>
+        <div class="callout success">
+          <div class="callout-icon">☁️</div>
           <div class="callout-body">
-            <h4>Physical dependencies — the cost of staying out of the cloud</h4>
-            <p>Because the site runs on physical hardware in a private home rather than a cloud data center, it is subject to real-world conditions that a paid hosting service would handle automatically. <strong>If the power goes out, the site goes down. If the internet connection at Scott's home is disrupted, the site goes down.</strong> These outages are temporary and self-resolving once power or connectivity is restored — but they are not something that can be fixed remotely. This is a known and accepted trade-off for keeping hosting costs at essentially zero.</p>
+            <h4>No hardware dependency</h4>
+            <p>Unlike the previous Synology NAS setup, the site no longer depends on any hardware at a private residence. GitHub's infrastructure handles uptime, and the site will stay online regardless of power or internet conditions at Scott's home.</p>
           </div>
         </div>
 
-      <div id="synology">
-        <h3>Synology DS220+ NAS</h3>
-        <p>The NAS is a small network storage device located at Scott Schlueter's home in the western suburbs of Chicago. It runs 24/7 and hosts the website files.</p>
+      <div id="github">
+        <h3>GitHub Pages</h3>
+        <p>The site is published from a public GitHub repository owned by Scott Schlueter. Any push to the <code>main</code> branch automatically updates the live site within approximately 30 seconds.</p>
 
         <table class="detail-table">
           <thead><tr><th>Setting</th><th>Value</th></tr></thead>
           <tbody>
-            <tr><td>Device</td><td>Synology DS220+</td></tr>
-            <tr><td>Local IP</td><td>192.168.0.240</td></tr>
-            <tr><td>DSM Admin URL</td><td>http://192.168.0.240:5000 (local network only)</td></tr>
-            <tr><td>Web Station path</td><td>/volume1/web/lakejulia/</td></tr>
-            <tr><td>Web Station port</td><td>80 (served via Default Portal)</td></tr>
-            <tr><td>Nginx config</td><td>Managed by Synology Web Station — no manual nginx config needed</td></tr>
+            <tr><td>Repository</td><td><a href="https://github.com/sschlueter86/LJA">github.com/sschlueter86/LJA</a></td></tr>
+            <tr><td>GitHub username</td><td>sschlueter86</td></tr>
+            <tr><td>Branch</td><td>main</td></tr>
+            <tr><td>Local working copy</td><td>D:\LakeJulia_GIS\LakeJulia_stage</td></tr>
+            <tr><td>Pages URL (direct)</td><td>https://sschlueter86.github.io/LJA</td></tr>
+            <tr><td>Custom domain</td><td>lakejuliawi.org (via CNAME file in repo root)</td></tr>
           </tbody>
         </table>
-
-        <h3>Docker / Container Manager</h3>
-        <p>The Cloudflare tunnel software runs as a Docker container on the Synology, managed by Synology's Container Manager application. The container is named <code>cloudflare-cloudflared-1</code> and is set to auto-restart so it comes back up automatically if the NAS reboots.</p>
 
         <div class="callout info">
           <div class="callout-icon">🔄</div>
           <div class="callout-body">
             <h4>If the site goes down</h4>
-            <p>First check that the Synology is powered on and connected to the internet. Then open Container Manager in DSM and verify the cloudflared container is running. If it's stopped, start it. The tunnel should reconnect within 30 seconds.</p>
+            <p>Check <a href="https://www.githubstatus.com">githubstatus.com</a> to see if GitHub Pages is experiencing an outage. These are rare and resolve on their own. If the custom domain stops resolving, check the DNS record in Cloudflare — it should be a CNAME pointing to <code>sschlueter86.github.io</code> with proxy status set to DNS only (gray cloud).</p>
           </div>
         </div>
       </div>
 
       <div id="cloudflare">
         <h3>Cloudflare Setup</h3>
-        <p>Cloudflare sits between visitors and the Synology. It handles the domain name, HTTPS encryption, security, and the tunnel that connects the public internet to the private NAS.</p>
+        <p>Cloudflare manages the domain name and sits in front of GitHub Pages. It handles DNS routing, HTTPS, and security filtering. The previous Cloudflare Tunnel to the Synology has been removed — DNS now points directly to GitHub.</p>
 
         <table class="detail-table">
           <thead><tr><th>Component</th><th>Configuration</th></tr></thead>
           <tbody>
             <tr><td>Account URL</td><td>dash.cloudflare.com</td></tr>
-            <tr><td>Zero Trust URL</td><td>one.dash.cloudflare.com</td></tr>
             <tr><td>Domain</td><td>lakejuliawi.org</td></tr>
             <tr><td>Registrar</td><td>Cloudflare (at-cost registration, ~$10/yr)</td></tr>
-            <tr><td>SSL Mode</td><td>Full — Cloudflare issues and renews the certificate automatically</td></tr>
+            <tr><td>DNS Record</td><td>CNAME @ → sschlueter86.github.io (DNS only / gray cloud)</td></tr>
+            <tr><td>SSL Mode</td><td>Managed by GitHub Pages — certificate auto-provisioned</td></tr>
             <tr><td>Always Use HTTPS</td><td>Enabled — all HTTP traffic redirects to HTTPS</td></tr>
-            <tr><td>Tunnel name</td><td>synology-lakejulia</td></tr>
-            <tr><td>Tunnel type</td><td>Cloudflared (Docker container on Synology)</td></tr>
-            <tr><td>Route</td><td>lakejuliawi.org → http://192.168.0.240:80</td></tr>
             <tr><td>Bot Fight Mode</td><td>Enabled</td></tr>
           </tbody>
         </table>
@@ -825,8 +819,8 @@
         <div class="callout success">
           <div class="callout-icon">🔒</div>
           <div class="callout-body">
-            <h4>No ports are open on the home router</h4>
-            <p>The Cloudflare tunnel makes an outbound connection from the Synology to Cloudflare. Visitors never connect directly to the NAS. This means no firewall rules or port forwarding are needed, and the NAS is not directly exposed to the internet.</p>
+            <h4>Security through Cloudflare + GitHub</h4>
+            <p>All traffic passes through Cloudflare before reaching GitHub, providing DDoS protection and security filtering. GitHub Pages itself is a hardened, widely-used platform. Visitors are never connecting to any privately-owned hardware.</p>
           </div>
         </div>
       </div>
@@ -842,15 +836,16 @@
         <div class="cred-row"><div class="cred-label">Login URL</div><div class="cred-value">dash.cloudflare.com</div></div>
         <div class="cred-row"><div class="cred-label">Email</div><div class="cred-value placeholder">Held by Scott Schlueter</div></div>
         <div class="cred-row"><div class="cred-label">Password</div><div class="cred-value placeholder">Stored in password manager</div></div>
-        <div class="cred-row"><div class="cred-label">Access</div><div class="cred-value">Full account — domain registration, DNS, tunnel, SSL</div></div>
+        <div class="cred-row"><div class="cred-label">Access</div><div class="cred-value">Full account — domain registration, DNS, SSL</div></div>
       </div>
 
-      <h3>Synology DSM</h3>
+      <h3>GitHub account</h3>
       <div class="cred-block">
-        <div class="cred-row"><div class="cred-label">Login URL</div><div class="cred-value">http://192.168.0.240:5000 (local network only)</div></div>
-        <div class="cred-row"><div class="cred-label">Username</div><div class="cred-value placeholder">Held by Scott Schlueter</div></div>
+        <div class="cred-row"><div class="cred-label">Login URL</div><div class="cred-value">github.com</div></div>
+        <div class="cred-row"><div class="cred-label">Username</div><div class="cred-value">sschlueter86</div></div>
         <div class="cred-row"><div class="cred-label">Password</div><div class="cred-value placeholder">Stored in password manager</div></div>
-        <div class="cred-row"><div class="cred-label">Note</div><div class="cred-value">DSM is only accessible on the local home network — requires VPN or physical presence to access remotely</div></div>
+        <div class="cred-row"><div class="cred-label">Repository</div><div class="cred-value">github.com/sschlueter86/LJA</div></div>
+        <div class="cred-row"><div class="cred-label">Note</div><div class="cred-value">Account holds full admin rights to the LJA repository. Transferrable to a successor if needed via GitHub's repository transfer feature.</div></div>
       </div>
 
       <h3>Association email accounts</h3>
@@ -877,11 +872,11 @@
         <h3>Updating existing content</h3>
         <p>Since the site is plain HTML, any page can be edited directly with a text editor. The recommended workflow is:</p>
         <ol class="step-list">
-          <li><span>Connect to the Synology via File Station in DSM (browser-based, local network only) or map the NAS as a network drive</span></li>
-          <li><span>Navigate to <code>/volume1/web/lakejulia/</code> and find the page you want to edit</span></li>
-          <li><span>Open the HTML file in a text editor — VS Code is recommended</span></li>
-          <li><span>Make your changes and save</span></li>
-          <li><span>The change is live immediately — no deploy step needed</span></li>
+          <li><span>Open your local working copy at <code>D:\LakeJulia_GIS\LakeJulia_stage</code> in VS Code</span></li>
+          <li><span>Find the page you want to edit and make your changes</span></li>
+          <li><span>Preview in a browser locally to verify the changes look correct</span></li>
+          <li><span>In VS Code's Source Control panel (or GitHub Desktop), stage the changed files, write a short commit message describing the change, and push to GitHub</span></li>
+          <li><span>The change is live at lakejuliawi.org within approximately 30 seconds</span></li>
         </ol>
 
         <div class="callout info">

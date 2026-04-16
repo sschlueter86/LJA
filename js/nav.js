@@ -17,161 +17,161 @@ const SEARCH_INDEX = [
     url: 'index.html',
     section: 'Home',
     snippet: 'Welcome to Lake Julia — a 404-acre freshwater lake in Oneida & Forest Counties, Wisconsin.',
-    body: 'lake julia welcome 404 acres 45 feet deep 6.4 miles shoreline 49 properties 1910 piney woods cabin wisconsin oneida forest county association history hero weather stats home'
+    body: 'lake julia welcome 404 acres 45 feet deep 6.4 miles shoreline 49 properties 1910 piney woods cabin wisconsin oneida forest county association history hero weather stats home point house chicago northwestern railroad 2004 501c3 nonprofit cbcw clean boats clean waters eurasian water milfoil virgin lake ewm boat inspection annual meeting fourth july tlwa three lakes waterfront association 1912 1930s civilian conservation corps memorial day labor day quarterly zoom'
   },
   {
     title: 'Community — Overview',
     url: 'community/index.html',
     section: 'Community',
     snippet: 'Resident directory, email list, annual meeting, governance, and how to support the Association.',
-    body: 'community overview residents directory email list annual meeting governance donate support board association members'
+    body: 'community overview residents directory email list annual meeting governance donate support board association members lakejuliapeople google group 200 facebook house map numbered properties 49 shoreline century neighbors restricted materials'
   },
   {
     title: 'About the Association',
     url: 'community/about.html',
     section: 'Community',
     snippet: 'Incorporated in 2004 as a Wisconsin Non-Stock Corporation, governed by a twelve-person Board of Directors.',
-    body: 'about association incorporated 2004 wisconsin non-stock corporation board of directors twelve person 501c3 nonprofit bylaws governance zoom meetings memorial day labor day officers president treasurer secretary'
+    body: 'about association incorporated 2004 wisconsin non-stock corporation board of directors twelve person 501c3 nonprofit bylaws governance zoom meetings memorial day labor day officers president treasurer secretary tj drought thomas drought attorney cj kraft gail lewis chuck munkwitz preston pitz isabel ullrich sally wahl dave evans jay franke scott schlueter technology officer advisor two-thirds majority vote'
   },
   {
     title: 'Annual Meeting',
     url: 'community/annual-meeting.html',
     section: 'Community',
     snippet: 'The Annual Meeting is held around the Fourth of July each year.',
-    body: 'annual meeting fourth of july july 4th meeting agenda election vote minutes board elections quorum members attendance past meetings'
+    body: 'annual meeting fourth of july july 4th meeting agenda election vote minutes board elections quorum members attendance past meetings 2021 2020 pandemic picnic lakeside boat parade directors'
   },
   {
     title: 'Resident Directory',
     url: 'community/directory.html',
     section: 'Community',
     snippet: 'Lake Julia property owner and resident contact directory (restricted to registered residents).',
-    body: 'directory resident directory property owners lake residents contact information phone address email restricted member login'
+    body: 'directory resident directory property owners lake residents contact information phone address email restricted member login lakejuliapeople google group 49 properties'
   },
   {
     title: 'Community Email List',
     url: 'community/email-list.html',
     section: 'Community',
     snippet: 'Join the Lake Julia community email list to stay informed about lake news and events.',
-    body: 'email list community email newsletter subscribe join sign up mailing list notifications updates announcements resident registration'
+    body: 'email list community email newsletter subscribe join sign up mailing list notifications updates announcements resident registration lakejuliapeople google group 200 residents gmail youtube google maps google drive scottoschlueter jrfranke72 restricted content'
   },
   {
     title: 'Donate',
     url: 'community/donate.html',
     section: 'Community',
     snippet: 'Support the Lake Julia Association — a 501(c)(3) nonprofit. Donations fund CBCW and lake stewardship.',
-    body: 'donate donation 501c3 charitable cbcw clean boats clean waters support contribution tax deductible fund financial stewardship give'
+    body: 'donate donation 501c3 charitable cbcw clean boats clean waters support contribution tax deductible fund financial stewardship give zelle venmo paypal check sally wahl sallywahl@me.com @sally-wahl fox point 53217 $300 300 per family eurasian water milfoil 12000 annual 4000 state 8000 residents lakejuliaassn'
   },
   {
     title: 'Lake & Environment — Overview',
     url: 'environment/index.html',
     section: 'Lake & Environment',
     snippet: 'Protecting Lake Julia\'s water quality, ecology, and natural character for generations to come.',
-    body: 'environment lake overview water quality ecology conservation natural character protection stewardship environmental health'
+    body: 'environment lake overview water quality ecology conservation natural character protection stewardship environmental health eurasian water milfoil virgin lake threat aquatic invasives cbcw boats boating rules flora fauna three lakes waterfront association tlwa 2021 2022 7500 donations'
   },
   {
     title: 'Aquatic Invasive Species',
     url: 'environment/aquatic-invasives.html',
     section: 'Lake & Environment',
     snippet: 'Eurasian Water Milfoil (EWM) is a top threat. The CBCW program inspects boats to keep invasives out.',
-    body: 'aquatic invasives ewm eurasian water milfoil cbcw clean boats clean waters invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed prevention threat property values'
+    body: 'aquatic invasives ewm eurasian water milfoil cbcw clean boats clean waters invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed prevention threat property values onterra llc 2010 2013 study chequamegon nicolet national forest three lakes eagle river uw extension stevens point state grants 12000 funding 4000 2022 7500 residents minnesota aquatic invasive species research center 2025 orientation youtube julia creek ecosystem native plants'
   },
   {
     title: 'Boats & Boating Rules',
     url: 'environment/boating-rules.html',
     section: 'Lake & Environment',
     snippet: 'Community boating standards: wake policy, no-wake zones, boat launch rules, and DNR regulations.',
-    body: 'boating rules wake boat no-wake zone boat launch boat landing speed limit wakes watercraft jet ski kayak canoe fishing wake policy dnr regulations launch hours quiet hours safety courtesy'
+    body: 'boating rules wake boat no-wake zone boat launch boat landing speed limit wakes watercraft jet ski kayak canoe fishing wake policy dnr regulations launch hours quiet hours safety courtesy wave runners january 2021 board letter wisconsin dnr docks swimmers 30 years community agreement university minnesota 2022 study 500 feet shorelines waves dissipate november 2023 legislation wisconsin wake surf boats fond du lac'
   },
   {
     title: 'Flora & Fauna',
     url: 'environment/flora-fauna.html',
     section: 'Lake & Environment',
     snippet: 'Wildlife, plants, birds, and fish found at and around Lake Julia.',
-    body: 'flora fauna plants animals birds wildlife loons eagles osprey herons waterfowl fish walleye bass panfish bluegill perch pike muskie deer bear vegetation native plants shoreline habitat'
+    body: 'flora fauna plants animals birds wildlife loons eagles osprey herons waterfowl fish walleye bass panfish bluegill perch pike muskie deer bear vegetation native plants shoreline habitat ticks lyme disease cdc bullseye rash fever fatigue joint pain beavers water levels drainage thunder lake otters north american river otters diurnal nocturnal playful fishing dnr licenses northern hardwoods conifers civilian conservation corps 1930s forest ecology mycorrhizal networks forest county association lakes fcal oneida county land water conservation lwcd shoreline erosion fertilizers pesticides shoreland zoning'
   },
   {
     title: 'Recycling & Waste Disposal',
     url: 'environment/recycling.html',
     section: 'Lake & Environment',
     snippet: 'Information on recycling drop-off locations and waste disposal for Lake Julia area residents.',
-    body: 'recycling waste disposal trash garbage recycling center crandon three lakes drop-off hazardous waste cardboard plastic glass metal compost'
+    body: 'recycling waste disposal trash garbage recycling center crandon three lakes drop-off hazardous waste cardboard plastic glass metal compost oneida county forest county landfill solid waste'
   },
   {
     title: 'Three Lakes Waterfront Association',
     url: 'environment/tlwa.html',
     section: 'Lake & Environment',
     snippet: 'Lake Julia is a member of the Three Lakes Waterfront Association (TLWA) regional federation.',
-    body: 'tlwa three lakes waterfront association three lakes lake association regional federation member advocacy lakes chain of lakes'
+    body: 'tlwa three lakes waterfront association three lakes lake association regional federation member advocacy lakes chain of lakes oneida county wisconsin property owners water quality responsible recreation environmental protection eagle river 2021 map amendment forest county eastern extension newsletter onterra virgin lake ewm harvesting'
   },
   {
     title: 'History — Overview',
     url: 'history/index.html',
     section: 'History',
     snippet: 'Over a century of life on Lake Julia — the families, events, and landscapes that shaped this place.',
-    body: 'history overview timeline 1910 1912 1930s 2004 century heritage piney woods point house railroad chicago northwestern CCC civilian conservation corps association incorporated'
+    body: 'history overview timeline 1910 1912 1930s 2004 century heritage piney woods point house railroad chicago northwestern ccc civilian conservation corps association incorporated 1956 tornado april boat parade pandemic 2020 2022 centennial tributes minocqua manitowish waters plow pine pioneer three lakes historical society 49 properties oneida forest counties 6.4 shoreline generations'
   },
   {
     title: 'Historical Archives',
     url: 'history/archives.html',
     section: 'History',
     snippet: 'Historical documents, photographs, and records from over a century of life on Lake Julia.',
-    body: 'archives historical documents photos photographs historical records scrapbook memorabilia old pictures vintage documents letters newspaper clippings'
+    body: 'archives historical documents photos photographs historical records scrapbook memorabilia old pictures vintage documents letters newspaper clippings pre-1930 settlement piney woods 1910 point house 1912 chicago northwestern railroad ccc 1930s 1956 tornado april wisconsin 2020 boat parade pandemic norway club thunder lake logging railroads 1800s 1900s research documentation wanted'
   },
   {
     title: 'Civilian Conservation Corps',
     url: 'history/ccc.html',
     section: 'History',
     snippet: 'In the 1930s, the Civilian Conservation Corps reforested and reshaped the landscape surrounding Lake Julia.',
-    body: 'ccc civilian conservation corps 1930s new deal reforestation conservation corps camp work great depression federal program forestry roads bridges improvements'
+    body: 'ccc civilian conservation corps 1930s new deal reforestation conservation corps camp work great depression federal program forestry roads bridges improvements franklin roosevelt 1933 1941 dollar day dollar boys musical bill jamerson minocqua highway 70 sports complex lakeland genealogy society camp mercer interpretive trail manitowish river rivers edge lodge wisconsin historical society rhinelander pioneer park fond du lac historic galloway house 22-25 monthly wisconsin 92000 young men 46 camps 265 million trees 483 bridges 4000 miles telephone lines 4300 miles roads trails 500 million fish stocked chequamegon nicolet national forests june 2022'
   },
   {
     title: 'In Memoriam',
     url: 'history/in-memoriam.html',
     section: 'History',
     snippet: 'Remembering Lake Julia community members who have passed away.',
-    body: 'in memoriam memorial tribute passed away deceased memory remembrance obituary community members families beloved'
+    body: 'in memoriam memorial tribute passed away deceased memory remembrance obituary community members families beloved sue sullivan jacobus deborah rawson holz jeanie belle snell elizabeth bette drought donald koten thomas schlueter phyllis kurtz erich pitz thomas j drought fred fritz mayer nancy evans victor seftar donald kurtz nathan harold nate wauda marion elizabeth mott wauda edward zager john puelicher gertrude puelicher house 44 30 34 5 10 21 12 23 16 2 19 47 42 15 2025 2024 2021 2020 2019 2018 2016 2013 2008 2006 2001 1999 1993'
   },
   {
     title: 'Property Histories',
     url: 'history/properties.html',
     section: 'History',
     snippet: 'The history of individual properties and cabins on Lake Julia — original owners and how they changed hands.',
-    body: 'property histories cabins property owners original owners lot history property history deeds parcels shoreline lots camp cabin cottage family names'
+    body: 'property histories cabins property owners original owners lot history property history deeds parcels shoreline lots camp cabin cottage family names bradford lane harmony lane julia creek road sheltered valley hillside drive woodbury lake road puelicher lane scott lake road 49 parcels thunder lake lumber company 1859 harry gray smith ernest bradford 1916 1927 1949 koten point 1953 ups-n-downs 1995 mayer evans schlueter munkwitz house numbers acquisition depression-era'
   },
   {
     title: 'Resources — Overview',
     url: 'resources/index.html',
     section: 'Resources',
     snippet: 'Maps, GIS viewer, association documents, local attractions, and helpful external links.',
-    body: 'resources overview maps gis documents links attractions helpful external tools references'
+    body: 'resources overview maps gis documents links attractions helpful external tools references bathymetric 49 properties house map depth contours onterra lake study oneida forest county parcel'
   },
   {
     title: 'Maps & GIS',
     url: 'resources/maps.html',
     section: 'Resources',
     snippet: 'Lake Julia lake maps, bathymetric depth chart, neighbor map, and interactive GIS viewer.',
-    body: 'maps gis bathymetric map lake map depth map interactive map gis viewer neighbors map boat launch shoreline contours depth chart topographic plat county parcels'
+    body: 'maps gis bathymetric map lake map depth map interactive map gis viewer neighbors map boat launch shoreline contours depth chart topographic plat county parcels house map 49 properties numbered color-coded roads 18 24 pdf 2025 1975 survey hazard shallow rock beds arcgis parcel boundaries hydrology elevation slope satellite imagery wisconsin dnr swdv surface water data viewer wbic 1614300 fisheries wetlands floodplains dams construction permits oneida county land records parcel viewer snowmobile trails forest county east half landnav google maps'
   },
   {
     title: 'Association Documents',
     url: 'resources/documents.html',
     section: 'Resources',
     snippet: 'Bylaws, meeting minutes, financial reports, and other official association documents.',
-    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records'
+    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records onterra lake study 2010-13 community surveys memorabilia 2004 articles incorporation thomas drought governance nonprofit 501c3 final report october 2013 maps appendices stakeholder survey november 2011 results july 2013 onterra proposal june 2010 2022 communications survey june 2022 photos clippings keepsakes scrapbook'
   },
   {
     title: 'Helpful Links',
     url: 'resources/links.html',
     section: 'Resources',
     snippet: 'External links to Wisconsin DNR, TLWA, Oneida County, Forest County, and other local resources.',
-    body: 'links helpful links external links wisconsin dnr department of natural resources tlwa oneida county forest county local resources lake data water quality weather noaa weather station'
+    body: 'links helpful links external links wisconsin dnr department of natural resources tlwa oneida county forest county local resources lake data water quality weather noaa weather station wbic 1614300 julia lake cbcw uw extension lakes stevens point fcal forest county association lakes oclwc oneida county land water conservation shoreline erosion solid waste recycling boating regulations fishing licenses chequamegon-nicolet national forest hiking invasive species identification shoreland zoning cdc lyme disease prevention symptoms treatment'
   },
   {
     title: 'Local Attractions',
     url: 'resources/attractions.html',
     section: 'Resources',
     snippet: 'Nearby restaurants, shops, activities, and points of interest around the Lake Julia area.',
-    body: 'attractions local attractions restaurants dining three lakes eagle river rhinelander shopping activities recreation hiking fishing snowmobile trails golf bowling ice fishing antiques tourism'
+    body: 'attractions local attractions restaurants dining three lakes eagle river rhinelander shopping activities recreation hiking fishing snowmobile trails golf bowling ice fishing antiques tourism chequamegon-nicolet national forest alltrails hidden lakes trail nicolet north trail luna-white deer lake three eagle trail cycling biking cross-country skiing vilas county petroleum museum northernaire resort aqua devils beach big stone sunset grill three lakes information bureau usfs mountain biking'
   },
 ];
 

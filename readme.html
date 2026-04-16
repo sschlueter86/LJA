@@ -460,6 +460,7 @@
     <a href="#content-updates">Updating content</a>
     <a href="#adding-pages">Adding pages</a>
     <a href="#access-control">Access control</a>
+    <a href="#recurring-tasks">Recurring tasks</a>
     <a href="#contacts" class="toc-section">Contacts</a>
     <a href="#contacts">Who to call</a>
   </nav>
@@ -865,7 +866,7 @@
         <h3>Updating existing content</h3>
         <p>Since the site is plain HTML, any page can be edited directly with a text editor. The recommended workflow is:</p>
         <ol class="step-list">
-          <li><span>Open your local working copy at <code>D:\LakeJulia_GIS\LakeJulia_stage</code> in VS Code</span></li>
+          <li><span>Open the local working copy of the staging website at <code>currently "D:\LakeJulia_GIS\LakeJulia_stage"</code> in VS Code (or whatever IDE you prefer)</span></li>
           <li><span>Find the page you want to edit and make your changes</span></li>
           <li><span>Preview in a browser locally to verify the changes look correct</span></li>
           <li><span>In VS Code's Source Control panel (or GitHub Desktop), stage the changed files, write a short commit message describing the change, click <strong>Commit</strong>, then click <strong>Sync</strong> to push to GitHub</span></li>
@@ -894,8 +895,8 @@
       </div>
 
       <div id="access-control">
-        <h3>Enabling member-only access</h3>
-        <p>When the site begins hosting private content, Cloudflare Access should be enabled. This adds an email verification gate — visitors enter their email address, receive a one-time code, and are granted access if their email is on the approved list.</p>
+        <h3>Enabling member-only access (TBD)</h3>
+        <p>If/When the site begins hosting private content beyond capabilitites of our Google Group access controls, Cloudflare Access should be enabled. This adds an email verification gate — visitors enter their email address, receive a one-time code, and are granted access if their email is on the approved list.</p>
         <p>Setup steps when ready:</p>
         <ol class="step-list">
           <li><span>Go to <strong>one.dash.cloudflare.com → Access controls → Applications</strong></span></li>
@@ -903,17 +904,18 @@
           <li><span>Set domain to <code>lakejuliawi.org</code></span></li>
           <li><span>Create a policy with action <strong>Allow</strong>, rule type <strong>Email list</strong></span></li>
           <li><span>Go to <strong>My Team → Lists</strong> and create an Email list by uploading a CSV of member emails</span></li>
-          <li><span>Free tier supports up to 50 users</span></li>
+          <li><span>Current free-tier of cloudflare supports up to 50 users. For all 200+ emails on our list, a Cloudflare Pro account ($300/yr) is required.</span></li>
         </ol>
       </div>
 
-      <h3>Annual tasks</h3>
+      <h3 id="recurring-tasks">Recurring tasks</h3>
       <table class="detail-table">
         <thead><tr><th>Task</th><th>When</th><th>How</th></tr></thead>
         <tbody>
-          <tr><td>Update CBCW donation amount</td><td>Each spring</td><td>Edit the cost figures in <code>environment/aquatic-invasives.html</code> and <code>community/donate.html</code></td></tr>
+          <tr><td>Update CBCW details <br>and donation amount</td><td>Each spring</td><td>Edit the cost figures in <code>environment/aquatic-invasives.html</code> and <code>community/donate.html</code></td></tr>
           <tr><td>Update annual meeting info</td><td>After each meeting</td><td>Add a new entry to <code>community/annual-meeting.html</code></td></tr>
-          <tr><td>Domain renewal</td><td>Annually (~$10)</td><td>Auto-renews via Cloudflare — confirm credit card on file is current at dash.cloudflare.com</td></tr>
+          <tr><td>Update monthly meeting info</td><td>After each meeting</td><td>Add a new entry to <code>resources/documents.html</code></td></tr>
+          <tr><td>Domain renewal</td><td>April - Annually (~$10)</td><td>Auto-renews via Cloudflare — confirm credit card on file is current at dash.cloudflare.com</td></tr>
           <tr><td>Add In Memoriam entries</td><td>As needed</td><td>Add photo to <code>images/inMemoriam/</code>, add entry to <code>history/in-memoriam.html</code></td></tr>
           <tr><td>Update house map</td><td>As needed</td><td>Replace <code>images/2025_LJA_HOUSEMAP.png</code> and <code>images/250530_HOUSEMAP.pdf</code> with new versions. Jay Franke typically evaluates and republishes this each year.</td></tr>
         </tbody>

@@ -185,6 +185,22 @@
     border-top: 1px solid var(--sand-dark);
     margin: 1.5rem 0;
   }
+
+  /* ── Meeting history entries ─────────────────────────────────────── */
+  .meeting-entry {
+    border-left: 3px solid var(--water-light);
+    padding: 1.25rem 0 1.25rem 1.5rem;
+    margin-bottom: 0;
+  }
+  .meeting-entry + .meeting-entry { border-top: 1px solid var(--sand-dark); }
+  .meeting-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin-bottom: 0.3rem;
+  }
+  .meeting-entry p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 </style>
 </head>
 <!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
@@ -223,16 +239,14 @@
      Four document groups: Governance, Lake Study, Survey, Memorabilia. -->
 <div class="content-wrap narrow">
 
-  <!-- ── GROUP 1: Corporate Documents (Governance) ──
-       The 2004 Articles of Incorporation and Bylaws. A "Plain English"
-       trigger button below the list opens a modal explaining the
-       documents in accessible, non-legal language.                  -->
+  <!-- ── GROUP 1: Governance ──
+       Corporate documents plus annual and monthly meeting history. -->
   <div class="doc-group fade-up">
     <p class="section-label">Governance</p>
-    <h2 class="section-title sm">Association Corporate Documents</h2>
-    <p style="font-size:0.92rem; color:var(--text-muted);">The 2004 articles of incorporation and bylaws drafted by Attorney Thomas J. Drought. These documents have not been amended since their adoption.</p>
+
+    <h3 class="section-title sm" style="margin-bottom:0.5rem;">Association Corporate Documents</h3>
+    <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:1rem;">The 2004 articles of incorporation and bylaws drafted by Attorney Thomas J. Drought. These documents have not been amended since their adoption.</p>
     <div class="doc-list">
-      <!-- Single Google Drive PDF containing all corporate documents -->
       <a class="doc-item" href="https://drive.google.com/file/d/1nOnaELbBjSE_OBL1533ukzuuG2ImXvBQ/view" target="_blank">
         <div class="doc-icon">📋</div>
         <div class="doc-info">
@@ -242,12 +256,24 @@
         <div class="doc-arrow">↗</div>
       </a>
     </div>
-
-    <!-- "Plain English" trigger: clicking adds class "open" to #pe-modal-overlay,
-         which switches its display from none to flex, showing the modal. -->
     <button class="pe-trigger" onclick="document.getElementById('pe-modal-overlay').classList.add('open')">
       📖 Not an attorney? Here's what it states...
     </button>
+
+    <h3 class="section-title sm" style="margin-top:2rem; margin-bottom:0.5rem;">Annual Meeting History</h3>
+    <div style="background:white; border:1px solid var(--sand-dark); border-radius:10px; overflow:hidden;">
+      <div class="meeting-entry">
+        <div class="meeting-year">2021 Annual Meeting &amp; Picnic</div>
+        <p>Held at the lake. Photos available in the community archives.</p>
+      </div>
+      <div class="meeting-entry">
+        <div class="meeting-year">2020 Annual Meeting &amp; Boat Parade</div>
+        <p>Despite pandemic restrictions, the community gathered for the annual meeting and organized a beloved boat parade — one of the most memorable lake events in recent years. The parade became a model for future community celebrations.</p>
+      </div>
+    </div>
+
+    <h3 class="section-title sm" style="margin-top:2rem; margin-bottom:0.5rem;">Monthly Meeting Minutes</h3>
+    <p style="font-size:0.92rem; color:var(--text-muted);">Board meeting minutes will be archived here as they become available.</p>
   </div>
 
   <hr class="divider">

@@ -1,0 +1,19 @@
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+# Windows folder config
+Desktop.ini
+
+# Claude Code local settings
+.claude/
+
+# macOS (if ever edited on a Mac)
+.DS_Store
+
+# VS Code local settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.bak

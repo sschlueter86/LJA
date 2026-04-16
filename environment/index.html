@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lake &amp; Environment — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="environment" tells nav.js to highlight "Lake & Environment" in the top nav -->
+<body data-page="environment">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / Lake &amp; Environment</p>
+    <h1>Lake &amp; Environment</h1>
+    <p>Protecting the water quality, ecology, and natural character of Lake Julia for generations to come.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Environment section. "Overview" is active.
+     Scrolls horizontally on narrow screens to accommodate all tabs. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html" class="active">Overview</a>
+    <a href="aquatic-invasives.html">Aquatic Invasives</a>
+    <a href="boating-rules.html">Boating Rules</a>
+    <a href="flora-fauna.html">Flora &amp; Fauna</a>
+    <a href="recycling.html">Recycling</a>
+    <a href="tlwa.html">Three Lakes Waterfront Assn</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Full-width layout (no .narrow modifier) to show the card grid.  -->
+<div class="content-wrap">
+
+  <!-- ── WARNING: EWM threat callout ──
+       Placed at the top of the page because the Eurasian Water Milfoil
+       threat is the most urgent concern; it should be seen immediately. -->
+  <div class="callout warning fade-up">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <h4>Eurasian Water Milfoil: An Active Threat</h4>
+      <p>EWM is now established in Virgin Lake, immediately downstream on Julia Creek. Our annual Clean Boats, Clean Waters monitoring program is our primary defense. <a href="aquatic-invasives.html">Learn more →</a></p>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Environment topic cards ──
+       Each card is an <a> tag so the whole card is clickable.
+       .card-tag.danger applies the red color variant for the EWM card. -->
+  <div class="cards-grid" style="margin-top: 2rem;">
+
+    <!-- Aquatic Invasives card: .danger tag signals urgency -->
+    <a href="aquatic-invasives.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag danger">Active Concern</span>
+      <h3>Aquatic Invasives</h3>
+      <p>Eurasian Water Milfoil (EWM) threatens Lake Julia's ecosystem. Learn about the Clean Boats, Clean Waters program and how you can help.</p>
+      <span class="card-link">Learn More →</span>
+    </a>
+
+    <a href="boating-rules.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Boating</span>
+      <h3>Boats &amp; Boating Rules</h3>
+      <p>Long-standing community agreements on wake boats, jet skis, and responsible use of the lake — including the latest research on wake boat impacts.</p>
+      <span class="card-link">View Rules →</span>
+    </a>
+
+    <!-- .card-tag.pine applies the green color variant for nature topics -->
+    <a href="flora-fauna.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag pine">Nature</span>
+      <h3>Flora &amp; Fauna</h3>
+      <p>The plants, wildlife, and ecosystems of Lake Julia and its surrounding forests — including tick-borne illness awareness and forest ecology.</p>
+      <span class="card-link">Explore →</span>
+    </a>
+
+    <a href="recycling.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag pine">Stewardship</span>
+      <h3>Recycling &amp; Waste</h3>
+      <p>Local recycling and waste disposal information for Oneida and Forest County residents.</p>
+      <span class="card-link">Details →</span>
+    </a>
+
+    <a href="tlwa.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Regional</span>
+      <h3>Three Lakes Waterfront Assn</h3>
+      <p>Our regional partner organization covering the Three Lakes chain. Lake Julia was formally added to their map in 2021.</p>
+      <span class="card-link">Visit TLWA →</span>
+    </a>
+
+  </div>
+
+  <!-- ── DONATE STRIP ──
+       Green banner at the bottom prompting contributions to the
+       annual CBCW monitoring program. Uses the shared .donate-strip
+       component from the shared stylesheet.                         -->
+  <div class="donate-strip fade-up" style="margin-top: 3rem;">
+    <div>
+      <h3>Support Clean Boats, Clean Waters</h3>
+      <p>The annual monitoring program costs ~$12,000. The state covers ~$4,000 through grants — the rest depends on resident donations. In 2022, individuals and families from all corners of the lake contributed $7,500.</p>
+    </div>
+    <a class="donate-btn" href="../community/donate.html">Donate</a>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

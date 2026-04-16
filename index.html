@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lake Julia Association</title>
+<!-- Preconnect speeds up the Google Fonts request -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── HOME PAGE SPECIFIC STYLES ──────────────────────────────────
+     The homepage uses a large hero section, quick-link cards,
+     about strip, alert banner, section nav cards, and a history
+     teaser — all unique to this page. Page-specific styles are kept
+     here rather than in the shared stylesheet to avoid bloat. */
+
+  /* ── HERO ────────────────────────────────────────────────────────
+     Full-width gradient section at the very top of the homepage.
+     The ::before pseudo-element creates the curved white edge at the
+     bottom (ellipse clip-path). The ::after adds decorative rings
+     in the upper-right corner. */
+  .hero {
+    background: linear-gradient(160deg, var(--water-deep) 0%, var(--water) 55%, var(--water-light) 100%);
+    color: white;
+    padding: 5rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Curved white scallop at the bottom of the hero, bleeding into the content below */
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  /* Decorative concentric ring overlay in the upper-right corner */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 0 0 70px rgba(255,255,255,0.04), 0 0 0 140px rgba(255,255,255,0.025);
+    pointer-events: none;
+  }
+  /* Decorative lake-map background image fading in from the right side.
+     mask-image makes left side transparent so hero text stays readable. */
+  .hero-bg-map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 40%, rgba(0,0,0,.8) 100%);
+    pointer-events: none;
+  }
+  /* Flex row containing hero text (left) and optional map image (right) */
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  /* The lake map image shown to the right of hero text on desktop */
+  .hero-map {
+    flex: 0 0 auto;
+    width: clamp(260px, 36%, 420px);
+  }
+  .hero-map img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    display: block;
+    position: relative;
+    left: -48px;    /* nudge left so it overlaps into the hero gradient */
+  }
+  /* On mobile, stack the hero text and map vertically */
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; }
+    .hero-map { width: 100%; }
+    /* Re-anchor the background map so Lake Julia (at ~75% left, ~25% top)
+       stays centered rather than defaulting to the center of the image,
+       which lands on the lakes to the southwest. */
+    .hero-bg-map { object-position: 75% 25%; }
+  }
+  /* Small uppercase label above the main heading ("Oneida & Forest Counties, Wisconsin") */
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5.5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 1.25rem;
+  }
+  /* The italic "Lake Julia" text in the h1 is styled in a lighter blue */
+  .hero h1 em {
+    font-style: italic;
+    color: var(--water-mist);
+  }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.78);
+    max-width: 560px;
+    margin-bottom: 2.25rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  /* Row of numeric lake facts (acreage, depth, etc.) */
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .hero-stat span {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── ALERT BANNER ────────────────────────────────────────────────
+     A prominent green full-width stripe used to highlight the CBCW
+     program and prompt donations. Sits between quick links and
+     section nav cards. */
+  .alert-banner {
+    background: linear-gradient(135deg, var(--pine) 0%, var(--pine-light) 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+  }
+  .alert-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .alert-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .alert-content { flex: 1; min-width: 240px; }
+  .alert-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  .alert-content p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.55;
+  }
+  .alert-content a { color: #a8d8a8; font-weight: 600; }
+
+  /* ── QUICK LINKS ─────────────────────────────────────────────────
+     A row of icon + label cards linking to the most-visited pages.
+     Shown directly below the hero section. */
+  .quicklinks {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+    gap: 1rem;
+  }
+  /* Each quick-link is a white card that's also an <a> tag */
+  .ql-card {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 10px;
+    padding: 1.3rem 1.4rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .ql-card:hover {
+    border-color: var(--water-light);
+    box-shadow: 0 4px 16px rgba(44,95,122,0.12);
+    transform: translateY(-2px);
+  }
+  .ql-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .ql-card h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.2rem; color: var(--water-deep); }
+  .ql-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+  /* ── ABOUT STRIP ─────────────────────────────────────────────────
+     Sand-colored two-column section with narrative text about the
+     lake and the association. Sits below the quick links. */
+  .about-strip {
+    background: var(--sand);
+    padding: 3.5rem 2rem;
+    margin-top: 2rem;
+  }
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  /* Stack columns on mobile */
+  @media (max-width: 768px) {
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+  .about-body {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .about-body:last-child { margin-bottom: 0; }
+  .about-body a { color: var(--water); font-weight: 600; }
+
+  /* ── HISTORY STRIP ───────────────────────────────────────────────
+     Dark blue full-width section with a mini timeline.
+     Teases the History section with key dates. */
+  .history-strip {
+    background: var(--water-deep);
+    color: white;
+    padding: 3.5rem 2rem;
+  }
+  .history-inner { max-width: 1100px; margin: 0 auto; }
+  .history-strip .section-title { color: var(--water-mist); }
+  /* Grid of individual timeline year entries */
+  .timeline-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+  }
+  /* Each entry has a blue left-border accent bar */
+  .tl-item { border-left: 3px solid var(--water-light); padding-left: 1.25rem; }
+  .tl-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--water-mist);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .tl-item p { font-size: 0.87rem; color: rgba(255,255,255,0.65); line-height: 1.55; }
+  /* "Explore full history →" link at the bottom of the history strip */
+  .history-link {
+    display: inline-block;
+    margin-top: 1.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--water-mist);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .history-link:hover { color: white; text-decoration: underline; }
+
+  /* ── SECTION NAV CARDS ───────────────────────────────────────────
+     Four cards — Community, Environment, History, Resources — linking
+     to the four main site sections. Each has a colored top border,
+     a title, description, and bullet links to sub-pages. */
+  .section-cards {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+  .sec-card {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-top: 4px solid var(--water-light);   /* colored accent bar across the top */
+    border-radius: 0 0 10px 10px;
+    padding: 1.5rem;
+    color: var(--text);
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+  }
+  .sec-card:hover {
+    box-shadow: 0 6px 20px rgba(44,95,122,0.12);
+    transform: translateY(-3px);
+    border-top-color: var(--water);
+  }
+  /* Clickable section title inside the card */
+  .sec-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    text-decoration: none;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .sec-card-title:hover { color: var(--water); text-decoration: underline; }
+  .sec-card p {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  /* List of sub-page links at the bottom of each card.
+     margin-top:auto pushes these to the bottom of variable-height cards. */
+  .sec-card-links {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--sand-dark);
+    display: flex;
+    flex-direction: column;
+  }
+  .sec-card-links a {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--water);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .sec-card-links a:last-child { border-bottom: none; }
+  .sec-card-links a:hover { color: var(--water-deep); text-decoration: underline; }
+  /* Responsive breakpoints for section nav cards:
+     2 columns on tablet, 1 column on small mobile */
+  @media (max-width: 900px) {
+    .section-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .section-cards { grid-template-columns: 1fr; }
+  }
+
+  /* ── AT-A-GLANCE WEATHER WIDGET ──────────────────────────────────
+     A small date + weather display shown in the hero section.
+     Starts invisible (opacity:0) and fades in after weather data
+     loads from the Open-Meteo API (see JS at bottom of page). */
+  .at-a-glance {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .at-a-glance.loaded { opacity: 1; }   /* added by JS after fetch completes */
+  .aag-date {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.04em;
+  }
+  .aag-weather {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .aag-icon { font-size: 1.05rem; line-height: 1; }
+  .aag-temp { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.88); letter-spacing: 0.01em; }
+  .aag-condition { font-size: 0.78rem; color: rgba(255,255,255,0.45); font-weight: 400; }
+
+  /* Page-level fade-up animation (mirrors shared stylesheet but needed here
+     since index.html doesn't use the .content-wrap context) */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.4s ease both; }
+  .fade-up:nth-child(2) { animation-delay: 0.06s; }
+  .fade-up:nth-child(3) { animation-delay: 0.12s; }
+  .fade-up:nth-child(4) { animation-delay: 0.18s; }
+  .fade-up:nth-child(5) { animation-delay: 0.24s; }
+  .fade-up:nth-child(6) { animation-delay: 0.30s; }
+</style>
+</head>
+<!-- data-page="home" tells nav.js which section is active for nav highlighting -->
+<body data-page="home">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element
+     (site logo, desktop nav links, mobile hamburger button).        -->
+<div id="site-header"></div>
+
+<!-- ── HERO SECTION ─────────────────────────────────────────────────
+     Full-width gradient hero with background lake-map image, weather
+     widget, headline, description, and key lake stats.              -->
+<div class="hero">
+  <!-- Decorative background lake-map image (fades in from right via CSS mask) -->
+  <img class="hero-bg-map" src="images/hero_image1.png" alt="">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <!-- Weather widget: date shown immediately; temp/condition loaded via JS API call -->
+      <div class="at-a-glance" id="atAGlance" aria-live="polite">
+        <div class="aag-date" id="aagDate"></div>
+        <div class="aag-weather">
+          <span class="aag-icon" id="aagIcon"></span>
+          <span class="aag-temp" id="aagTemp"></span>
+          <span class="aag-condition" id="aagCond"></span>
+        </div>
+      </div>
+      <p class="hero-eyebrow">Oneida &amp; Forest Counties, Wisconsin</p>
+      <h1>Welcome to<br><em>Lake Julia</em></h1>
+      <p class="hero-desc">A 404-acre freshwater lake shared by 49 families — and generations of memories. Home of the Lake Julia Association, Inc.</p>
+      <!-- Key lake facts displayed as a horizontal stat row -->
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>404</strong><span>Acres</span></div>
+        <div class="hero-stat"><strong>45 ft</strong><span>Max Depth</span></div>
+        <div class="hero-stat"><strong>6.4 mi</strong><span>Shoreline</span></div>
+        <div class="hero-stat"><strong>49</strong><span>Properties</span></div>
+        <div class="hero-stat"><strong>Est. 1910</strong><span>First Cabin</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── QUICK LINKS ───────────────────────────────────────────────────
+     Four icon cards linking to the most commonly visited pages.
+     The section-label is in its own wrapper to constrain to 1100px. -->
+<div style="max-width:1100px; margin:0 auto; padding:1.5rem 2rem 0;">
+  <p class="section-label">Common topics</p>
+</div>
+<div class="quicklinks">
+  <a class="ql-card fade-up" href="community/annual-meeting.html">
+    <div class="ql-icon">📅</div>
+    <div><h3>Annual Meeting</h3><p>Held around the Fourth of July each year</p></div>
+  </a>
+  <a class="ql-card fade-up" href="environment/boating-rules.html">
+    <div class="ql-icon">🚤</div>
+    <div><h3>Boating Rules</h3><p>Wake policy, no-wake zones, launching</p></div>
+  </a>
+  <a class="ql-card fade-up" href="environment/aquatic-invasives.html">
+    <div class="ql-icon">🌱</div>
+    <div><h3>Aquatic Invasives</h3><p>EWM threat and CBCW program</p></div>
+  </a>
+  <a class="ql-card fade-up" href="resources/maps.html">
+    <div class="ql-icon">🗺️</div>
+    <div><h3>Maps &amp; GIS</h3><p>Lake maps and interactive GIS viewer</p></div>
+  </a>
+</div>
+
+<!-- ── ABOUT THE LAKE & ASSOCIATION ─────────────────────────────────
+     Two-column sand-colored strip: lake history on the left,
+     association background on the right.                           -->
+<div class="about-strip">
+  <div class="about-inner">
+    <!-- Left column: Lake history and facts -->
+    <div>
+      <p class="section-label">About the Lake</p>
+      <h2 class="section-title">A lake by two names</h2>
+      <p class="about-body">Residents and old-timers call it "Lake Julia." The Wisconsin DNR and most maps call it "Julia Lake." By either name, it's a gem — a 404-acre lake spanning Oneida and Forest Counties, stretching 2.5 miles from west to east, with a healthy maximum depth of 45 feet and 6.4 miles of shoreline shared among 49 properties.</p>
+      <p class="about-body">The earliest cabin, "Piney Woods" at the boat landing, was built in 1910, followed in 1912 by the "Point House." In the early days, building materials were ferried across the frozen lake during winter from the Chicago & Northwestern railroad line running between Virgin and Julia Lakes — a reminder of just how remote and rugged this place once was.</p>
+       <p class="about-body">The boat landing is open to the public through a formal easement, even though it sits on private property. We're grateful to the property owner for maintaining this access for the broader community.</p>
+      <p class="about-body">Most of this site is publicly accessible. Certain directory listings and documents are restricted to registered lake residents. <a href="community/email-list.html">Learn about resident access →</a></p>
+    </div>
+    <!-- Right column: Association background -->
+    <div>
+      <p class="section-label">The Association</p>
+      <h2 class="section-title">Incorporated since 2004</h2>
+      <p class="about-body">The Lake Julia Association (LJA) has been bringing together lake property owners and regular visitors since 2004. As a Wisconsin Non-Stock Corporation, we're governed by a twelve-person Board of Directors elected by the community, with an Annual Meeting held each year around the Fourth of July. In 2022, we became a fully accredited 501(c)(3) nonprofit organization.</p>
+      <p class="about-body">The Board typically meets once a month via Zoom during the busy season — Memorial Day through Labor Day — to stay connected and keep things running smoothly for the lake community.</p>
+      <p class="about-body">Our ongoing mission is keeping Lake Julia healthy and beautiful for everyone who loves it — including through the Clean Boats, Clean Waters program, which helps protect the lake from aquatic invasive species.</p>
+      <p class="about-body">
+        <a href="community/about.html">About the Association →</a><br>
+        <a href="community/email-list.html" style="margin-top:0.3rem; display:inline-block;">Join the community email list →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ── CBCW ALERT BANNER ─────────────────────────────────────────────
+     Green promotional stripe prompting donations to the annual
+     Clean Boats, Clean Waters boat inspection program.              -->
+<div class="alert-banner">
+  <div class="alert-inner">
+    <div class="alert-icon">🌿</div>
+    <div class="alert-content">
+      <h3>2025 Clean Boats, Clean Waters Program</h3>
+      <p>Your support protects Lake Julia from Eurasian Water Milfoil — already established in nearby Virgin Lake. The program costs ~$12,000/year; the state covers ~$4,000. <a href="environment/aquatic-invasives.html">Learn more →</a></p>
+    </div>
+    <a class="donate-btn" href="community/donate.html">Donate</a>
+  </div>
+</div>
+
+<!-- ── SECTION NAVIGATION CARDS ─────────────────────────────────────
+     Four cards — one per site section — each with a description
+     and bullet links to key sub-pages within that section.         -->
+<div style="background: var(--cream); padding: 0.5rem 0;">
+  <div class="section-cards">
+
+    <!-- Community section card -->
+    <div class="sec-card fade-up">
+      <div class="sec-card-icon">👋</div>
+      <a class="sec-card-title" href="community/index.html">Community</a>
+      <p>Resident directory, email list, annual meeting, governance, and how to support the Association.</p>
+      <div class="sec-card-links">
+        <a href="community/about.html">About the Association</a>
+        <a href="community/email-list.html">Community Email List</a>
+        <a href="community/annual-meeting.html">Annual Meeting</a>
+        <a href="community/donate.html">Donate</a>
+      </div>
+    </div>
+
+    <!-- Lake & Environment section card -->
+    <div class="sec-card fade-up">
+      <div class="sec-card-icon">🌊</div>
+      <a class="sec-card-title" href="environment/index.html">Lake &amp; Environment</a>
+      <p>Protecting Lake Julia's water quality, ecology, and natural character for generations to come.</p>
+      <div class="sec-card-links">
+        <a href="environment/aquatic-invasives.html">Aquatic Invasives &amp; CBCW</a>
+        <a href="environment/boating-rules.html">Boats &amp; Boating Rules</a>
+        <a href="environment/flora-fauna.html">Flora &amp; Fauna</a>
+        <a href="environment/tlwa.html">Three Lakes Waterfront Assn</a>
+      </div>
+    </div>
+
+    <!-- History section card -->
+    <div class="sec-card fade-up">
+      <div class="sec-card-icon">📜</div>
+      <a class="sec-card-title" href="history/index.html">History</a>
+      <p>Over a century of life on Lake Julia — the families, events, and landscapes that shaped this place.</p>
+      <div class="sec-card-links">
+        <a href="history/in-memoriam.html">In Memoriam</a>
+        <a href="history/archives.html">Historical Archives</a>
+        <a href="history/ccc.html">Civilian Conservation Corps</a>
+        <a href="history/properties.html">Property Histories</a>
+      </div>
+    </div>
+
+    <!-- Resources section card -->
+    <div class="sec-card fade-up">
+      <div class="sec-card-icon">🗂️</div>
+      <a class="sec-card-title" href="resources/maps.html">Resources</a>
+      <p>Maps, GIS viewer, association documents, local attractions, and helpful external links.</p>
+      <div class="sec-card-links">
+        <a href="resources/maps.html">Lake Maps</a>
+        <a href="resources/documents.html">Documents</a>
+        <a href="resources/links.html">Helpful Links</a>
+        <a href="resources/attractions.html">Local Attractions</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── HISTORY TEASER ────────────────────────────────────────────────
+     Dark blue strip with five key dates from the lake's history,
+     linking through to the full History section.                   -->
+<div class="history-strip">
+  <div class="history-inner">
+    <p class="section-label" style="color:rgba(255,255,255,0.4);">A Brief History</p>
+    <h2 class="section-title">Over a century on the water</h2>
+    <!-- Timeline row: five milestone years displayed side by side -->
+    <div class="timeline-row">
+      <div class="tl-item">
+        <div class="tl-year">1910</div>
+        <p>"Piney Woods" — the first cabin — is built at the boat landing</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1912</div>
+        <p>"Point House" constructed; materials hauled across winter ice from the C&amp;NW railroad line</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1930s</div>
+        <p>Civilian Conservation Corps reforests and reshapes the landscape surrounding Lake Julia</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2004</div>
+        <p>Lake Julia Association, Inc. formally incorporated as a Wisconsin Non-Stock Corporation</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2021</div>
+        <p>Lake Julia formally added to the Three Lakes Waterfront Association map</p>
+      </div>
+    </div>
+    <a class="history-link" href="history/index.html">Explore full history →</a>
+  </div>
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+
+<!-- Load the shared nav/footer injection script -->
+<script src="js/nav.js"></script>
+
+<script>
+// ── AT-A-GLANCE WEATHER WIDGET ────────────────────────────────────
+// Fetches current temperature and weather conditions for the
+// Lake Julia area from the Open-Meteo free API (no key required).
+// Lake Julia, WI — approx. 45.797°N, 89.107°W
+(function () {
+  const LAT = 45.797, LON = -89.107;
+
+  // Maps WMO weather interpretation codes to an emoji icon + text label.
+  // Full code list: https://open-meteo.com/en/docs
+  function wxCode(code) {
+    if (code === 0)                          return { icon: '☀️',  label: 'Clear' };
+    if (code === 1)                          return { icon: '🌤️', label: 'Mostly clear' };
+    if (code === 2)                          return { icon: '⛅',  label: 'Partly cloudy' };
+    if (code === 3)                          return { icon: '☁️',  label: 'Overcast' };
+    if (code === 45 || code === 48)          return { icon: '🌫️', label: 'Fog' };
+    if (code >= 51 && code <= 55)           return { icon: '🌦️', label: 'Drizzle' };
+    if (code >= 61 && code <= 65)           return { icon: '🌧️', label: 'Rain' };
+    if (code >= 71 && code <= 77)           return { icon: '❄️',  label: 'Snow' };
+    if (code >= 80 && code <= 82)           return { icon: '🌧️', label: 'Showers' };
+    if (code >= 85 && code <= 86)           return { icon: '🌨️', label: 'Snow showers' };
+    if (code >= 95)                          return { icon: '⛈️',  label: 'Thunderstorm' };
+    return { icon: '🌡️', label: '' };   // fallback for unrecognized codes
+  }
+
+  // Format a Date object as "Mon, Apr 9" style
+  function formatDate(d) {
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  // Grab all widget DOM elements by ID
+  const widget  = document.getElementById('atAGlance');
+  const elDate  = document.getElementById('aagDate');
+  const elIcon  = document.getElementById('aagIcon');
+  const elTemp  = document.getElementById('aagTemp');
+  const elCond  = document.getElementById('aagCond');
+
+  // Show today's date immediately — don't wait for the API
+  elDate.textContent = formatDate(new Date());
+
+  // Build the API URL requesting current temperature (°F) and weather code
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+              `&current=temperature_2m,weathercode&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago`;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      const cur  = data.current;
+      const temp = Math.round(cur.temperature_2m);
+      const wx   = wxCode(cur.weathercode);
+      elIcon.textContent = wx.icon;
+      elTemp.textContent = `${temp}°F`;
+      elCond.textContent = wx.label ? `· ${wx.label}` : '';
+      widget.classList.add('loaded');   // triggers the opacity:1 fade-in
+    })
+    .catch(() => {
+      // On API failure: still reveal the widget (showing only the date)
+      widget.classList.add('loaded');
+    });
+})();
+</script>
+</body>
+</html>

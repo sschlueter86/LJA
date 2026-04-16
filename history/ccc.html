@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civilian Conservation Corps — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: CCC statistics display ────────────────
+     A responsive grid of dark blue "stat boxes" highlighting key
+     CCC numbers for Wisconsin (trees planted, bridges built, etc.)
+     auto-fit/minmax lets them wrap on narrow screens.              */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  /* Individual stat box: dark water-deep background with centered content */
+  .stat-box {
+    background: var(--water-deep);
+    color: white;
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    text-align: center;
+  }
+  /* The large numeric value (e.g. "265M") */
+  .stat-box strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--water-mist);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+  /* The label below the number (e.g. "Trees planted in Wisconsin") */
+  .stat-box span {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<!-- data-page="history" tells nav.js to highlight "History" in the top nav -->
+<body data-page="history">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">History</a> / CCC History</p>
+    <h1>The Civilian Conservation Corps</h1>
+    <p>How a Depression-era federal program shaped the forests and landscape of northern Wisconsin — and Lake Julia.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the History section. "CCC History" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="in-memoriam.html">In Memoriam</a>
+    <a href="archives.html">Archives</a>
+    <a href="ccc.html" class="active">CCC History</a>
+    <a href="properties.html">Properties</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this text-heavy page to 780px max-width.    -->
+<div class="content-wrap narrow">
+
+  <!-- ── SECTION: Background on the CCC program ── -->
+  <div class="fade-up">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">A dollar a day, a forest restored</h2>
+    <div class="prose">
+      <p>The Civilian Conservation Corps (CCC) was created by President Franklin Roosevelt in the depths of the Great Depression. From 1933 to 1941, young men across the country worked in CCC camps — earning $1 a day, with $22–$25 per month sent home to support their families.</p>
+      <p>In Wisconsin alone, 92,000 young men worked in CCC camps, with an average of 46 camps in operation each year. Their labor transformed the landscape of northern Wisconsin, including the forests immediately surrounding Lake Julia.</p>
+    </div>
+
+    <!-- Statistics grid: six key CCC accomplishments in Wisconsin -->
+    <div class="stat-row">
+      <div class="stat-box"><strong>265M</strong><span>Trees planted in Wisconsin</span></div>
+      <div class="stat-box"><strong>483</strong><span>Bridges built</span></div>
+      <div class="stat-box"><strong>4,000+</strong><span>Miles of telephone lines</span></div>
+      <div class="stat-box"><strong>4,300</strong><span>Miles of roads &amp; trails</span></div>
+      <div class="stat-box"><strong>500M</strong><span>Fish stocked</span></div>
+      <div class="stat-box"><strong>92,000</strong><span>Wisconsin enrollees</span></div>
+    </div>
+
+    <div class="prose">
+      <p>CCC camps across northern Wisconsin reforested the Chequamegon and Nicolet National Forests, fought forest fires, built state parks, and revitalized the natural resources that define the region today. The forests that frame your view of Lake Julia are, in no small part, the legacy of those young men.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: 2022 CCC Centennial events ──
+       Two public events held in June 2022 celebrating the CCC legacy. -->
+  <div class="fade-up">
+    <p class="section-label">June 2022</p>
+    <h2 class="section-title sm">CCC Centennial Tributes</h2>
+    <div class="prose">
+      <p>In June 2022, the North Woods hosted two public events celebrating the CCC legacy — both free and open to the public.</p>
+    </div>
+
+    <!-- Two event cards: Minocqua musical program + Manitowish Waters trail dedication -->
+    <div class="cards-grid" style="margin-top:1.25rem;">
+      <div class="card">
+        <!-- card-tag.pine applies the green color variant for CCC/forest topics -->
+        <span class="card-tag pine">June 21, 2022</span>
+        <h3>"Dollar a Day Boys" — Musical Program</h3>
+        <p>Upper Peninsula author, filmmaker, and songwriter Bill Jamerson presented an hour-long musical and storytelling program at the Highway 70 West Sports Complex in Minocqua at 1:30 p.m.</p>
+        <p style="margin-top:0.5rem; font-size:0.83rem; color:var(--text-muted);">Sponsored by the Lakeland Area Genealogy Society and Minocqua Public Library.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag pine">June 22, 2022</span>
+        <h3>Camp Mercer CCC Interpretive Trail</h3>
+        <p>The newly dedicated Camp Mercer CCC Interpretive Trail along the Manitowish River was officially opened at 5 p.m., with a celebration at River's Edge Lodge in Manitowish Waters.</p>
+        <p style="margin-top:0.5rem; font-size:0.83rem; color:var(--text-muted);">Trail is located on the original site of Camp Mercer, a collaboration among the DNR, Mercer Public Library, Wisconsin Historical Society, and Manitowish Waters Historical Society.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Where to learn more about the CCC ──
+       Museums and a trail in the region that preserve CCC history. -->
+  <div class="fade-up">
+    <p class="section-label">Visit &amp; Learn</p>
+    <h2 class="section-title sm">CCC museums &amp; resources</h2>
+    <div class="cards-grid">
+      <!-- CCC Museum in Rhinelander, WI -->
+      <div class="card">
+        <span class="card-tag">Museum</span>
+        <h3>CCC Museum — Rhinelander</h3>
+        <p>Pioneer Park in Rhinelander houses a dedicated CCC museum preserving the history of the corps in Wisconsin.</p>
+        <a class="card-link" href="https://www.rhinelanderchamber.com/listing/pioneer-park/191/" target="_blank">Learn More →</a>
+      </div>
+      <!-- Historic Galloway House in Fond du Lac, WI -->
+      <div class="card">
+        <span class="card-tag">Museum</span>
+        <h3>Historic Galloway House — Fond du Lac</h3>
+        <p>The Historic Galloway House and Village in Fond du Lac also preserves CCC history and artifacts.</p>
+        <a class="card-link" href="https://www.fdlhistory.com/" target="_blank">Learn More →</a>
+      </div>
+      <!-- Camp Mercer Interpretive Trail in Manitowish Waters -->
+      <div class="card">
+        <span class="card-tag">Trail</span>
+        <h3>Camp Mercer Interpretive Trail</h3>
+        <p>Walk the original site of a CCC camp along the Manitowish River in Manitowish Waters.</p>
+        <a class="card-link" href="https://mwhistory.org" target="_blank">Manitowish Waters Historical Society →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

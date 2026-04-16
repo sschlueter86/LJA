@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maps &amp; GIS — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
+<body data-page="resources">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <!-- Faded map image overlaid on the gradient — purely decorative -->
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Resources</a> / Maps &amp; GIS</p>
+    <h1>Maps &amp; GIS</h1>
+    <p>House locations, depth contours, parcel data, and an interactive GIS viewer for Lake Julia.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Resources section. "Maps & GIS" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="maps.html" class="active">Maps &amp; GIS</a>
+    <a href="documents.html">Documents</a>
+    <a href="attractions.html">Local Attractions</a>
+    <a href="links.html">Helpful Links</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Five sections: House Map description + image, Bathymetric Map
+     description + image, Interactive GIS iframe, WI DNR SWDV iframe,
+     and County Parcel Map cards.                                    -->
+<div class="content-wrap">
+
+  <!-- ── SECTION: House Map description ──
+       The 18"×24" property map showing all 49 numbered lots,
+       color-coded by access road. Used throughout the site as the
+       canonical reference for identifying properties and families. -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <p class="section-label">House Map</p>
+    <h2 class="section-title sm">Lake Julia Neighbors</h2>
+    <div class="prose">
+      <p>49 identified properties numbered #1–49 beginning at the public boat landing, color-coded by access road. Updated episodically since 2002 and sized at 18" × 24" — prints clearly at full size. House numbers are used throughout this site to identify properties and families.</p>
+      <!-- Direct link to the Google Drive hosted PDF of the house map -->
+      <p><a href="https://drive.google.com/file/d/1He0lD_6YKbzmn4bse6mMY0zmlKD7Eshq/view" target="_blank">Download PDF (18" × 24") →</a></p>
+    </div>
+  </div>
+
+  <!-- ── House Map image ──
+       Full-width display of the 2025 house map PNG.
+       border + box-shadow give it a floating card appearance. -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <img src="../images/2025_LJA_HOUSEMAP.png" alt="2025 Lake Julia Neighbors house map" style="width:100%; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Bathymetric (depth) map description ──
+       The 1975 WI DNR lake-bed depth survey, plus a simplified
+       version highlighting hazardous shallow areas and rock beds. -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <p class="section-label">Depth Map</p>
+    <h2 class="section-title sm">Bathymetric Map</h2>
+    <div class="prose">
+      <p>Wisconsin DNR depth survey of the lake bed (1975), plus a simplified version highlighting the more treacherous rock beds and shallow areas. Observations through 2020 show no significant changes from the original survey.</p>
+      <!-- Two separate PDF downloads: the official state survey and a simplified hazard version -->
+      <p>
+        <a href="https://drive.google.com/file/d/1BviPbfjORuvg-VtcgbbFKJBlM1KjK6eM/view?usp=sharing" target="_blank">Download State Bathymetric Map (.pdf) →</a><br>
+        <a href="https://drive.google.com/file/d/19t09eMcGbtziT0Zdo18IOWzRVESXnJkN/view?usp=sharing" target="_blank">Download Simplified Hazard Map (.pdf) →</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Bathymetric map image ──
+       Full-width PNG of the depth contour map.
+       Same styling as the house map image above. -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <img src="../images/BathymetricMap.png" alt="Lake Julia bathymetric depth map" style="width:100%; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Interactive ArcGIS GIS Viewer ──
+       An embedded ArcGIS Web App hosted under the schlueter.maps.arcgis.com
+       account. Combines public parcel data, depth contours, hydrology,
+       elevation, and Lake Julia-specific community data.
+       loading="lazy" defers the iframe load until scrolled into view,
+       improving initial page load time.                            -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <p class="section-label">GIS</p>
+    <h2 class="section-title sm">Interactive GIS Viewer</h2>
+    <div class="prose" style="margin-bottom: 1.25rem;">
+      <p>Our GIS application is an interactive web-based map that brings together publicly available data — parcel boundaries, lake depth contours, hydrology, elevation, and ground slope — along with Lake Julia-specific information curated by our board and community members. This application is tailored to our lake, giving residents a single place to explore cabin and property details, investigate the lake's underwater bathymetry, examine surrounding topography, switch to satellite imagery, and pull up ground measurements. As our community continues to contribute data and new public sources become available, the map will only get richer over time.</p>
+      <!-- Full-screen link for users who want to use the map outside the iframe -->
+      <p><a href="https://schlueter.maps.arcgis.com/apps/webappviewer/index.html?id=0fd673e9605b44d8ac073e5375b478d4" target="_blank">Open in full screen →</a></p>
+    </div>
+    <!-- Embedded ArcGIS web app iframe: 600px tall, rounded corners to match card style -->
+    <iframe
+      src="https://schlueter.maps.arcgis.com/apps/webappviewer/index.html?id=0fd673e9605b44d8ac073e5375b478d4"
+      style="width:100%; height:600px; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);"
+      allowfullscreen
+      loading="lazy"
+      title="Lake Julia Interactive GIS Viewer">
+    </iframe>
+  </div>
+
+  <!-- ── SECTION: WI DNR Surface Water Data Viewer ──
+       A second embedded iframe pointing to the Wisconsin DNR's SWDV
+       pre-filtered to Julia Lake's WBIC (Water Body Identification Code
+       1614300). Displays water quality, fisheries, wetlands, floodplains,
+       and construction permit data.
+       loading="lazy" defers load until scrolled into view. -->
+  <div class="fade-up" style="margin-bottom: 2rem; margin-top: 2rem;">
+    <h2 class="section-title sm">Wisconsin DNR Surface Water Data Viewer</h2>
+    <div class="prose" style="margin-bottom: 1.25rem;">
+      <p>The WI DNR tool used to identify water resources, wetlands, floodplains, and dams. It allows users to view, analyze, and download data on water quality, fisheries, and construction permits.</p>
+      <!-- Full-screen link opens the DNR viewer at Lake Julia's WBIC directly -->
+      <p><a href="https://dnrmaps.wi.gov/H5/?viewer=SWDV&amp;param=LAKE,WATERBODY_WBIC,1614300" target="_blank">Open in full screen →</a></p>
+    </div>
+    <!-- Embedded WI DNR SWDV iframe pre-filtered to WBIC 1614300 (Julia Lake) -->
+    <iframe
+      src="https://dnrmaps.wi.gov/H5/?viewer=SWDV&param=LAKE,WATERBODY_WBIC,1614300"
+      style="width:100%; height:600px; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);"
+      allowfullscreen
+      loading="lazy"
+      title="Wisconsin DNR Surface Water Data Viewer">
+    </iframe>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: County Parcel Maps ──
+       Tax parcel and GIS data from both counties that share Lake Julia.
+       Oneida County (west half) has a parcel viewer + snowmobile trail map.
+       Forest County (east half) links to their newer web portal.   -->
+  <div class="fade-up">
+    <p class="section-label">County Parcel Maps</p>
+    <h2 class="section-title sm">Tax &amp; parcel information</h2>
+    <div class="prose">
+      <p>The county taxing authorities publish detailed maps showing tax parcels, owner information, and assessment and payment status. Lake Julia spans both Oneida County (west half) and Forest County (east half).</p>
+    </div>
+
+    <!-- Three cards: Oneida County, Forest County, and other map resources -->
+    <div class="cards-grid" style="margin-top:1.25rem;">
+      <!-- Oneida County: three links — land records, parcel viewer, snowmobile trails -->
+      <div class="card">
+        <span class="card-tag">Oneida County</span>
+        <h3>Oneida County — West Half</h3>
+        <div class="prose" style="margin-top:0.5rem;">
+          <ul>
+            <li><a href="https://www.co.oneida.wi.us/departments/li/land-records-system/" target="_blank">Maps &amp; GIS — Land Records</a></li>
+            <li><a href="https://gis.co.oneida.wi.us/gismapping/" target="_blank">Parcel Map Viewer</a></li>
+            <li><a href="https://oneida-county.maps.arcgis.com/apps/webappviewer/index.html?id=7beb6de72856493cb584c45a7f1c9308" target="_blank">Oneida County Snowmobile Trails</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Forest County: new web portal for parcel search (east half of the lake) -->
+      <div class="card">
+        <span class="card-tag">Forest County</span>
+        <h3>Forest County — East Half</h3>
+        <div class="prose" style="margin-top:0.5rem;">
+          <ul>
+            <!-- *NEW* label indicates this portal replaced an older system -->
+            <li><a href="https://pp-forest-co-wi-fb.app.landnav.com/Search/RealEstate/Search" target="_blank"> *NEW* Forest County Web Portal — parcel search</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Regional: WI DNR lake page + Google Maps as fallback/general reference -->
+      <div class="card">
+        <span class="card-tag">Regional</span>
+        <h3>Other Map Resources</h3>
+        <div class="prose" style="margin-top:0.5rem;">
+          <ul>
+            <li><a href="https://apps.dnr.wi.gov/lakes/lakepages/LakeDetail.aspx?wbic=1614300" target="_blank">Wisconsin DNR — Julia Lake page</a></li>
+            <li><a href="https://www.google.com/maps/search/julia+lake+wisconsin" target="_blank">Google Maps — Lake Julia</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

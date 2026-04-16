@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In Memoriam — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: In Memoriam entry list ────────────────
+     Each entry is a 3-column grid: photo | dates+house# | name+links
+     On mobile (≤640px) it collapses to a 2-column layout with the
+     photo spanning the left edge and the rest stacking on the right. */
+  .memoriam-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1.5rem;
+  }
+  /* Three-column layout: photo (90px) | dates (180px) | content (1fr) */
+  .memoriam-entry {
+    display: grid;
+    grid-template-columns: 90px 180px 1fr;
+    gap: 1rem 1.5rem;
+    align-items: start;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  /* Portrait photo: square-ish crop, top-centered for faces */
+  .memoriam-photo {
+    width: 90px;
+    height: 110px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 4px;
+    display: block;
+  }
+  /* Gray placeholder box used when no photo is available */
+  .memoriam-photo-placeholder {
+    width: 90px;
+    height: 110px;
+    border-radius: 4px;
+    background: var(--sand);
+    border: 1px solid var(--sand-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+  }
+  /* Top border on the first entry (others have bottom borders) */
+  .memoriam-entry:first-child { border-top: 1px solid var(--sand-dark); }
+  /* Dates column: right-aligned birth/death years and house # badge */
+  .memoriam-dates {
+    text-align: right;
+  }
+  .memoriam-dates .year-range {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  /* House number badge: pill-shaped blue tag (e.g. "House 23") */
+  .memoriam-dates .house {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--water-mist);
+    color: var(--water-deep);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+  }
+  /* Person's name in serif bold */
+  .memoriam-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+  }
+  /* Row of obituary/reference links styled as small pill buttons */
+  .memoriam-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+  .memoriam-links a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--water);
+    text-decoration: none;
+    background: var(--sand);
+    padding: 0.2rem 0.65rem;
+    border-radius: 3px;
+    border: 1px solid var(--sand-dark);
+    transition: all 0.15s;
+  }
+  .memoriam-links a:hover {
+    background: var(--water-mist);
+    border-color: var(--water-light);
+  }
+  /* Optional note below the obituary links (e.g. cross-reference to properties page) */
+  .memoriam-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    line-height: 1.5;
+  }
+  /* Mobile layout: collapse to 2-column (photo spans left, dates+content stack right) */
+  @media (max-width: 640px) {
+    .memoriam-entry {
+      grid-template-columns: 90px 1fr;
+      gap: 0.5rem 1rem;
+    }
+    /* Dates: top-right of the photo on mobile */
+    .memoriam-entry > .memoriam-dates {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+    }
+    /* Photo: spans both rows in column 1 */
+    .memoriam-entry > .memoriam-photo,
+    .memoriam-entry > .memoriam-photo-placeholder {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    /* Name/links/notes: span full width below photo+dates */
+    .memoriam-entry > div:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+</head>
+<!-- data-page="history" tells nav.js to highlight "History" in the top nav -->
+<body data-page="history">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">History</a> / In Memoriam</p>
+    <h1>In Memoriam</h1>
+    <p>Remembering those who have gone before — the families who shaped life on Lake Julia.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the History section. "In Memoriam" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="in-memoriam.html" class="active">In Memoriam</a>
+    <a href="archives.html">Archives</a>
+    <a href="ccc.html">CCC History</a>
+    <a href="properties.html">Properties</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this page to 780px max-width.               -->
+<div class="content-wrap narrow">
+
+  <!-- Info callout: instructions for adding or updating an entry -->
+  <div class="callout info fade-up">
+    <div class="callout-icon">✏️</div>
+    <div class="callout-body">
+      <h4>Add an entry</h4>
+      <p>Any resident may submit a memorial entry. Listings are ordered by date of passing. Contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">site administrator</a> to add or update an entry. House numbers refer to the <a href="../resources/maps.html">lake map</a>.</p>
+    </div>
+  </div>
+
+  <!-- ── MEMORIAM ENTRY LIST ──
+       Entries are ordered most recent passing first.
+       Each entry has: photo (or placeholder) | dates + house# | name + links.
+       Photo files are in /images/inMemoriam/. -->
+  <div class="memoriam-list fade-up">
+
+    <!-- Sue Sullivan Jacobus — House 44, d. September 11, 2025 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/SueJacobus.jpg" alt="Sue Sullivan Jacobus">
+      <div class="memoriam-dates">
+        <div class="year-range">April 20, 1936<br>September 11, 2025</div>
+        <span class="house">House 44</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Suzanne "Sue" Sullivan Jacobus</div>
+        <div class="memoriam-links">
+          <a href="https://www.beckerritter.com/obituaries/Suzanne-Sue-Sullivan-Jacobus?obId=45467032" target="_blank">Obituary — Becker-Ritter</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deborah Rawson Holz — House 30, d. August 2, 2025 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/DeborahHolz.jpg" alt="Deborah Rawson Holz">
+      <div class="memoriam-dates">
+        <div class="year-range">July 23, 1947<br>August 2, 2025</div>
+        <span class="house">House 30</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Deborah Rawson Holz</div>
+        <div class="memoriam-links">
+          <a href="https://www.westgorfuneralhomes.com/obituaries/10938/deborah-holz" target="_blank">Obituary — Westgor Funeral Homes</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jeanie Belle Snell — House 34, d. May 26, 2024 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/JeanieSnell.jpg" alt="Jeanie Belle Snell">
+      <div class="memoriam-dates">
+        <div class="year-range">May 26, 2024</div>
+        <span class="house">House 34</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Jeanie Belle Snell</div>
+        <div class="memoriam-links">
+          <a href="https://www.twincities.com/obituaries/jeanie-belle-snell/" target="_blank">Obituary — Twin Cities</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elizabeth "Bette Ann" Drought — Houses 5, 10, d. November 3, 2021 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/ElizabethDrought.jpg" alt="Elizabeth Mayer Drought">
+      <div class="memoriam-dates">
+        <div class="year-range">April 23, 1932<br>November 3, 2021</div>
+        <span class="house">House 5, 10</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Elizabeth Mayer "Bette Ann" Drought</div>
+        <div class="memoriam-links">
+          <a href="https://drive.google.com/file/d/14Tl7dOdwXv734GMtfKe07qbzbh9q1M8X/view" target="_blank">Obituary — Milwaukee Journal Sentinel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Donald E. Koten — Houses 21, 12, d. October 9, 2021 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/DonaldKoten.jpg" alt="Donald E. Koten">
+      <div class="memoriam-dates">
+        <div class="year-range">March 30, 1930<br>October 9, 2021</div>
+        <span class="house">House 21, 12</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Donald E. Koten</div>
+        <div class="memoriam-links">
+          <a href="https://drive.google.com/open?id=14PZIU3E5h6EEEbCd09ZAH5TUCTEw_sAP" target="_blank">Obituary — Syracuse Post-Standard</a>
+          <a href="https://www.echovita.com/us/obituaries/ny/syracuse/donald-koten-13502667" target="_blank">Echovita</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thomas A. Schlueter — House 23, d. December 30, 2020 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/ThomasSchlueter.jpg" alt="Thomas A. Schlueter">
+      <div class="memoriam-dates">
+        <div class="year-range">September 27, 1953<br>December 30, 2020</div>
+        <span class="house">House 23</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Thomas A. Schlueter</div>
+        <div class="memoriam-links">
+          <a href="https://www.beidelmankunschfh.com/obituaries/Thomas-A-Schlueter?obId=19517072" target="_blank">Obituary — Beidelman-Kunsch</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phyllis Kurtz — House 16, d. November 14, 2020 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/PhylisKurtz.jpg" alt="Phyllis Kurtz">
+      <div class="memoriam-dates">
+        <div class="year-range">March 17, 1926<br>November 14, 2020</div>
+        <span class="house">House 16</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Phyllis Kurtz</div>
+        <div class="memoriam-links">
+          <a href="https://www.leadertelegram.com/obituaries/phyllis-kurtz/article_b3d7f5a5-f027-5064-ae3d-53afe0ee538a.html" target="_blank">Obituary — Eau Claire Leader-Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Erich W. Pitz — House 2, d. October 14, 2020 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/ErichPitz.jpg" alt="Erich W. Pitz">
+      <div class="memoriam-dates">
+        <div class="year-range">March 20, 1953<br>October 14, 2020</div>
+        <span class="house">House 2</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Erich W. Pitz</div>
+        <div class="memoriam-links">
+          <a href="https://groups.google.com/forum/#!topic/lakejuliapeople/y8SMchW21lE" target="_blank">Community remembrance</a>
+          <a href="https://www.legacy.com/obituaries/name/erich-pitz-obituary?pid=196944571" target="_blank">Obituary — Legacy.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thomas J. Drought — Houses 5, 6, d. August 9, 2019 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/ThomasJDrought.jpg" alt="Thomas J. Drought">
+      <div class="memoriam-dates">
+        <div class="year-range">December 4, 1932<br>August 9, 2019</div>
+        <span class="house">House 5, 6</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Thomas J. Drought</div>
+        <div class="memoriam-links">
+          <a href="https://www.feerickfuneralhome.com/obituary/thomas-drought" target="_blank">Obituary — Feerick Funeral Home</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fred A. "Fritz" Mayer — House 10, d. July 15, 2018 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/FredAMayer.jpg" alt="Fred A. Mayer">
+      <div class="memoriam-dates">
+        <div class="year-range">1929<br>July 15, 2018</div>
+        <span class="house">House 10</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Fred A. "Fritz" Mayer</div>
+        <div class="memoriam-links">
+          <a href="https://www.legacy.com/obituaries/jsonline/obituary.aspx?n=frederic-mayer&pid=189657263" target="_blank">Obituary — Milwaukee Journal Sentinel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nancy Evans — d. September 19, 2016 (no photo available) -->
+    <div class="memoriam-entry">
+      <div class="memoriam-photo-placeholder">👤</div>
+      <div class="memoriam-dates">
+        <div class="year-range">September 19, 2016</div>
+      </div>
+      <div>
+        <div class="memoriam-name">Nancy Evans</div>
+      </div>
+    </div>
+
+    <!-- Victor S. Seftar Jr. — House 19, d. April 23, 2016 (no photo) -->
+    <div class="memoriam-entry">
+      <div class="memoriam-photo-placeholder">👤</div>
+      <div class="memoriam-dates">
+        <div class="year-range">December 1, 1931<br>April 23, 2016</div>
+        <span class="house">House 19</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Victor S. Seftar, Jr.</div>
+        <div class="memoriam-links">
+          <a href="https://www.legacy.com/obituaries/jsonline/obituary.aspx?n=victor-s-seftar&pid=179728465&fhid=8722" target="_blank">Obituary — Milwaukee Journal</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Donald W. Kurtz — House 16, d. August 22, 2013 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/DonaldKurtz.jpg" alt="Donald W. Kurtz">
+      <div class="memoriam-dates">
+        <div class="year-range">November 26, 1925<br>August 22, 2013</div>
+        <span class="house">House 16</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Donald W. Kurtz</div>
+        <div class="memoriam-links">
+          <a href="https://www.legacy.com/obituaries/journalstandard/obituary.aspx?n=donald-kurtz&pid=166593433&fhid=23661" target="_blank">Obituary — Freeport Journal Standard</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nathan Harold "Nate" Wauda — House 30, d. March 12, 2008
+         Also cross-referenced on the Property Histories page (Bradford Lane #30) -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/NathanHWauda.jpg" alt="Nathan Harold Wauda">
+      <div class="memoriam-dates">
+        <div class="year-range">July 29, 1920<br>March 12, 2008</div>
+        <span class="house">House 30</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Nathan Harold "Nate" Wauda</div>
+        <div class="memoriam-links">
+          <a href="https://www.findagrave.com/memorial/86817134/nathan-harold-wauda" target="_blank">Find A Grave</a>
+          <a href="http://memory.loc.gov/diglib/vhp/bib/loc.natlib.afc2001001.16521" target="_blank">Veterans History Project — Library of Congress</a>
+        </div>
+        <!-- Cross-reference note to property history page -->
+        <p class="memoriam-note">See also: <a href="properties.html#bradford-30">House #30, Bradford Lane Properties</a></p>
+      </div>
+    </div>
+
+    <!-- Marion Elizabeth Mott Wauda — House 30, d. March 11, 2006
+         Also cross-referenced on the Property Histories page (Bradford Lane #30) -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/MarionMWauda.jpg" alt="Marion Elizabeth Mott Wauda">
+      <div class="memoriam-dates">
+        <div class="year-range">December 13, 1913<br>March 11, 2006</div>
+        <span class="house">House 30</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Marion Elizabeth Mott Wauda</div>
+        <div class="memoriam-links">
+          <a href="https://www.findagrave.com/memorial/86817110/marion-elizabeth-wauda" target="_blank">Find A Grave</a>
+        </div>
+        <!-- Cross-reference note to property history page -->
+        <p class="memoriam-note">See also: <a href="properties.html#bradford-30">House #30, Bradford Lane Properties</a></p>
+      </div>
+    </div>
+
+    <!-- Edward H. Zager — House 15, d. December 21, 2001 (no photo) -->
+    <div class="memoriam-entry">
+      <div class="memoriam-photo-placeholder">👤</div>
+      <div class="memoriam-dates">
+        <div class="year-range">September 14, 1926<br>December 21, 2001</div>
+        <span class="house">House 15</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Edward H. Zager</div>
+        <div class="memoriam-links">
+          <!-- href="#" — obituary URL not yet found; link is a placeholder -->
+          <a href="#" target="_blank">Obituary — Wisconsin State Journal, Dec. 24, 2001</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- John A. Puelicher — House 47, d. October 30, 1999 (no photo) -->
+    <div class="memoriam-entry">
+      <div class="memoriam-photo-placeholder">👤</div>
+      <div class="memoriam-dates">
+        <div class="year-range">November 4, 1920<br>October 30, 1999</div>
+        <span class="house">House 47</span>
+      </div>
+      <div>
+        <div class="memoriam-name">John A. Puelicher</div>
+        <div class="memoriam-links">
+          <!-- href="#" — NYT obituary URL not yet found; link is a placeholder -->
+          <a href="#" target="_blank">Obituary — New York Times, Nov. 9, 1999</a>
+          <a href="https://bus.wisc.edu/centers/puelicher-center-for-banking-education/puelicher-legacy" target="_blank">The Puelicher Legacy — UW Business School</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gertrude A. Puelicher — House 42, d. February 4, 1993 -->
+    <div class="memoriam-entry">
+      <img class="memoriam-photo" src="../images/inMemoriam/GertrudeAPuelicher.jpg" alt="Gertrude A. Puelicher">
+      <div class="memoriam-dates">
+        <div class="year-range">February 14, 1894<br>February 4, 1993</div>
+        <span class="house">House 42</span>
+      </div>
+      <div>
+        <div class="memoriam-name">Gertrude A. Puelicher</div>
+        <div class="memoriam-links">
+          <a href="https://drive.google.com/file/d/1dYx85IeKrplh9_uiaqXXisWav9ACSNPJ/view?usp=sharing" target="_blank">A Legacy of Inspiration — Exclusively Yours, Nov. 2007</a>
+          <a href="http://www.demmerlibrary.org/wp-content/uploads/2013/07/history-web.pdf" target="_blank">Demmer Library History (excerpt)</a>
+          <a href="https://www.findagrave.com/memorial/86013638/gertrude-a_-puelicher" target="_blank">Find A Grave</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /memoriam-list -->
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

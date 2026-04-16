@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resident Directory — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Community</a> / Resident Directory</p>
+    <h1>Resident Directory</h1>
+    <p>Contact information for Lake Julia property owners and regular users.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. "Resident Directory"
+     tab is active on this page.                                    -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="about.html">About the Association</a>
+    <a href="email-list.html">Email List</a>
+    <a href="directory.html" class="active">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html">Annual Meeting</a>
+    <a href="donate.html">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this page to 780px. The directory itself
+     is an external Google Sheet that opens in a new tab.           -->
+<div class="content-wrap narrow">
+
+  <!-- ── WARNING: Access restriction notice ──
+       The directory is a restricted Google Sheet. Visitors must be
+       logged into Google with an email registered in the Google Group
+       to view it. The warning callout explains this prominently.   -->
+  <div class="callout warning fade-up">
+    <div class="callout-icon">🔒</div>
+    <div class="callout-body">
+      <h4>Restricted — members only</h4>
+      <p>The resident directory is available only to members of the "lakejuliapeople" Google Group who are logged in with a matching Google account. If you believe you should have access, contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">administrator</a>.</p>
+    </div>
+  </div>
+
+  <!-- ── OPEN DIRECTORY BUTTON ──
+       Links directly to the Google Sheet. The sheet itself enforces
+       access control — non-members see a "Request Access" screen.  -->
+  <div style="margin-top: 1.5rem;" class="fade-up">
+    <a href="https://docs.google.com/spreadsheets/d/1U_RixiwLsFJX7WFY5bFOMt-rtCOkD-aIJ3_FpyhjrfI/edit?gid=326658831#gid=326658831"
+       target="_blank" rel="noopener" class="btn btn-primary">Open Resident Directory →</a>
+  </div>
+
+  <!-- ── SECTION: How to gain access ── -->
+  <div style="margin-top: 2rem;" class="fade-up">
+    <p class="section-label">Access Requirements</p>
+    <h2 class="section-title sm">How to gain access</h2>
+    <div class="prose">
+      <p>To view the resident directory you must be a member of the "lakejuliapeople" Google Group <em>and</em> be logged into Google with the same email address registered in the group.</p>
+      <p>Not yet a member? <a href="email-list.html">Learn how to join the email list →</a></p>
+      <p>Already a member but having trouble? The group may have a different email address on file. Contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">administrator</a> to sort it out.</p>
+    </div>
+  </div>
+
+  <!-- ── INFO: Directory vs email list distinction ──
+       These are two separate records — being on one doesn't
+       automatically grant access to the other.                     -->
+  <div class="callout info fade-up" style="margin-top:1.5rem;">
+    <div class="callout-icon">📋</div>
+    <div class="callout-body">
+      <h4>Directory is maintained separately from the email list</h4>
+      <p>The resident directory and the "lakejuliapeople" mailing list are independent records. Being on one does not automatically mean you are on the other. The directory is a broader list of property owners; the email list includes all regular lake users.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

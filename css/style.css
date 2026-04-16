@@ -1,0 +1,720 @@
+/* ══════════════════════════════════════════════════════════════
+   Lake Julia Association — Shared Stylesheet
+   Applied to every page on the site via <link rel="stylesheet">.
+   Page-specific styles are defined in <style> blocks within
+   individual HTML files so they don't bloat this shared file.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── GOOGLE FONTS ────────────────────────────────────────────────
+   Playfair Display: serif font used for headings and section titles.
+   Source Sans 3: sans-serif font used for all body/UI text.
+   display=swap prevents invisible text during font load. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+/* ── CSS CUSTOM PROPERTIES (color palette) ───────────────────────
+   Named variables used throughout. Grouped into:
+   - Water blues (primary brand colors)
+   - Nature greens (pine/forest)
+   - Warm neutrals (sand/cream — page backgrounds and borders)
+   - Utility (text, accent, danger states) */
+:root {
+  --water:       #2c5f7a;   /* primary brand blue — links, active borders, buttons */
+  --water-deep:  #1a3d52;   /* darkest blue — header bg, table headers, section titles */
+  --water-light: #4a8fa8;   /* medium blue — hover borders, info callout accents */
+  --water-mist:  #d4e8f0;   /* pale blue — badge backgrounds, subtle highlights */
+  --pine:        #3a5c3a;   /* dark green — donate strip, success callout bg/border */
+  --pine-light:  #5a8a5a;   /* lighter green — gradient pair for pine backgrounds */
+  --bark:        #7a5c3a;   /* warm brown — amber callout accent color */
+  --sand:        #f5efe6;   /* warm off-white — alternating table rows, tag bgs */
+  --sand-dark:   #e8ddd0;   /* slightly darker sand — borders, dividers, card edges */
+  --cream:       #fdf9f4;   /* site background color (body bg) */
+  --text:        #2a2a2a;   /* primary body text color */
+  --text-muted:  #666;      /* secondary/supporting text */
+  --accent:      #c47a2a;   /* warm amber — used for amber/warning callout left border */
+  --danger:      #b03a2e;   /* red — warning callouts and .danger card tags */
+  --danger-bg:   #fdf0ee;   /* pale red — warning callout backgrounds */
+}
+
+/* ── GLOBAL RESET ────────────────────────────────────────────────
+   Forces all elements to use border-box sizing (padding/border
+   included in width calculations) and strips default margin/padding. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── BASE BODY ───────────────────────────────────────────────────
+   Sets the default font, background, text color, and line height
+   for the entire site. */
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* ── HEADER ──────────────────────────────────────────────────────
+   The site-wide sticky top bar injected by nav.js.
+   position:sticky + z-index:100 keeps it above all page content.
+   box-shadow provides visual separation from the page below. */
+header {
+  background: var(--water-deep);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+/* Centers the header contents and sets its fixed 64px height */
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+/* The "Lake Julia Association" logo/wordmark in the header */
+.site-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;    /* prevents the logo text from wrapping on narrow screens */
+}
+/* The SVG wave icon to the left of the site name */
+.logo-wave { width: 32px; height: 20px; opacity: 0.85; flex-shrink: 0; }
+
+/* Desktop navigation links inside the header */
+nav { display: flex; gap: 0.15rem; flex-wrap: wrap; margin-left: auto; }
+nav a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+/* Highlight the active section link and hover state */
+nav a:hover, nav a.active {
+  color: white;
+  background: rgba(255,255,255,0.13);
+}
+
+/* ── PAGE HEADER BAND ────────────────────────────────────────────
+   The full-width blue banner at the top of every sub-page.
+   Uses a gradient + optional background image (hero_image1.png)
+   masked to fade in from the right side. */
+.page-header {
+  background: linear-gradient(135deg, var(--water-deep) 0%, var(--water) 100%);
+  color: white;
+  padding: 2.75rem 2rem 2.25rem;
+  position: relative;
+  overflow: hidden;   /* clips the bg image so it doesn't spill outside the band */
+}
+/* The decorative lake-map background image used in the page header.
+   mask-image fades it from left (transparent) to right (visible),
+   so the text on the left remains readable against a clean gradient. */
+.page-header-bg-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Standard and WebKit masks: image fades in from ~40% width on the right */
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 40%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;   /* allows clicks to pass through to content below */
+}
+/* Constrains page-header text content to the site max-width */
+.page-header-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+/* Small uppercase breadcrumb trail (e.g. "Home / Community / About") */
+.breadcrumb {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.5rem;
+}
+.breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+/* Page title inside the header band */
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);   /* fluid size: min 1.8rem, max 2.6rem */
+  font-weight: 700;
+  line-height: 1.15;
+}
+/* Subtitle/description text below the h1 */
+.page-header p {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  max-width: 620px;
+  font-weight: 300;
+}
+
+/* ── SUBNAV TABS ─────────────────────────────────────────────────
+   Section-level tab navigation rendered beneath the page header.
+   Sticky at top:64px (header height) so it stays below the header
+   when scrolling. z-index:90 keeps it below the header (z:100). */
+.subnav {
+  background: white;
+  border-bottom: 1px solid var(--sand-dark);
+  position: sticky;
+  top: 64px;      /* aligns flush below the 64px-tall header */
+  z-index: 90;
+  /* On mobile, fade the right edge to signal that more tabs can be scrolled */
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 2.5rem), transparent 100%);
+          mask-image: linear-gradient(to right, black calc(100% - 2.5rem), transparent 100%);
+}
+/* Remove the fade mask on wider screens where all tabs fit without scrolling */
+@media (min-width: 769px) {
+  .subnav { -webkit-mask-image: none; mask-image: none; }
+}
+/* The inner flex container that scrolls horizontally on mobile */
+.subnav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;             /* enables horizontal scrolling on mobile */
+  scrollbar-width: none;        /* Firefox: hide scrollbar visually */
+  -ms-overflow-style: none;     /* IE/Edge: hide scrollbar visually */
+}
+.subnav-inner::-webkit-scrollbar { display: none; }   /* Chrome/Safari: hide scrollbar */
+/* Individual subnav tab links */
+.subnav a {
+  display: block;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;   /* placeholder for the active/hover underline */
+  white-space: nowrap;                    /* prevent tab labels from wrapping */
+  transition: all 0.2s;
+}
+.subnav a:hover { color: var(--water); border-bottom-color: var(--water-mist); }
+/* The currently active tab gets a solid colored underline */
+.subnav a.active { color: var(--water-deep); border-bottom-color: var(--water); }
+
+/* ── LAYOUT ──────────────────────────────────────────────────────
+   .content-wrap is the main page content container.
+   Default max-width is 1100px (full width).
+   Add .narrow to constrain to 780px for text-heavy pages. */
+.content-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+}
+.content-wrap.narrow { max-width: 780px; }
+
+/* Eyebrow label above a section title (e.g. "Where It Goes") */
+.section-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--water-light);
+  margin-bottom: 0.4rem;
+}
+/* Large serif heading used as primary section headings */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--water-deep);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+/* Smaller variant of the section title, used for secondary sections */
+.section-title.sm {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+/* A simple horizontal rule used between page sections */
+hr.divider {
+  border: none;
+  border-top: 1px solid var(--sand-dark);
+  margin: 2.5rem 0;
+}
+
+/* ── PROSE ───────────────────────────────────────────────────────
+   Styles for long-form narrative text blocks wrapped in .prose.
+   Adds spacing between paragraphs and styles links and lists. */
+.prose p { margin-bottom: 1rem; color: var(--text-muted); }
+.prose p:last-child { margin-bottom: 0; }
+.prose a { color: var(--water); font-weight: 600; }
+.prose a:hover { text-decoration: underline; }
+.prose ul { margin: 0.75rem 0 1rem 1.5rem; }
+.prose ul li { margin-bottom: 0.4rem; color: var(--text-muted); }
+.prose ul li a { color: var(--water); font-weight: 600; }
+
+/* ── CARDS ───────────────────────────────────────────────────────
+   Reusable card grid used on section overview pages.
+   auto-fit/minmax layout flows from multi-column to single-column
+   as the viewport narrows. */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+/* Individual card — white box with a subtle border and shadow */
+.card {
+  background: white;
+  border: 1px solid var(--sand-dark);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: all 0.2s;
+}
+/* Lift the card slightly on hover for an interactive feel */
+.card:hover { box-shadow: 0 4px 16px rgba(44,95,122,0.1); transform: translateY(-2px); }
+/* Pill-shaped label at the top of a card (e.g. "Organization", "Restricted") */
+.card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--water-mist);
+  color: var(--water-deep);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+/* Color variants for card tags */
+.card-tag.pine { background: #d6ead6; color: var(--pine); }
+.card-tag.amber { background: #fdefd6; color: var(--bark); }
+.card-tag.danger { background: var(--danger-bg); color: var(--danger); }
+/* Card heading */
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--water-deep);
+  margin-bottom: 0.5rem;
+}
+.card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+/* "Learn More →" style link at the bottom of a card */
+.card-link {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--water);
+  text-decoration: none;
+}
+.card-link:hover { color: var(--water-deep); text-decoration: underline; }
+
+/* ── CALLOUT / NOTICE BOXES ──────────────────────────────────────
+   Colored boxes used to draw attention to important information.
+   Available variants: .warning (red), .info (blue),
+   .success (green), .amber (orange/amber).
+   Each uses a left-border accent and a tinted background. */
+.callout {
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+/* The emoji/icon column on the left side of a callout */
+.callout-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1.4; }
+/* The text content area of a callout */
+.callout-body h4 { font-weight: 600; margin-bottom: 0.25rem; font-size: 0.95rem; }
+.callout-body p, .callout-body { font-size: 0.9rem; line-height: 1.55; }
+/* Warning: red — used for active threats and important cautions */
+.callout.warning { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+.callout.warning h4 { color: var(--danger); }
+.callout.warning p { color: #6b2c26; }
+/* Info: blue — used for general informational notices */
+.callout.info { background: var(--water-mist); border-left: 4px solid var(--water-light); }
+.callout.info h4 { color: var(--water-deep); }
+.callout.info p { color: #2a4a5a; }
+/* Success: green — used for positive news and program updates */
+.callout.success { background: #e8f5e8; border-left: 4px solid var(--pine-light); }
+.callout.success h4 { color: var(--pine); }
+.callout.success p { color: #2a4a2a; }
+/* Amber: warm orange — used for pending/neutral notices */
+.callout.amber { background: #fdefd6; border-left: 4px solid var(--accent); }
+.callout.amber h4 { color: var(--bark); }
+.callout.amber p { color: #5a3a1a; }
+
+/* ── RULE TABLE ──────────────────────────────────────────────────
+   A styled data table used for boating rules, program costs, etc.
+   First cell in each row is bolded as a row label. Alternating
+   row shading improves readability of wide tables. */
+.rule-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
+.rule-table th {
+  background: var(--water-deep);
+  color: white;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rule-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--sand-dark); color: var(--text-muted); vertical-align: top; }
+.rule-table tr:last-child td { border-bottom: none; }
+.rule-table tr:nth-child(even) td { background: var(--sand); }   /* zebra striping */
+.rule-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }   /* row label */
+
+/* ── TWO COL ─────────────────────────────────────────────────────
+   A simple two-column grid used on the History overview page
+   for the narrative + sidebar card layout. */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── DONATE STRIP ────────────────────────────────────────────────
+   A full-width green promotional band with a call-to-action button.
+   Used on section overview pages to prompt donations. */
+.donate-strip {
+  background: linear-gradient(135deg, var(--pine) 0%, var(--pine-light) 100%);
+  color: white;
+  padding: 2rem 2rem;
+  margin: 2.5rem 0;
+  border-radius: 10px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.donate-strip h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+.donate-strip p { font-size: 0.9rem; color: rgba(255,255,255,0.82); max-width: 520px; }
+/* The white button inside the donate strip (and used standalone on the donate page) */
+.donate-btn {
+  display: inline-block;
+  background: white;
+  color: var(--pine);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.donate-btn:hover { opacity: 0.9; }
+
+/* A generic solid-blue primary action button */
+.btn-primary {
+  display: inline-block;
+  background: var(--water-deep);
+  color: white;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.85; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────
+   Site-wide footer injected by nav.js.
+   Dark background (#2a2a2a = --text) with muted white text. */
+footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.5);
+  padding: 2.5rem 2rem;
+}
+/* Three-column flex layout: branding | navigate | external */
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+/* Association name in the footer */
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: white; margin-bottom: 0.35rem; }
+/* Address/contact blurb below the brand name */
+.footer-sub { font-size: 0.82rem; line-height: 1.65; }
+.footer-sub a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.footer-sub a:hover { color: white; }
+/* Footer column headings (e.g. "NAVIGATE", "EXTERNAL") */
+.footer-col h4 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 0.6rem;
+}
+/* Individual footer links */
+.footer-col a {
+  display: block;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: white; }
+
+/* ── HAMBURGER BUTTON ────────────────────────────────────────────
+   Three-line icon button that appears on mobile in place of
+   the desktop nav. Hidden by default; shown at ≤768px.
+   Three <span> children are the three horizontal bars. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  margin-left: 0.5rem;
+}
+/* Each bar of the hamburger icon */
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: center;
+}
+/* When .open is added, the three bars animate into an × (close) icon */
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV DROPDOWN ─────────────────────────────────────────
+   The vertical link list that slides open under the header on mobile.
+   Hidden by default (max-height:0 + overflow:hidden).
+   Adding .open animates max-height to 400px via CSS transition. */
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  background: var(--water-deep);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.mobile-nav.open {
+  max-height: 400px;   /* must be taller than the content to allow smooth animation */
+}
+/* Individual links in the mobile dropdown */
+.mobile-nav a {
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.15s, color 0.15s;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover,
+.mobile-nav a.active { background: rgba(255,255,255,0.1); color: white; }
+
+/* ── RESPONSIVE BREAKPOINTS ──────────────────────────────────────
+   At ≤768px (tablet/mobile):
+   - Hide the desktop nav, show the hamburger button + mobile nav
+   - Stack two-column and card grids to a single column
+   - Stack the donate strip vertically
+   - Reduce horizontal padding throughout */
+@media (max-width: 768px) {
+  nav { display: none; }          /* hide desktop nav links */
+  .nav-toggle { display: flex; }  /* show hamburger button */
+  .mobile-nav { display: flex; }  /* enable mobile nav dropdown */
+  .two-col { grid-template-columns: 1fr; gap: 1.5rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .donate-strip { flex-direction: column; }
+  .header-inner { padding: 0 1rem; }
+  .content-wrap { padding: 2rem 1rem 3rem; }
+  /* Allow tables to scroll horizontally rather than overflow or compress */
+  .rule-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* On mobile, re-anchor the hero map image so Lake Julia stays centered
+     rather than the default 50% which lands on the lakes to the southwest.
+     75% horizontal = Lake Julia's position; 25% vertical = upper portion. */
+  .page-header-bg-map { object-position: 75% 25%; }
+}
+
+/* ── SEARCH BUTTON ───────────────────────────────────────────────
+   Magnifying glass icon button in the header, to the right of nav. */
+.search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  margin-left: 0.4rem;
+  border-radius: 4px;
+  color: rgba(255,255,255,0.8);
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.search-toggle:hover {
+  color: white;
+  background: rgba(255,255,255,0.13);
+}
+.search-toggle svg { display: block; }
+
+/* ── SEARCH OVERLAY ──────────────────────────────────────────────
+   Full-screen dark overlay containing the search input and results.
+   Hidden by default; activated by adding .open to #search-overlay. */
+#search-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10,25,35,0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+}
+#search-overlay.open { display: flex; }
+
+/* The white search box panel */
+.search-box {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 1.5rem;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+  overflow: hidden;
+  max-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input row at the top of the search box */
+.search-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--sand-dark);
+}
+.search-input-row svg { flex-shrink: 0; color: var(--text-muted); }
+#search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: var(--text);
+  background: transparent;
+}
+#search-input::placeholder { color: #aaa; }
+#search-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+#search-close:hover { color: var(--text); }
+
+/* Results list */
+#search-results {
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+.search-result {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--sand-dark);
+  transition: background 0.15s;
+}
+.search-result:last-child { border-bottom: none; }
+.search-result:hover, .search-result.focused {
+  background: var(--sand);
+}
+.search-result-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--water-deep);
+  margin-bottom: 0.2rem;
+}
+.search-result-section {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--water-light);
+  margin-bottom: 0.25rem;
+}
+.search-result-snippet {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.search-result-snippet mark {
+  background: #fff3cd;
+  color: var(--text);
+  border-radius: 2px;
+  padding: 0 1px;
+  font-style: normal;
+}
+/* Empty / hint state */
+.search-hint {
+  padding: 1.5rem 1.25rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ── ANIMATION ───────────────────────────────────────────────────
+   .fade-up elements animate in from slightly below at page load.
+   Staggered delays on nth-child(2-5) create a cascading entrance
+   effect when multiple sections or cards appear together. */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease both; }
+.fade-up:nth-child(2) { animation-delay: 0.06s; }
+.fade-up:nth-child(3) { animation-delay: 0.12s; }
+.fade-up:nth-child(4) { animation-delay: 0.18s; }
+.fade-up:nth-child(5) { animation-delay: 0.24s; }

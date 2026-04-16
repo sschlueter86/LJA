@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
+<body data-page="resources">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <!-- Faded map image overlaid on the gradient — purely decorative -->
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / Resources</p>
+    <h1>Resources</h1>
+    <p>Maps, documents, local attractions, and helpful links for Lake Julia residents and visitors.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Resources section. "Overview" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html" class="active">Overview</a>
+    <a href="maps.html">Maps &amp; GIS</a>
+    <a href="documents.html">Documents</a>
+    <a href="attractions.html">Local Attractions</a>
+    <a href="links.html">Helpful Links</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Full-width card grid linking to each of the four sub-pages.    -->
+<div class="content-wrap">
+
+  <!-- ── Brief overview paragraph ── -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <p class="section-label">Resources Overview</p>
+    <h2 class="section-title sm">Reference materials for lake residents</h2>
+    <div class="prose">
+      <p>This section collects the practical reference materials most useful to Lake Julia property owners and visitors. You'll find maps identifying all 49 properties and the lake's depth contours, official Association documents, and curated links to Wisconsin DNR resources, county services, and regional organizations.</p>
+    </div>
+  </div>
+
+  <!-- ── Four navigation cards — one per Resources sub-page ──
+       Each is a full anchor tag styled as a card so the entire
+       card surface is clickable, not just the "View" text link. -->
+  <div class="cards-grid">
+
+    <!-- Maps & GIS card -->
+    <a href="maps.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Maps</span>
+      <h3>Maps &amp; GIS</h3>
+      <p>House map, bathymetric depth map, interactive GIS viewer, and county parcel map links for Oneida and Forest Counties.</p>
+      <span class="card-link">View Maps →</span>
+    </a>
+
+    <!-- Association Documents card -->
+    <a href="documents.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Documents</span>
+      <h3>Association Documents</h3>
+      <p>Corporate documents, the 2010–13 Onterra lake study, community survey results, memorabilia, and miscellaneous records.</p>
+      <span class="card-link">Browse Documents →</span>
+    </a>
+
+    <!-- Local Attractions card — .card-tag.pine applies the green color variant -->
+    <a href="attractions.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag pine">Activities</span>
+      <h3>Local Attractions</h3>
+      <p>Day hiking trails, the Three Eagle Bicycle Trail, nearby live video streams, and things to do in the Three Lakes area.</p>
+      <span class="card-link">Explore →</span>
+    </a>
+
+    <!-- Helpful Links card -->
+    <a href="links.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">External</span>
+      <h3>Helpful Links</h3>
+      <p>Wisconsin DNR, county resources, regional organizations, and other useful external references for lake residents.</p>
+      <span class="card-link">View Links →</span>
+    </a>
+
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

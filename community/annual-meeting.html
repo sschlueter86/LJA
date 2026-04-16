@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annual Meeting — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Past Meeting entries ───────────────────
+     A vertically stacked list of past annual meetings, each bordered
+     on the left with a blue accent bar. Entries are separated by
+     a top border on subsequent items (adjacent sibling selector). */
+  .meeting-entry {
+    border-left: 3px solid var(--water-light);
+    padding: 1.25rem 0 1.25rem 1.5rem;
+    margin-bottom: 0;
+  }
+  /* Add a top divider between consecutive meeting entries */
+  .meeting-entry + .meeting-entry {
+    border-top: 1px solid var(--sand-dark);
+  }
+  /* Year heading within each meeting entry */
+  .meeting-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin-bottom: 0.3rem;
+  }
+  .meeting-entry p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .meeting-entry a { color: var(--water); font-weight: 600; }
+</style>
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Community</a> / Annual Meeting</p>
+    <h1>Annual Meeting</h1>
+    <p>The Annual Meeting of Members is held each year around the Fourth of July — election of directors, community business, and a lakeside picnic.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. "Annual Meeting"
+     tab is active on this page.                                    -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="about.html">About the Association</a>
+    <a href="email-list.html">Email List</a>
+    <a href="directory.html">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html" class="active">Annual Meeting</a>
+    <a href="donate.html">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this text-heavy page to 780px max-width.    -->
+<div class="content-wrap narrow">
+
+  <!-- ── SECTION: About the annual meeting ── -->
+  <div class="fade-up">
+    <p class="section-label">About the Meeting</p>
+    <h2 class="section-title">Our annual gathering</h2>
+    <div class="prose">
+      <p>The Annual Meeting of Members is the central event of the Association year. It is held on a weekend day shortly before or after the Fourth of July — timed to maximize participation while as many families as possible are at the lake.</p>
+      <p>The meeting covers required governance business: election of directors, financial reports, and any other matters before the membership. In practice it doubles as a community picnic, with neighbors from all corners of the lake coming together.</p>
+      <p>The Board of Directors also holds its required annual meeting on the same day, typically immediately before or after the Members' meeting.</p>
+    </div>
+
+    <!-- Info callout: how meeting announcements are distributed -->
+    <div class="callout info" style="margin-top:1.5rem;">
+      <div class="callout-icon">📣</div>
+      <div class="callout-body">
+        <h4>Meeting announcements</h4>
+        <p>Date, time, and agenda are distributed through the <a href="email-list.html">community email list</a> ahead of each meeting. Make sure you're subscribed so you don't miss it.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Past meetings list ──
+       Entries are wrapped in a white card container with overflow:hidden
+       so the border-radius clips the bordered entry items inside.   -->
+  <div class="fade-up">
+    <p class="section-label">Past Meetings</p>
+    <h2 class="section-title sm">Meeting history</h2>
+
+    <!-- White rounded container wrapping all meeting entries -->
+    <div style="background:white; border:1px solid var(--sand-dark); border-radius:10px; overflow:hidden;">
+
+      <!-- 2021 Annual Meeting entry -->
+      <div class="meeting-entry">
+        <div class="meeting-year">2021 Annual Meeting &amp; Picnic</div>
+        <p>Held at the lake. Photos available in the community archives.</p>
+      </div>
+
+      <!-- 2020 Annual Meeting entry -->
+      <div class="meeting-entry">
+        <div class="meeting-year">2020 Annual Meeting &amp; Boat Parade</div>
+        <p>Despite pandemic restrictions, the community gathered for the annual meeting and organized a beloved boat parade — one of the most memorable lake events in recent years. The parade became a model for future community celebrations.</p>
+      </div>
+
+    </div>
+
+    <!-- Amber callout: link to documents section for past minutes -->
+    <div class="callout amber" style="margin-top:1.5rem;">
+      <div class="callout-icon">📁</div>
+      <div class="callout-body">
+        <h4>Meeting minutes &amp; documents</h4>
+        <p>Past meeting minutes and association documents are available in the <a href="../resources/documents.html">Documents section</a>.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

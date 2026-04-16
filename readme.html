@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lake Julia Association — Website Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --water:       #2c5f7a;
+    --water-deep:  #1a3d52;
+    --water-light: #4a8fa8;
+    --water-mist:  #d4e8f0;
+    --pine:        #3a5c3a;
+    --pine-light:  #5a8a5a;
+    --sand:        #f5efe6;
+    --sand-dark:   #e8ddd0;
+    --cream:       #fdf9f4;
+    --text:        #2a2a2a;
+    --text-muted:  #666;
+    --accent:      #c47a2a;
+    --danger:      #b03a2e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    background: var(--water-deep);
+    color: white;
+    padding: 3rem 2rem 2.5rem;
+    border-bottom: 4px solid var(--water-light);
+  }
+  .doc-header-inner { max-width: 960px; margin: 0 auto; }
+  .doc-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+  .doc-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .doc-header p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+  }
+  .doc-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .doc-meta-item { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+  .doc-meta-item strong { color: rgba(255,255,255,0.85); display: block; font-size: 0.88rem; }
+
+  /* ── LAYOUT ── */
+  .doc-body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR TOC ── */
+  .toc {
+    position: sticky;
+    top: 2rem;
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .toc h3 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .toc a {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.3rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.75rem;
+    transition: all 0.15s;
+  }
+  .toc a:hover { color: var(--water); border-left-color: var(--water-light); }
+  .toc .toc-section {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 0.75rem;
+    padding-left: 0;
+    border-left: none;
+    cursor: default;
+  }
+  .toc .toc-section:hover { color: var(--text); border-left-color: transparent; }
+
+  /* ── CONTENT ── */
+  .content section {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .content section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--water-light);
+    margin-bottom: 0.4rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin: 1.75rem 0 0.6rem;
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { color: var(--text-muted); margin-bottom: 0.85rem; }
+  p:last-child { margin-bottom: 0; }
+  a { color: var(--water); font-weight: 600; }
+  a:hover { text-decoration: underline; }
+  strong { color: var(--text); font-weight: 600; }
+
+  /* ── FILE TREE ── */
+  .file-tree {
+    background: var(--water-deep);
+    color: #a8d8e8;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+  .file-tree .dir { color: #d4e8f0; font-weight: 600; }
+  .file-tree .file { color: #8ec8e0; }
+  .file-tree .comment { color: rgba(168,216,232,0.45); font-style: italic; }
+
+  /* ── PAGE LIST ── */
+  .page-list { margin: 1rem 0; }
+  .page-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--sand-dark);
+    align-items: start;
+  }
+  .page-item:last-child { border-bottom: none; }
+  .page-path {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--water);
+    font-weight: 600;
+    padding-top: 0.1rem;
+  }
+  .page-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+  .page-desc strong { color: var(--text); display: block; margin-bottom: 0.15rem; font-size: 0.9rem; }
+
+  /* ── INFO BOXES ── */
+  .callout {
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
+  .callout-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .callout-body h4 { font-weight: 600; margin-bottom: 0.2rem; font-size: 0.9rem; color: var(--text); }
+  .callout-body p { font-size: 0.88rem; margin: 0; }
+  .callout.info { background: var(--water-mist); border-left: 4px solid var(--water-light); }
+  .callout.info .callout-body p { color: #2a4a5a; }
+  .callout.warning { background: #fdefd6; border-left: 4px solid var(--accent); }
+  .callout.warning .callout-body p { color: #5a3a1a; }
+  .callout.danger { background: #fdf0ee; border-left: 4px solid var(--danger); }
+  .callout.danger .callout-body p { color: #6b2c26; }
+  .callout.success { background: #e8f5e8; border-left: 4px solid var(--pine-light); }
+  .callout.success .callout-body p { color: #2a4a2a; }
+
+  /* ── DETAIL TABLE ── */
+  .detail-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+  .detail-table th {
+    background: var(--water-deep);
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .detail-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--sand-dark);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+  .detail-table tr:last-child td { border-bottom: none; }
+  .detail-table tr:nth-child(even) td { background: var(--sand); }
+  .detail-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; font-family: 'Courier New', monospace; font-size: 0.82rem; }
+
+  /* ── STEP LIST ── */
+  .step-list { counter-reset: steps; list-style: none; padding: 0; margin: 1rem 0; }
+  .step-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .step-list li > span {
+    flex: 1;
+    min-width: 0;
+  }
+  .step-list li::before {
+    content: counter(steps);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    background: var(--water);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  /* ── CODE INLINE ── */
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    background: var(--sand);
+    border: 1px solid var(--sand-dark);
+    border-radius: 3px;
+    padding: 0.1rem 0.4rem;
+    color: var(--water-deep);
+  }
+
+  /* ── CREDENTIALS BLOCK ── */
+  .cred-block {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+  .cred-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .cred-row:last-child { border-bottom: none; }
+  .cred-label {
+    background: var(--sand);
+    padding: 0.65rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .cred-value {
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+  }
+  .cred-value.placeholder { color: #aaa; font-style: italic; font-family: 'Source Sans 3', sans-serif; }
+
+  /* ── VISUAL SITEMAP ── */
+  .sm-visual { margin: 1.5rem 0 2rem; }
+  .sm-root { display: flex; flex-direction: column; align-items: center; }
+  .sm-home-box {
+    background: var(--water-deep); color: var(--water-mist);
+    border-radius: 8px; padding: 0.65rem 2rem;
+    font-weight: 600; font-size: 0.92rem;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s; text-align: center;
+  }
+  .sm-home-box:hover { background: var(--water); }
+  .sm-trunk { width: 2px; height: 28px; background: var(--sand-dark); margin: 0 auto; }
+  .sm-horiz { height: 2px; background: var(--sand-dark); width: calc(100% - 12.5%); margin: 0 auto; }
+  .sm-sections { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; }
+  .sm-section { display: flex; flex-direction: column; align-items: center; }
+  .sm-branch-v { width: 2px; height: 24px; background: var(--sand-dark); }
+  .sm-sec-head {
+    border-radius: 6px; padding: 0.5rem 0.6rem;
+    font-size: 0.8rem; font-weight: 600;
+    text-decoration: none; text-align: center;
+    display: block; width: 100%;
+    transition: opacity 0.2s; line-height: 1.3;
+  }
+  .sm-sec-head:hover { opacity: 0.8; }
+  .sm-c { background: #d4e8f0; color: var(--water-deep); }
+  .sm-e { background: #d6ead6; color: var(--pine); }
+  .sm-h { background: #fdefd6; color: var(--bark); }
+  .sm-r { background: #e8e6f8; color: #3c3489; }
+  .sm-pages { width: 100%; }
+  .sm-page-row {
+    display: flex; align-items: flex-start;
+    padding-left: 14px; position: relative; margin-top: 4px;
+  }
+  .sm-page-row::before { content: ''; position: absolute; left: 0; top: 12px; width: 14px; height: 2px; background: var(--sand-dark); }
+  .sm-page-row::after  { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 12px; background: var(--sand-dark); }
+  .sm-page {
+    font-size: 0.78rem; color: var(--text-muted);
+    text-decoration: none; padding: 0.25rem 0.5rem;
+    border-radius: 4px; display: block; flex: 1; line-height: 1.3;
+    transition: background 0.15s, color 0.15s;
+  }
+  .sm-page:hover { background: var(--sand); color: var(--water-deep); }
+
+  /* ── IN DEVELOPMENT CARDS ── */
+  .dev-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  @media (max-width: 640px) { .dev-grid { grid-template-columns: 1fr; } }
+  .dev-card {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-top: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+  }
+  .dev-card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+  .dev-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin-bottom: 0.5rem;
+  }
+  .dev-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .dev-card .dev-location {
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--water-light);
+    font-weight: 600;
+  }
+  .dev-card .dev-location code {
+    background: var(--water-mist);
+    border: none;
+    font-size: 0.78em;
+    color: var(--water-deep);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .toc { display: none; }
+    .doc-body { grid-template-columns: 1fr; }
+    .content section { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 768px) {
+    .doc-body { grid-template-columns: 1fr; }
+    .toc { position: static; }
+    .page-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <p class="doc-eyebrow">Internal Documentation</p>
+    <h1>Lake Julia Association Website</h1>
+    <ph2>Metadata and Documentation</ph2>
+    <p>A complete reference guide for managing, updating, and handing off the lakejuliawi.org website — written for both technical and non-technical readers of the Lake Julia Association, Inc. Board of Directors.</p>
+    <div class="doc-meta">
+      <div class="doc-meta-item"><strong>Live URL</strong><a href="https://lakejuliawi.org" style="color:rgba(255,255,255,0.65);">lakejuliawi.org</a></div>
+      <div class="doc-meta-item"><strong>Hosted On</strong>Synology DS220+ NAS</div>
+      <div class="doc-meta-item"><strong>Last Updated</strong>April 2026</div>
+      <div class="doc-meta-item"><strong>Built By</strong>Scott Schlueter</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-body">
+
+  <!-- SIDEBAR -->
+  <nav class="toc">
+    <h3>Contents</h3>
+    <a href="#overview" class="toc-section">Overview</a>
+    <a href="#overview">About this site</a>
+    <a href="#sitemap" class="toc-section">Site Map</a>
+    <a href="#sitemap">Visual sitemap</a>
+    <a href="#sitemap">All pages</a>
+    <a href="#in-development" class="toc-section">In Development</a>
+    <a href="#in-development">Planned pages</a>
+    <a href="#files" class="toc-section">File Structure</a>
+    <a href="#files">Folder layout</a>
+    <a href="#images">Images</a>
+    <a href="#infrastructure" class="toc-section">Infrastructure</a>
+    <a href="#synology">Synology NAS</a>
+    <a href="#cloudflare">Cloudflare</a>
+    <a href="#accounts" class="toc-section">Accounts</a>
+    <a href="#accounts">Logins & access</a>
+    <a href="#maintenance" class="toc-section">Maintenance</a>
+    <a href="#content-updates">Updating content</a>
+    <a href="#adding-pages">Adding pages</a>
+    <a href="#access-control">Access control</a>
+    <a href="#contacts" class="toc-section">Contacts</a>
+    <a href="#contacts">Who to call</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <p class="section-label">Overview</p>
+      <h2>About this website</h2>
+      <p>The Lake Julia Association website is a <strong>static HTML site</strong> — meaning it is built entirely from plain HTML, CSS, and JavaScript files with no database, no WordPress, no server-side code, and no ongoing software to update. This makes it extremely simple to maintain and very reliable to host.</p>
+      <p>The site replaces a previous Google Sites page, preserving and expanding on its content. It was designed and built in early 2026 by Scott Schlueter, technolgoy officer of the Association, and is self-hosted on a Synology NAS at a private residence. Traffic is routed through Cloudflare for security and HTTPS encryption.</p>
+
+      <h3>Technology summary</h3>
+      <table class="detail-table">
+        <thead><tr><th>Component</th><th>What it is</th><th>Why it was chosen</th></tr></thead>
+        <tbody>
+          <tr><td>HTML/CSS/JS</td><td>Plain web files, no framework</td><td>Simple, fast, no dependencies, easy to hand off</td></tr>
+          <tr><td>Synology DS220+</td><td>Network attached storage device</td><td>Already owned by a member; free to host</td></tr>
+          <tr><td>Synology Web Station</td><td>Built-in web server (Nginx)</td><td>Serves the HTML files over the local network</td></tr>
+          <tr><td>Cloudflare Tunnel</td><td>Secure connection to the internet</td><td>No open router ports; free; secure</td></tr>
+          <tr><td>Cloudflare DNS + SSL</td><td>Domain name and HTTPS certificate</td><td>Free; automatic certificate renewal</td></tr>
+          <tr><td>Docker / Container Manager</td><td>Runs the Cloudflare tunnel software</td><td>Keeps the tunnel running automatically</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SITEMAP -->
+    <section id="sitemap">
+      <p class="section-label">Site Map</p>
+      <h2>All pages</h2>
+      <p>The site is organized into five top-level sections. Every page shares the same header navigation and footer, managed by <code>js/nav.js</code>.</p>
+
+      <div class="sm-visual">
+        <div class="sm-root">
+          <a class="sm-home-box" href="https://lakejuliawi.org">lakejuliawi.org — Homepage</a>
+          <div class="sm-trunk"></div>
+          <div class="sm-horiz"></div>
+          <div class="sm-sections">
+            <div class="sm-section">
+              <div class="sm-branch-v"></div>
+              <a class="sm-sec-head sm-c" href="https://lakejuliawi.org/community/">Community</a>
+              <div class="sm-pages">
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/community/about.html">About the Association</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/community/email-list.html">Community Email List</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/community/directory.html">Resident Directory</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/community/annual-meeting.html">Annual Meeting</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/community/donate.html">Donate</a></div>
+              </div>
+            </div>
+            <div class="sm-section">
+              <div class="sm-branch-v"></div>
+              <a class="sm-sec-head sm-e" href="https://lakejuliawi.org/environment/">Lake &amp; Environment</a>
+              <div class="sm-pages">
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/environment/aquatic-invasives.html">Aquatic Invasives</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/environment/boating-rules.html">Boating Rules</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/environment/flora-fauna.html">Flora &amp; Fauna</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/environment/recycling.html">Recycling</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/environment/tlwa.html">Three Lakes Waterfront Assn</a></div>
+              </div>
+            </div>
+            <div class="sm-section">
+              <div class="sm-branch-v"></div>
+              <a class="sm-sec-head sm-h" href="https://lakejuliawi.org/history/">History</a>
+              <div class="sm-pages">
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/history/in-memoriam.html">In Memoriam</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/history/archives.html">Historical Archives</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/history/ccc.html">Civilian Conservation Corps</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/history/properties.html">Property Histories</a></div>
+              </div>
+            </div>
+            <div class="sm-section">
+              <div class="sm-branch-v"></div>
+              <a class="sm-sec-head sm-r" href="https://lakejuliawi.org/resources/">Resources</a>
+              <div class="sm-pages">
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/maps.html">Maps &amp; GIS</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/documents.html">Documents</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/attractions.html">Local Attractions</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/links.html">Helpful Links</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Home</h3>
+      <div class="page-list">
+        <div class="page-item">
+          <div class="page-path">index.html</div>
+          <div class="page-desc"><strong>Homepage</strong>Hero with lake photo and stats, CBCW donation alert, quick links, about the lake, section navigation cards, history timeline.</div>
+        </div>
+      </div>
+
+      <h3>Community</h3>
+      <div class="page-list">
+        <div class="page-item">
+          <div class="page-path">community/index.html</div>
+          <div class="page-desc"><strong>Community Overview</strong>Landing page for the Community section with cards linking to all sub-pages.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">community/about.html</div>
+          <div class="page-desc"><strong>About the Association</strong>History of the Association's incorporation in 2004, board structure, governance, bylaws summary, and contact information.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">community/email-list.html</div>
+          <div class="page-desc"><strong>Community Email List</strong>Explains the "lakejuliapeople" Google Group — how to join, how to send messages, how to access restricted content.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">community/directory.html</div>
+          <div class="page-desc"><strong>Resident Directory</strong>Access-restricted page explaining how to gain access to the member directory via Google Group membership.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">community/annual-meeting.html</div>
+          <div class="page-desc"><strong>Annual Meeting</strong>Information about the annual meeting held around the Fourth of July — format, past meeting history (2020 boat parade, 2021 picnic).</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">community/donate.html</div>
+          <div class="page-desc"><strong>Donate</strong>All payment methods for supporting the Association — PayPal button, Venmo (@sally-wahl), and check mailing address (David Mitzner, Denver CO). Recommended $300/family.</div>
+        </div>
+      </div>
+
+      <h3>Lake &amp; Environment</h3>
+      <div class="page-list">
+        <div class="page-item">
+          <div class="page-path">environment/index.html</div>
+          <div class="page-desc"><strong>Environment Overview</strong>Landing page with EWM warning callout, section cards, and CBCW donation strip.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">environment/aquatic-invasives.html</div>
+          <div class="page-desc"><strong>Aquatic Invasives</strong>Eurasian Water Milfoil threat, Virgin Lake infestation background, Clean Boats Clean Waters program details, cost breakdown, donation link, and published reports.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">environment/boating-rules.html</div>
+          <div class="page-desc"><strong>Boating Rules</strong>Community boating standards table, wake boat policy (January 2021 Board letter), University of Minnesota wake study (2022), Wisconsin wake surf legislation (2023).</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">environment/flora-fauna.html</div>
+          <div class="page-desc"><strong>Flora &amp; Fauna</strong>Tick-borne illness awareness, beavers, fishing, forest ecology, Forest County Association of Lakes, Oneida County LWCD, shoreline stewardship guidance.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">environment/recycling.html</div>
+          <div class="page-desc"><strong>Recycling &amp; Waste</strong>Oneida and Forest County solid waste and recycling contacts. Placeholder content — needs local drop-off details added.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">environment/tlwa.html</div>
+          <div class="page-desc"><strong>Three Lakes Waterfront Association</strong>Overview of TLWA, history of Lake Julia's inclusion on the TLWA map (2021), newsletter links.</div>
+        </div>
+      </div>
+
+      <h3>History</h3>
+      <div class="page-list">
+        <div class="page-item">
+          <div class="page-path">history/index.html</div>
+          <div class="page-desc"><strong>History Overview</strong>Narrative intro, visual timeline from 1910–2021, section cards, recommended reading (Two books from Three Lakes Historical Society).</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">history/in-memoriam.html</div>
+          <div class="page-desc"><strong>In Memoriam</strong>14 entries with names, dates, house numbers, obituary links, and photos for each person. Ordered by date of passing from 2021 back to 1993. Photos are stored in <code>images/inMemoriam/</code>.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">history/archives.html</div>
+          <div class="page-desc"><strong>Historical Archives</strong>Chronological records — early settlement (1910–1912), CCC era (1930s), 1956 tornado outbreak, 2020 Boat Parade. "Help wanted" callouts for Norway Club and logging railroad records.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">history/ccc.html</div>
+          <div class="page-desc"><strong>Civilian Conservation Corps</strong>CCC history in Wisconsin — statistics dashboard, June 2022 centennial events in Minocqua and Manitowish Waters, museums and resources.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">history/properties.html</div>
+          <div class="page-desc"><strong>Property Histories</strong>Owner-contributed property histories organized by road — Julia Creek Road, Sheltered Valley / Hillside Drive, and Woodbury Lake Road.</div>
+        </div>
+      </div>
+
+      <h3>Resources</h3>
+      <div class="page-list">
+        <div class="page-item">
+          <div class="page-path">resources/index.html</div>
+          <div class="page-desc"><strong>Resources Overview</strong>Landing page with cards for Maps, Documents, Attractions, and Links.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">resources/maps.html</div>
+          <div class="page-desc"><strong>Maps &amp; GIS</strong>House map (PDF download + PNG preview), Bathymetric depth map (PDF + PNG), interactive GIS viewer link, Oneida and Forest County parcel map links.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">resources/documents.html</div>
+          <div class="page-desc"><strong>Documents</strong>Association corporate documents, full 2010–13 Onterra Lake Study (final report, maps, appendices, survey forms), 2022 community survey, memorabilia.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">resources/attractions.html</div>
+          <div class="page-desc"><strong>Local Attractions</strong>Day hiking trails (Hidden Lakes, Nicolet North, Luna-White Deer), Three Eagle Bicycle Trail maps, Petroleum Museum, nearby webcams.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">resources/links.html</div>
+          <div class="page-desc"><strong>Helpful Links</strong>Categorized external links — Wisconsin DNR, CBCW program, TLWA, Forest County Association of Lakes, county government, boating/fishing regulations, invasive species, Lyme disease.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IN DEVELOPMENT -->
+    <section id="in-development">
+      <p class="section-label">In Development</p>
+      <h2>Planned pages &amp; features</h2>
+      <p>The following additions are actively planned or in early development. They are not yet live on the site. When each item is complete, remove it from this list and add the new page to the <a href="#sitemap">Site Map</a> and <a href="#files">File Structure</a> sections above.</p>
+
+      <div class="callout warning">
+        <div class="callout-icon">🚧</div>
+        <div class="callout-body">
+          <h4>Work in progress</h4>
+          <p>None of the items below are currently live at lakejuliawi.org. This section exists to track intent and document where each piece will eventually live on the site.</p>
+        </div>
+      </div>
+
+      <div class="dev-grid">
+
+        <div class="dev-card">
+          <div class="dev-card-label">Lake &amp; Environment</div>
+          <h4>Clean Boats, Clean Waters Expansion</h4>
+          <p>Enhanced coverage of the CBCW program — including volunteer recruitment, seasonal scheduling, historical inspection data, and how the Association coordinates with the Wisconsin DNR. May expand the existing aquatic invasives page or become a dedicated sub-page.</p>
+          <div class="dev-location">Planned location: <code>environment/aquatic-invasives.html</code> or <code>environment/cbcw.html</code></div>
+        </div>
+
+        <div class="dev-card">
+          <div class="dev-card-label">Lake &amp; Environment</div>
+          <h4>ILIDS Remote Lake Monitoring</h4>
+          <p>A page documenting the Inland Lake Integrated Data System (ILIDS) or equivalent remote water quality monitoring technology being evaluated for Lake Julia — sensors, data access, what members can view, and how readings relate to EWM and invasive species management.</p>
+          <div class="dev-location">Planned location: <code>environment/monitoring.html</code></div>
+        </div>
+
+        <div class="dev-card">
+          <div class="dev-card-label">History</div>
+          <h4>Lake Julia &amp; Three Lakes Area History</h4>
+          <p>A broader narrative history of Lake Julia specifically and the Three Lakes area generally — settlement patterns, the logging era, early resort development, and community formation. Could draw on Three Lakes Historical Society resources and member-contributed materials.</p>
+          <div class="dev-location">Planned location: <code>history/lake-history.html</code></div>
+        </div>
+
+        <div class="dev-card">
+          <div class="dev-card-label">History</div>
+          <h4>Individual Cabin &amp; Property Histories</h4>
+          <p>Expanded individual property histories with richer content — original construction dates, early owners, major renovations, family stories, and old photos. Builds on the existing <code>properties.html</code> page and would benefit from member submissions. A contribution form or submission email workflow should be developed alongside this page.</p>
+          <div class="dev-location">Planned location: <code>history/properties.html</code> (expanded) or individual sub-pages per property</div>
+        </div>
+
+      </div>
+
+      <h3>How to move an item from "In Development" to live</h3>
+      <ol class="step-list">
+        <li><span>Build and test the new page locally following the instructions in <a href="#adding-pages">Adding a new page</a></span></li>
+        <li><span>Deploy the file to <code>/volume1/web/lakejulia/</code> on the Synology</span></li>
+        <li><span>Add the page to the visual sitemap and page list in the <strong>Site Map</strong> section of this readme</span></li>
+        <li><span>Add the file to the <strong>File Structure</strong> section folder layout</span></li>
+        <li><span>Add any applicable annual maintenance tasks to the <strong>Annual tasks</strong> table in <a href="#maintenance">Maintenance</a></span></li>
+        <li><span>Remove the corresponding card from this In Development section</span></li>
+      </ol>
+    </section>
+
+    <!-- FILE STRUCTURE -->
+    <section id="files">
+      <p class="section-label">File Structure</p>
+      <h2>Folder layout</h2>
+      <p>All website files live on the Synology NAS at <code>/volume1/web/lakejulia/</code>. The structure is straightforward:</p>
+
+      <div class="file-tree">
+        <span class="dir">lakejulia/</span><br>
+        &nbsp;&nbsp;<span class="file">index.html</span> <span class="comment">← Homepage</span><br>
+        &nbsp;&nbsp;<span class="dir">css/</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">style.css</span> <span class="comment">← All shared styles — edit this to change colors, fonts, layout globally</span><br>
+        &nbsp;&nbsp;<span class="dir">js/</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">nav.js</span> <span class="comment">← Shared header and footer — edit this to update navigation links globally</span><br>
+        &nbsp;&nbsp;<span class="dir">images/</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">hero_image1.png</span> <span class="comment">← Hero background photo on homepage</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">2025_LJA_HOUSEMAP.png</span> <span class="comment">← House map image</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">250530_HOUSEMAP.pdf</span> <span class="comment">← House map PDF download</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">BathymetricMap.png</span> <span class="comment">← Depth map image</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">lake-julia-map-2025.jpg.png</span> <span class="comment">← Lake boundary map</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">inMemoriam/</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">*.jpg</span> <span class="comment">← One photo per person in the In Memoriam section</span><br>
+        &nbsp;&nbsp;<span class="dir">community/</span> <span class="comment">← 6 pages</span><br>
+        &nbsp;&nbsp;<span class="dir">environment/</span> <span class="comment">← 6 pages</span><br>
+        &nbsp;&nbsp;<span class="dir">history/</span> <span class="comment">← 5 pages</span><br>
+        &nbsp;&nbsp;<span class="dir">resources/</span> <span class="comment">← 5 pages</span><br>
+      </div>
+
+      <div id="images">
+        <h3>Images folder</h3>
+        <p>All images are stored in the <code>images/</code> folder at the root. In Memoriam photos are in the <code>images/inMemoriam/</code> subfolder, named by person (e.g. <code>DonaldKoten.jpg</code>). To add a new In Memoriam photo, add the file to that subfolder and reference it from <code>history/in-memoriam.html</code>.</p>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <h4>Delete Thumbs.db files before deploying</h4>
+            <p>Windows automatically creates <code>Thumbs.db</code> files in image folders. These are harmless but unnecessary. They can be safely deleted from the images folders.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFRASTRUCTURE -->
+    <section id="infrastructure">
+      <p class="section-label">Infrastructure</p>
+      <h2>How the hosting works</h2>
+      <p>The site is self-hosted — meaning it runs on hardware owned by a member rather than a paid hosting service. This keeps ongoing costs near zero (just the domain name, ~$10/year).</p>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚡</div>
+          <div class="callout-body">
+            <h4>Physical dependencies — the cost of staying out of the cloud</h4>
+            <p>Because the site runs on physical hardware in a private home rather than a cloud data center, it is subject to real-world conditions that a paid hosting service would handle automatically. <strong>If the power goes out, the site goes down. If the internet connection at Scott's home is disrupted, the site goes down.</strong> These outages are temporary and self-resolving once power or connectivity is restored — but they are not something that can be fixed remotely. This is a known and accepted trade-off for keeping hosting costs at essentially zero.</p>
+          </div>
+        </div>
+
+      <div id="synology">
+        <h3>Synology DS220+ NAS</h3>
+        <p>The NAS is a small network storage device located at Scott Schlueter's home in the western suburbs of Chicago. It runs 24/7 and hosts the website files.</p>
+
+        <table class="detail-table">
+          <thead><tr><th>Setting</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Device</td><td>Synology DS220+</td></tr>
+            <tr><td>Local IP</td><td>192.168.0.240</td></tr>
+            <tr><td>DSM Admin URL</td><td>http://192.168.0.240:5000 (local network only)</td></tr>
+            <tr><td>Web Station path</td><td>/volume1/web/lakejulia/</td></tr>
+            <tr><td>Web Station port</td><td>80 (served via Default Portal)</td></tr>
+            <tr><td>Nginx config</td><td>Managed by Synology Web Station — no manual nginx config needed</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Docker / Container Manager</h3>
+        <p>The Cloudflare tunnel software runs as a Docker container on the Synology, managed by Synology's Container Manager application. The container is named <code>cloudflare-cloudflared-1</code> and is set to auto-restart so it comes back up automatically if the NAS reboots.</p>
+
+        <div class="callout info">
+          <div class="callout-icon">🔄</div>
+          <div class="callout-body">
+            <h4>If the site goes down</h4>
+            <p>First check that the Synology is powered on and connected to the internet. Then open Container Manager in DSM and verify the cloudflared container is running. If it's stopped, start it. The tunnel should reconnect within 30 seconds.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="cloudflare">
+        <h3>Cloudflare Setup</h3>
+        <p>Cloudflare sits between visitors and the Synology. It handles the domain name, HTTPS encryption, security, and the tunnel that connects the public internet to the private NAS.</p>
+
+        <table class="detail-table">
+          <thead><tr><th>Component</th><th>Configuration</th></tr></thead>
+          <tbody>
+            <tr><td>Account URL</td><td>dash.cloudflare.com</td></tr>
+            <tr><td>Zero Trust URL</td><td>one.dash.cloudflare.com</td></tr>
+            <tr><td>Domain</td><td>lakejuliawi.org</td></tr>
+            <tr><td>Registrar</td><td>Cloudflare (at-cost registration, ~$10/yr)</td></tr>
+            <tr><td>SSL Mode</td><td>Full — Cloudflare issues and renews the certificate automatically</td></tr>
+            <tr><td>Always Use HTTPS</td><td>Enabled — all HTTP traffic redirects to HTTPS</td></tr>
+            <tr><td>Tunnel name</td><td>synology-lakejulia</td></tr>
+            <tr><td>Tunnel type</td><td>Cloudflared (Docker container on Synology)</td></tr>
+            <tr><td>Route</td><td>lakejuliawi.org → http://192.168.0.240:80</td></tr>
+            <tr><td>Bot Fight Mode</td><td>Enabled</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Cloudflare Access (future)</h3>
+        <p>Cloudflare Access has been discussed but not yet implemented. When the site begins hosting private member content (resident directory, restricted documents), Access can be enabled to require email verification before viewing the site. The free tier supports up to 50 users. Setup involves creating an Application in the Zero Trust dashboard under <strong>Access controls → Applications</strong> and uploading a CSV of approved member email addresses as an Email List.</p>
+
+        <div class="callout success">
+          <div class="callout-icon">🔒</div>
+          <div class="callout-body">
+            <h4>No ports are open on the home router</h4>
+            <p>The Cloudflare tunnel makes an outbound connection from the Synology to Cloudflare. Visitors never connect directly to the NAS. This means no firewall rules or port forwarding are needed, and the NAS is not directly exposed to the internet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOUNTS -->
+    <section id="accounts">
+      <p class="section-label">Accounts &amp; Credentials</p>
+      <h2>Logins and access</h2>
+
+      <h3>Cloudflare account</h3>
+      <div class="cred-block">
+        <div class="cred-row"><div class="cred-label">Login URL</div><div class="cred-value">dash.cloudflare.com</div></div>
+        <div class="cred-row"><div class="cred-label">Email</div><div class="cred-value placeholder">Held by Scott Schlueter</div></div>
+        <div class="cred-row"><div class="cred-label">Password</div><div class="cred-value placeholder">Stored in password manager</div></div>
+        <div class="cred-row"><div class="cred-label">Access</div><div class="cred-value">Full account — domain registration, DNS, tunnel, SSL</div></div>
+      </div>
+
+      <h3>Synology DSM</h3>
+      <div class="cred-block">
+        <div class="cred-row"><div class="cred-label">Login URL</div><div class="cred-value">http://192.168.0.240:5000 (local network only)</div></div>
+        <div class="cred-row"><div class="cred-label">Username</div><div class="cred-value placeholder">Held by Scott Schlueter</div></div>
+        <div class="cred-row"><div class="cred-label">Password</div><div class="cred-value placeholder">Stored in password manager</div></div>
+        <div class="cred-row"><div class="cred-label">Note</div><div class="cred-value">DSM is only accessible on the local home network — requires VPN or physical presence to access remotely</div></div>
+      </div>
+
+      <h3>Association email accounts</h3>
+      <div class="cred-block">
+        <div class="cred-row"><div class="cred-label">Board email</div><div class="cred-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a161b111f100f16131b1b0909143a1d171b131654191517">[email&#160;protected]</a></div></div>
+        <div class="cred-row"><div class="cred-label">Community list</div><div class="cred-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a161b111f100f16131b0a1f150a161f3a1d15151d161f1d08150f0a0954191517">[email&#160;protected]</a> (~200 members)</div></div>
+        <div class="cred-row"><div class="cred-label">Site admin</div><div class="cred-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6d071f0b1f0c0306085a5f2d0a000c0401430e0200">[email&#160;protected]</a></div></div>
+      </div>
+
+      <h3>Donation accounts</h3>
+      <div class="cred-block">
+        <div class="cred-row"><div class="cred-label">PayPal</div><div class="cred-value">Donate button ID: L4GYV8R53Y8AS — managed by Association treasurer</div></div>
+        <div class="cred-row"><div class="cred-label">Venmo</div><div class="cred-value">@sally-wahl</div></div>
+        <div class="cred-row"><div class="cred-label">Check payable to</div><div class="cred-value">Lake Julia Association, Inc. — c/o David Mitzner, 144 South Ulster Street, Denver CO 80230</div></div>
+      </div>
+    </section>
+
+    <!-- MAINTENANCE -->
+    <section id="maintenance">
+      <p class="section-label">Maintenance</p>
+      <h2>Keeping the site up to date</h2>
+
+      <div id="content-updates">
+        <h3>Updating existing content</h3>
+        <p>Since the site is plain HTML, any page can be edited directly with a text editor. The recommended workflow is:</p>
+        <ol class="step-list">
+          <li><span>Connect to the Synology via File Station in DSM (browser-based, local network only) or map the NAS as a network drive</span></li>
+          <li><span>Navigate to <code>/volume1/web/lakejulia/</code> and find the page you want to edit</span></li>
+          <li><span>Open the HTML file in a text editor — VS Code is recommended</span></li>
+          <li><span>Make your changes and save</span></li>
+          <li><span>The change is live immediately — no deploy step needed</span></li>
+        </ol>
+
+        <div class="callout info">
+          <div class="callout-icon">💻</div>
+          <div class="callout-body">
+            <h4>Using VS Code Claude Code extension for larger edits</h4>
+            <p>Using the VS Code Claude Code extension is highly recommended for larger edits. The extension can be pointed to local files and will match current formats.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="adding-pages">
+        <h3>Adding a new page</h3>
+        <p>Every page follows the same template structure. To add a new page:</p>
+        <ol class="step-list">
+          <li><span>Copy an existing page from the same section (e.g. <code>history/archives.html</code>) and rename it for your new page</span></li>
+          <li><span>Update the <code>&lt;title&gt;</code> tag and breadcrumb at the top</span></li>
+          <li><span>Update the <code>class="active"</code> attribute in the subnav to match the new page</span></li>
+          <li><span>Replace the content in the <code>.content-wrap</code> div</span></li>
+          <li><span>Add a link to the new page in the section's <code>index.html</code> and in <code>js/nav.js</code> if needed</span></li>
+        </ol>
+      </div>
+
+      <div id="access-control">
+        <h3>Enabling member-only access</h3>
+        <p>When the site begins hosting private content, Cloudflare Access should be enabled. This adds an email verification gate — visitors enter their email address, receive a one-time code, and are granted access if their email is on the approved list.</p>
+        <p>Setup steps when ready:</p>
+        <ol class="step-list">
+          <li><span>Go to <strong>one.dash.cloudflare.com → Access controls → Applications</strong></span></li>
+          <li><span>Click <strong>Add an application → Self-hosted</strong></span></li>
+          <li><span>Set domain to <code>lakejuliawi.org</code></span></li>
+          <li><span>Create a policy with action <strong>Allow</strong>, rule type <strong>Email list</strong></span></li>
+          <li><span>Go to <strong>My Team → Lists</strong> and create an Email list by uploading a CSV of member emails</span></li>
+          <li><span>Free tier supports up to 50 users</span></li>
+        </ol>
+      </div>
+
+      <h3>Annual tasks</h3>
+      <table class="detail-table">
+        <thead><tr><th>Task</th><th>When</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>Update CBCW donation amount</td><td>Each spring</td><td>Edit the cost figures in <code>environment/aquatic-invasives.html</code> and <code>community/donate.html</code></td></tr>
+          <tr><td>Update annual meeting info</td><td>After each meeting</td><td>Add a new entry to <code>community/annual-meeting.html</code></td></tr>
+          <tr><td>Domain renewal</td><td>Annually (~$10)</td><td>Auto-renews via Cloudflare — confirm credit card on file is current at dash.cloudflare.com</td></tr>
+          <tr><td>Add In Memoriam entries</td><td>As needed</td><td>Add photo to <code>images/inMemoriam/</code>, add entry to <code>history/in-memoriam.html</code></td></tr>
+          <tr><td>Update house map</td><td>As needed</td><td>Replace <code>images/2025_LJA_HOUSEMAP.png</code> and <code>images/250530_HOUSEMAP.pdf</code> with new versions. Jay Franke typically evaluates and republishes this each year.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="contacts">
+      <p class="section-label">Contacts</p>
+      <h2>Who to contact</h2>
+
+      <table class="detail-table">
+        <thead><tr><th>Role</th><th>Person</th><th>Contact</th></tr></thead>
+        <tbody>
+          <tr><td>Website builder / infrastructure</td><td>Scott Schlueter</td><td>scottoschlueter@gmail.com</td>            

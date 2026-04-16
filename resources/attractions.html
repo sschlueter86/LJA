@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Attractions — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
+<body data-page="resources">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <!-- Faded map image overlaid on the gradient — purely decorative -->
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Resources</a> / Local Attractions</p>
+    <h1>Local Attractions</h1>
+    <p>Trails, cycling, and things to do in and around the Three Lakes area.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Resources section. "Local Attractions" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="maps.html">Maps &amp; GIS</a>
+    <a href="documents.html">Documents</a>
+    <a href="attractions.html" class="active">Local Attractions</a>
+    <a href="links.html">Helpful Links</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Three sections: hiking trails, cycling/Three Eagle Trail, and
+     miscellaneous points of interest. Each uses a .cards-grid.     -->
+<div class="content-wrap">
+
+  <!-- ── SECTION: Day Hiking Trails ──
+       Cards link to AllTrails and Vilas County trail pages for the
+       three most popular trails in the Chequamegon-Nicolet area.  -->
+  <div class="fade-up">
+    <p class="section-label">On Foot</p>
+    <h2 class="section-title">Day Hiking Trails</h2>
+    <!-- Lead text describing the broader national forest context -->
+    <p style="color:var(--text-muted); margin-bottom:1.5rem; max-width:680px;">The Chequamegon-Nicolet National Forest surrounds the Three Lakes area, offering extensive trail networks managed by the US Forest Service. Better printed maps for some trails are available at the Three Lakes Information Bureau.</p>
+
+    <!-- Three hiking trail cards — .card-tag.pine applies the green color variant -->
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag pine">Hiking</span>
+        <h3>Hidden Lakes Trail</h3>
+        <p>Rated the #1 trail in the AllTrails listing for Nicolet National Forest. A classic north woods hike through forest and around lakes.</p>
+        <a class="card-link" href="https://vilaswi.com/trail/hidden-lakes-trail/" target="_blank">Hidden Lakes Trail →</a>
+      </div>
+      <div class="card">
+        <!-- Multi-use tag: hiking, biking, and skiing all use the same corridor -->
+        <span class="card-tag pine">Hiking / Biking / Skiing</span>
+        <h3>Nicolet North Trail</h3>
+        <p>Paradise for mountain biking and cross-country skiing, and a great multi-use trail network in the area. The Hidden Lakes Trail passes through this corridor.</p>
+        <a class="card-link" href="https://vilaswi.com/trail/nicolet-north-trails/" target="_blank">Nicolet North Trail →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag pine">Hiking</span>
+        <h3>Luna-White Deer Trail</h3>
+        <p>A pleasant walk around the lakes — a good option for a shorter or more relaxed outing.</p>
+        <a class="card-link" href="https://www.alltrails.com/trail/us/wisconsin/luna-and-white-deer-lake-trail" target="_blank">Luna-White Deer Trail →</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Three Eagle Trail (cycling) ──
+       The Three Eagle Trail runs through the Three Lakes area and is
+       popular for both cycling and winter snowmobiling. Two PDF map
+       downloads are offered from different sources.                 -->
+  <div class="fade-up">
+    <p class="section-label">By Bike</p>
+    <h2 class="section-title">Three Eagle Trail</h2>
+    <div class="prose" style="max-width:680px; margin-bottom:1.5rem;">
+      <p>The Three Eagle Trail is a popular recreational trail in the Three Lakes area, used for both cycling and snowmobiling. Trail maps are available as downloadable PDFs below.</p>
+    </div>
+
+    <!-- Two PDF download cards: official brochure + Vilas County map -->
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag">Map</span>
+        <h3>Three Eagle Trail Brochure &amp; Map</h3>
+        <p>Official trail brochure with route information (2013 edition).</p>
+        <a class="card-link" href="https://static1.squarespace.com/static/621cfed6a9ba0f1ea5ffe751/t/62435e3b4be5fe2f8fb59d11/1648582207202/2017map.pdf" target="_blank">Download PDF →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Map</span>
+        <h3>Three Eagle Trail — Vilas County Map</h3>
+        <p>A high-quality map from vilascounty.com showing the full trail corridor.</p>
+        <a class="card-link" href="https://vilaswi.com/vibes/wp-content/uploads/2023/03/Three_Eagle.pdf" target="_blank">Download PDF →</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Other points of interest ──
+       A catch-all section for nearby attractions that don't fit the
+       hiking or cycling categories: a museum, lake webcam feeds,
+       and a cycling economics research link.                        -->
+  <div class="fade-up">
+    <p class="section-label">More Nearby</p>
+    <h2 class="section-title">Other points of interest</h2>
+
+    <div class="cards-grid">
+      <!-- Petroleum Museum: regional history museum in the area -->
+      <div class="card">
+        <span class="card-tag">Museum</span>
+        <h3>Petroleum Museum</h3>
+        <p>A regional museum covering the history of petroleum in northern Wisconsin.</p>
+        <!-- Links to a VCNR article (Google Drive PDF) rather than the museum's own site -->
+        <a class="card-link" href="https://drive.google.com/file/d/1NxBTS_tNtrKGFgdMMkqxAAub3FoHeVKM/view?usp=sharing" target="_blank">VCNR Article, Apr. 2021 →</a>
+      </div>
+      <!-- Lake webcams: live streams from nearby resorts and restaurants -->
+      <div class="card">
+        <span class="card-tag">Live Streams</span>
+        <h3>Nearby Lake Webcams</h3>
+        <p>Live video streams from nearby Deer Lake at Northernaire Resort, Aqua Devils Beach (Big Stone), and Sunset Grill.</p>
+        <a class="card-link" href="https://www.threelakes.com/webcam/" target="_blank">Three Lakes Webcams →</a>
+      </div>
+      <!-- Bicycling research: a 2010 WI DNR/DOT economic study PDF -->
+      <div class="card">
+        <span class="card-tag pine">Research</span>
+        <h3>Bicycling Research</h3>
+        <p>Background reading on cycling infrastructure and trail economics in Wisconsin.</p>
+        <a class="card-link" href="https://outdoorrecreation.wi.gov/Documents/Research%20Library%20Page%20files/Wisconsin/Valuing%20Bicyclings%20Economic%20and%20Health%20Impacts%20in%20WI_2010.pdf" target="_blank">Valuing Bicycling in Wisconsin (2010) →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

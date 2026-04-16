@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb.
+     The bg-map image fades in from the right via CSS mask.         -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / Community</p>
+    <h1>Community</h1>
+    <p>Stay connected with your neighbors — directory, events, communication, and how the Association works.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. class="active" marks
+     the current page tab. Scrolls horizontally on narrow screens.  -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html" class="active">Overview</a>
+    <a href="about.html">About the Association</a>
+    <a href="email-list.html">Email List</a>
+    <a href="directory.html">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html">Annual Meeting</a>
+    <a href="donate.html">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Full-width layout (no .narrow modifier) to accommodate the card grid. -->
+<div class="content-wrap">
+
+  <!-- ── SECTION: Overview intro text ── -->
+  <div class="fade-up" style="margin-bottom: 2rem;">
+    <p class="section-label">Community Overview</p>
+    <h2 class="section-title sm">A century of neighbors</h2>
+    <div class="prose">
+      <p>Lake Julia has brought families together for over a century — and this section helps keep that tradition going. Here you'll find the tools to stay connected with your neighbors, participate in the Association, and contribute to the programs that protect the lake we all share.</p>
+      <p><a href="https://www.facebook.com/lakejulia/photos" target="_blank">The Lake Julia Facebook page</a> is home to some truly beautiful photography of the lake, generously shared by one of our own. Give it a follow and see what you've been missing.</p>
+      <p>Throughout this site, names — whether of individuals, cabins, or areas — are often followed by a number in parentheses. That number is a house number from the <a href="../resources/maps.html">Lake Julia House Map</a>, which assigns a unique identifier to each of the 49 properties around the lake. Numbering begins at the Starke house at the boat landing and increases clockwise from #1 to #49. It's a handy shorthand for placing people and places in relation to the lake itself — for example, Charles "Pete" Schlueter (#23) identifies Pete's property, The Point House (#10) is the affectionate nickname for house number 10, and Bradford Lane Properties (#25–#35) refers to the cluster of homes along that stretch of shoreline.</p>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Community topic cards ──
+       Each card is an <a> tag so the whole card is clickable.
+       style="text-decoration:none; color:inherit;" overrides link
+       defaults so the card looks like a plain box, not a blue link. -->
+  <div class="cards-grid">
+
+    <a href="about.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Organization</span>
+      <h3>About the Association</h3>
+      <p>The Lake Julia Association, Inc. was formally incorporated in 2004 as a Wisconsin Non-Stock Corporation. Learn about our structure, board, and bylaws.</p>
+      <span class="card-link">Learn More →</span>
+    </a>
+
+    <a href="email-list.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Communication</span>
+      <h3>Community Email List</h3>
+      <p>Our Google Group "lakejuliapeople" connects ~200 lake residents and users. Learn how to send messages, manage your membership, and access restricted materials.</p>
+      <span class="card-link">Learn More →</span>
+    </a>
+
+    <!-- Restricted tag (amber pill) signals this card requires login -->
+    <a href="directory.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Restricted</span>
+      <h3>Resident Directory</h3>
+      <p>Contact information for Lake Julia property owners. Access requires membership in the lakejuliapeople Google Group.</p>
+      <span class="card-link">View Directory →</span>
+    </a>
+
+    <a href="annual-meeting.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag">Events</span>
+      <h3>Annual Meeting</h3>
+      <p>The Annual Meeting of Members is held around the Fourth of July each year. It includes election of directors, community business, and the annual lake picnic.</p>
+      <span class="card-link">Meeting Info →</span>
+    </a>
+
+    <!-- .card-tag.pine applies the green color variant -->
+    <a href="donate.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+      <span class="card-tag pine">Support</span>
+      <h3>Donate</h3>
+      <p>Support the Clean Boats, Clean Waters program and other Association activities. Recommended contribution is $300 per family. Pay by check, Venmo, or PayPal.</p>
+      <span class="card-link">Give Now →</span>
+    </a>
+
+    <!-- Contact card: not a link, just an informational card with mailto links inside -->
+    <div class="card fade-up">
+      <span class="card-tag">Contact</span>
+      <h3>Get in Touch</h3>
+      <p style="margin-bottom:0.6rem;">Reach the Board or site administrator directly:</p>
+      <p style="font-size:0.88rem;"><a href="mailto:lakejuliaassn@gmail.com" style="color:var(--water); font-weight:600;">lakejuliaassn@gmail.com</a><br>
+      Board &amp; site administrator</p>
+      <p style="font-size:0.88rem; margin-top:0.5rem;"><a href="https://www.facebook.com/lakejulia" target="_blank" style="color:var(--water); font-weight:600;">Facebook →</a></p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Vertical timeline component ───────────
+     A vertically scrolling timeline with a blue gradient line on the
+     left edge. Each entry has a circular dot marker positioned
+     relative to the line using negative left offset.              */
+  .timeline {
+    position: relative;
+    margin: 2rem 0;
+    padding-left: 2rem;
+  }
+  /* The vertical blue line running down the left side */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--water-light), var(--water-mist));
+    border-radius: 2px;
+  }
+  /* Each timeline entry: relative positioning for the dot marker */
+  .tl-entry {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+  }
+  /* The circular dot marker placed on the timeline line.
+     left:-2.4rem positions it to sit on the 3px-wide line.
+     box-shadow adds a visible ring around the dot.              */
+  .tl-entry::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 0.45rem;
+    width: 12px; height: 12px;
+    background: var(--water);
+    border: 3px solid var(--cream);     /* cream border blends with page bg */
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--water-light);   /* outer ring accent */
+  }
+  /* The year label above each timeline entry description */
+  .tl-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--water);
+    margin-bottom: 0.2rem;
+  }
+  .tl-entry p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .tl-entry a { color: var(--water); font-weight: 600; }
+</style>
+</head>
+<!-- data-page="history" tells nav.js to highlight "History" in the top nav -->
+<body data-page="history">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / History</p>
+    <h1>History</h1>
+    <p>Over a century of life on Lake Julia — the families, events, and landscapes that shaped this place.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the History section. "Overview" is active.  -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html" class="active">Overview</a>
+    <a href="in-memoriam.html">In Memoriam</a>
+    <a href="archives.html">Archives</a>
+    <a href="ccc.html">CCC History</a>
+    <a href="properties.html">Properties</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Full-width layout using .two-col to split narrative/timeline
+     on the left and section nav cards on the right.               -->
+<div class="content-wrap">
+
+  <!-- .two-col: left column is narrative + timeline, right is section cards -->
+  <div class="two-col" style="align-items:start; gap: 4rem;">
+
+    <!-- ── Left column: narrative and vertical timeline ── -->
+    <div>
+      <p class="section-label fade-up">The Story</p>
+      <h2 class="section-title fade-up">A lake built by ice, railroad, and family</h2>
+      <!-- Narrative overview of the lake's history -->
+      <div class="prose fade-up">
+        <p>Lake Julia's recorded history begins in 1910 with "Piney Woods," the first cabin, built at what is now the public boat landing. Two years later, the "Point House" followed. Both were constructed with materials hauled by horse and sled across the frozen lake surface from the Chicago &amp; Northwestern Railroad line that then ran between Virgin and Julia Lakes.</p>
+        <p>The forests surrounding the lake were significantly shaped in the 1930s by the Civilian Conservation Corps — young men paid a dollar a day to reforest, build roads, and restore natural resources across northern Wisconsin during the Great Depression.</p>
+        <p>Today, 49 properties ring the 6.4-mile shoreline, many of them in the same families for generations. The lake spans Oneida and Forest Counties and was formally recognized as part of the Three Lakes region in 2021 when it was added to the TLWA map.</p>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── Vertical timeline: key dates in lake history ── -->
+      <p class="section-label fade-up">Timeline</p>
+      <div class="timeline fade-up">
+        <div class="tl-entry">
+          <div class="tl-year">1910</div>
+          <p>"Piney Woods" — the first cabin on Lake Julia — is built at the boat landing.</p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">1912</div>
+          <p>"Point House" is constructed. Building materials are ferried across the winter ice from the C&amp;NW railroad line between Virgin and Julia Lakes.</p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">1930s</div>
+          <p>The Civilian Conservation Corps transforms the forests of northern Wisconsin, including the land surrounding Lake Julia. <a href="ccc.html">Learn more →</a></p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">1956</div>
+          <p>A significant tornado outbreak affects the region. <a href="https://en.wikipedia.org/wiki/Tornado_outbreak_sequence_of_April_2%E2%80%933,_1956" target="_blank">April 2–3, 1956 outbreak →</a></p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">2020</div>
+          <p>Annual Boat Parade is held despite pandemic conditions, becoming a cherished community moment.</p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">2021</div>
+          <p>Lake Julia is formally added to the Three Lakes Waterfront Association map.</p>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-year">2022</div>
+          <p>CCC centennial tributes held in Minocqua and Manitowish Waters, celebrating the corps' legacy across northern Wisconsin. <a href="ccc.html">Read more →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Right column: section navigation cards ──
+         Links to the four History sub-pages displayed as stacked cards. -->
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+      <a href="in-memoriam.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+        <span class="card-tag">Remembrance</span>
+        <h3>In Memoriam</h3>
+        <p>Those who have gone before — including obituary links, family connections, and property associations for longtime lake residents dating back to 1893.</p>
+        <span class="card-link">View →</span>
+      </a>
+
+      <a href="archives.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+        <span class="card-tag">Archives</span>
+        <h3>Historical Archives</h3>
+        <p>Chronological records of events of particular Lake Julia or regional interest, including the Norway Club, railroad history, and annual community events.</p>
+        <span class="card-link">Browse →</span>
+      </a>
+
+      <a href="ccc.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+        <span class="card-tag pine">CCC</span>
+        <h3>Civilian Conservation Corps</h3>
+        <p>The Depression-era federal program that reforested and restored northern Wisconsin — and shaped the landscape we enjoy today.</p>
+        <span class="card-link">Learn More →</span>
+      </a>
+
+      <!-- .card-tag.amber applies the warm brown color variant -->
+      <a href="properties.html" class="card fade-up" style="text-decoration:none; color:inherit;">
+        <span class="card-tag amber">Properties</span>
+        <h3>Property Histories</h3>
+        <p>At their choice, owners may record the ownership and development history of individual parcels. Currently includes Bradford Lane and Harmony Lane properties.</p>
+        <span class="card-link">View Properties →</span>
+      </a>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Recommended reading ──
+       Books about the Three Lakes region's history available for purchase. -->
+  <div class="fade-up">
+    <p class="section-label">Further Reading</p>
+    <h2 class="section-title sm">Books on the region's history</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag">Book</span>
+        <h3>The Plow, The Pine and the Pioneer</h3>
+        <p>Three Lakes Historical Society, 1985. A foundational history of the Three Lakes region.</p>
+        <a class="card-link" href="https://www.amazon.com/Pine-Plow-Pioneer-Volumes/dp/B00KOAP2XQ" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Book</span>
+        <h3>Three Lakes</h3>
+        <p>Tulppo, Alan; McMahon, Kyle. Three Lakes Historical Society, 2014. A more recent visual and narrative history of the area.</p>
+        <a class="card-link" href="https://www.amazon.com/Three-Lakes-Alan-Tulppo/dp/1531669174" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag pine">Museum</span>
+        <h3>CCC Museum — Rhinelander</h3>
+        <p>The CCC Museum at Pioneer Park in Rhinelander preserves the legacy of the Civilian Conservation Corps in Wisconsin.</p>
+        <a class="card-link" href="https://www.rhinelanderchamber.com/listing/pioneer-park/191/" target="_blank">Learn More →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

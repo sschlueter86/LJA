@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Email List — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Numbered step list ────────────────────
+     A CSS counter-based ordered list that renders each step with
+     a circular blue number badge on the left. Used on this page to
+     walk through the process of joining the Google Group. */
+  .step-list {
+    counter-reset: steps;    /* reset the CSS counter named "steps" */
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+  .step-list li {
+    counter-increment: steps;    /* increment "steps" counter for each <li> */
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* The circular number badge is generated with counter() in CSS */
+  .step-list li::before {
+    content: counter(steps);
+    display: block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background: var(--water);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .step-list li span { display: block; }
+  .step-list li a { color: var(--water); font-weight: 600; }
+</style>
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Community</a> / Email List</p>
+    <h1>Community Email List</h1>
+    <p>How to stay connected with ~200 Lake Julia residents and users through our Google Group.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. "Email List"
+     tab is active on this page.                                    -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="about.html">About the Association</a>
+    <a href="email-list.html" class="active">Email List</a>
+    <a href="directory.html">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html">Annual Meeting</a>
+    <a href="donate.html">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this text-heavy page to 780px max-width.    -->
+<div class="content-wrap narrow">
+
+  <!-- ── SECTION: Overview of the Google Group ── -->
+  <div class="fade-up">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">lakejuliapeople — our community list</h2>
+    <div class="prose">
+      <p>The Lake Julia Association uses a Google Group email list called <strong>"lakejuliapeople"</strong> to stay connected with lake residents and regular users — currently around 200 people. The group serves two purposes: it's how we communicate as a community, and it's the access mechanism that protects private content on this site (like the resident directory) from the general public. Rather than building a separate login system, we use Google Group membership as a lightweight privacy layer — only verified members can view restricted materials.</p>
+      <p>Messaging has been infrequent and the list has never been abused. Membership is open to anyone who regularly uses Lake Julia property, including family members, grown children of owners, and friends who visit regularly. If you know someone who should be included, encourage them to reach out.</p>
+    </div>
+
+    <!-- Warning callout: think before sending to 200 people -->
+    <div class="callout warning" style="margin-top:1.5rem;">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <h4>Think before you send</h4>
+        <p>Messages sent to <a href="mailto:lakejuliapeople@googlegroups.com">lakejuliapeople@googlegroups.com</a> go to approximately 200 people. Use this address thoughtfully, and be careful with "Reply All" when responding to list messages.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: How to join — numbered steps ── -->
+  <div class="fade-up">
+    <p class="section-label">Getting Access</p>
+    <h2 class="section-title sm">How to join the list</h2>
+    <div class="prose">
+      <p>Joining is straightforward — just four steps, and most people are already halfway there:</p>
+    </div>
+
+    <!-- CSS counter list: each <li> auto-numbers itself with a blue circle badge -->
+    <ol class="step-list">
+      <li><span>Choose the email address you'd like to use. This is where list messages will be delivered, and it's how the site will recognize you as a member — so pick one you check regularly.</span></li>
+      <li><span>Make sure that email address is connected to a Google account. A Google account is simply a login at <a href="https://accounts.google.com" target="_blank">google.com</a> — it has nothing to do with Android or Gmail. If you've ever used YouTube, Google Maps, or Google Drive (even on an iPhone), you already have one. To check, visit <a href="https://accounts.google.com" target="_blank">accounts.google.com</a> and try signing in with your chosen email. If you don't have one, you can <a href="https://accounts.google.com/signup/v2/webcreateaccount" target="_blank">create a free Google account</a> using any email address — no Gmail required.</span></li>
+      <li><span>Email the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">site administrator</a> and ask to be added to the "lakejuliapeople" Google Group. Just include the email address from step 1 and we'll take it from there.</span></li>
+      <li><span>Once you've been added, list messages will start arriving in your inbox. To view restricted content on this site, open your browser, go to <a href="https://accounts.google.com" target="_blank">accounts.google.com</a>, and sign in with that same email — then you're all set.</span></li>
+    </ol>
+
+    <!-- Info callout: most people already have a Google account -->
+    <div class="callout info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <h4>Not sure if you have a Google account?</h4>
+        <p>Go to <a href="https://accounts.google.com" target="_blank">accounts.google.com</a> and try signing in with your email. If it works, you're already set for step 2. If not, creating one is free and takes about two minutes.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: What you can do once you're a member ── -->
+  <div class="fade-up">
+    <p class="section-label">Using the List</p>
+    <h2 class="section-title sm">What you can do</h2>
+
+    <!-- Three cards: send to list | manage membership | access restricted content -->
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag">Send</span>
+        <h3>Email the community</h3>
+        <p>If you're a member, send a message to the entire list by emailing:</p>
+        <a class="card-link" href="mailto:lakejuliapeople@googlegroups.com">lakejuliapeople@googlegroups.com →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Manage</span>
+        <h3>Manage your membership</h3>
+        <p>Access the group website to update your display name, view past messages, or remove yourself from the list.</p>
+        <a class="card-link" href="https://groups.google.com/forum/#!forum/lakejuliapeople" target="_blank">Group Website →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Access</span>
+        <h3>View restricted content</h3>
+        <p>Group membership — combined with being logged into the matching Google account — grants access to restricted materials on this site, including the resident directory.</p>
+        <a class="card-link" href="directory.html">Resident Directory →</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: What content requires group membership ── -->
+  <div class="fade-up">
+    <p class="section-label">Restricted Materials</p>
+    <h2 class="section-title sm">What requires group membership</h2>
+    <div class="prose">
+      <p>Certain documents, directories, and images on this site are restricted to group members. To access them you must be both:</p>
+    </div>
+    <!-- Two-step requirement numbered list -->
+    <ol class="step-list">
+      <li><span>Subscribed to the "lakejuliapeople" Google Group, <strong>and</strong></span></li>
+      <li><span>Logged into a Google account using the same email address as your group subscription.</span></li>
+    </ol>
+    <div class="prose">
+      <p>If you believe you should have access but can't view restricted materials, contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">administrator</a> — the group may have a different email address on file for you.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documents — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Document list component ──────────────────
+     External document links are organized into named groups, each with
+     a bordered list of row-style items — similar to the links.html
+     component but with wider icons sized for document emoji.         */
+
+  /* Outer wrapper for each document category (e.g. "Governance", "Lake Study") */
+  .doc-group { margin-bottom: 2.5rem; }
+  .doc-group:last-child { margin-bottom: 0; }   /* no trailing gap after last group */
+
+  /* White rounded card that contains all rows for a group */
+  .doc-list {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 10px;
+    overflow: hidden;   /* clips child rows to the rounded corners */
+    margin-top: 1rem;
+  }
+
+  /* Individual document row: flex with icon, text block, and arrow */
+  .doc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--sand-dark);   /* row separator */
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s;                /* smooth hover highlight */
+  }
+  .doc-item:last-child { border-bottom: none; } /* no rule below the last row */
+  .doc-item:hover { background: var(--sand); }  /* sand tint on hover */
+
+  /* Emoji icon column — fixed width keeps text blocks aligned across rows */
+  .doc-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  /* Text block: title + description — flex:1 fills remaining row width */
+  .doc-info { flex: 1; }
+  .doc-info h4 { font-size: 0.92rem; font-weight: 600; color: var(--water-deep); margin-bottom: 0.1rem; }
+  .doc-info p { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+
+  /* Right-side arrow indicator — subtle water-light color */
+  .doc-arrow { color: var(--water-light); font-size: 0.9rem; flex-shrink: 0; }
+
+  /* ── "Plain English" trigger button ─────────────────────────────────
+     Appears below the corporate documents list. Clicking it adds
+     class "open" to the modal overlay, making it visible.          */
+  .pe-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--water-light);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pe-trigger:hover { color: var(--water-deep); }
+
+  /* ── Modal overlay ───────────────────────────────────────────────────
+     Fixed-position full-screen backdrop. Hidden by default (display:none).
+     Adding class "open" switches it to display:flex, centering the modal.
+     Clicking the backdrop itself (not the modal) closes it via the
+     onclick="if(event.target===this)..." check on the overlay element.  */
+  .pe-overlay {
+    display: none;          /* hidden until .open class is added */
+    position: fixed;
+    inset: 0;               /* shorthand for top/right/bottom/left: 0 */
+    background: rgba(0,0,0,0.45);   /* semi-transparent dark scrim */
+    z-index: 1000;          /* above header (z:100) and subnav (z:90) */
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;        /* prevents modal from touching screen edges on mobile */
+  }
+  .pe-overlay.open { display: flex; }   /* .open makes the overlay visible */
+
+  /* The white modal dialog panel */
+  .pe-modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 88vh;       /* caps height so it doesn't overflow short screens */
+    overflow-y: auto;       /* allows scrolling through long bylaws content */
+    box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+    position: relative;
+  }
+
+  /* Sticky header bar inside the modal — stays visible while scrolling content */
+  .pe-modal-header {
+    position: sticky;
+    top: 0;
+    background: var(--water-deep);   /* dark navy matches the site header */
+    color: white;
+    padding: 1rem 1.25rem;
+    border-radius: 12px 12px 0 0;   /* rounds only the top two corners */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;   /* ensures it stacks above scrolling modal body content */
+  }
+  .pe-modal-header h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* ✕ close button in the modal header */
+  .pe-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.2rem;
+    opacity: 0.8;
+  }
+  .pe-close:hover { opacity: 1; }
+
+  /* Scrollable body area of the modal */
+  .pe-modal-body { padding: 1.5rem; }
+
+  /* Each named section within the modal (Articles of Incorporation / Bylaws) */
+  .pe-section { margin-bottom: 1.5rem; }
+  .pe-section:last-child { margin-bottom: 0; }
+  .pe-section h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--water-deep);
+    margin: 0 0 0.3rem;
+  }
+
+  /* Small uppercase category labels within each section (e.g. "Members", "Officers") */
+  .pe-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0.75rem 0 0.2rem;
+  }
+  .pe-label:first-of-type { margin-top: 0.4rem; }  /* tighter top gap for first label */
+
+  /* Introductory paragraph explaining a section in plain language */
+  .pe-blurb {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 0 0 0.5rem;
+  }
+
+  /* Bullet list items within each modal section */
+  .pe-section ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.87rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .pe-section ul li { margin-bottom: 0.3rem; }
+  .pe-section ul li:last-child { margin-bottom: 0; }
+
+  /* Thin horizontal rule separating the two main sections (Articles vs Bylaws) */
+  .pe-divider {
+    border: none;
+    border-top: 1px solid var(--sand-dark);
+    margin: 1.5rem 0;
+  }
+</style>
+</head>
+<!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
+<body data-page="resources">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <!-- Faded map image overlaid on the gradient — purely decorative -->
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Resources</a> / Documents</p>
+    <h1>Documents</h1>
+    <p>Association records, the Onterra lake study, community surveys, and memorabilia.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Resources section. "Documents" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="maps.html">Maps &amp; GIS</a>
+    <a href="documents.html" class="active">Documents</a>
+    <a href="attractions.html">Local Attractions</a>
+    <a href="links.html">Helpful Links</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this list-heavy page to 780px max-width.
+     Four document groups: Governance, Lake Study, Survey, Memorabilia. -->
+<div class="content-wrap narrow">
+
+  <!-- ── GROUP 1: Corporate Documents (Governance) ──
+       The 2004 Articles of Incorporation and Bylaws. A "Plain English"
+       trigger button below the list opens a modal explaining the
+       documents in accessible, non-legal language.                  -->
+  <div class="doc-group fade-up">
+    <p class="section-label">Governance</p>
+    <h2 class="section-title sm">Association Corporate Documents</h2>
+    <p style="font-size:0.92rem; color:var(--text-muted);">The 2004 articles of incorporation and bylaws drafted by Attorney Thomas J. Drought. These documents have not been amended since their adoption.</p>
+    <div class="doc-list">
+      <!-- Single Google Drive PDF containing all corporate documents -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1nOnaELbBjSE_OBL1533ukzuuG2ImXvBQ/view" target="_blank">
+        <div class="doc-icon">📋</div>
+        <div class="doc-info">
+          <h4>Lake Julia Association, Inc. — Corporate Documents</h4>
+          <p>Articles of incorporation, bylaws, and related governance documents</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+    </div>
+
+    <!-- "Plain English" trigger: clicking adds class "open" to #pe-modal-overlay,
+         which switches its display from none to flex, showing the modal. -->
+    <button class="pe-trigger" onclick="document.getElementById('pe-modal-overlay').classList.add('open')">
+      📖 Not an attorney? Here's what it states...
+    </button>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 2: Onterra Lake Study (2010–13) ──
+       A multi-year professional assessment of Lake Julia's health.
+       Broken into seven documents: final report, maps, appendices,
+       survey form, survey results, wrap-up meeting, and initial proposal. -->
+  <div class="doc-group fade-up">
+    <p class="section-label">Lake Study</p>
+    <h2 class="section-title sm">2010–13 Onterra Lake Study</h2>
+    <p style="font-size:0.92rem; color:var(--text-muted);">A comprehensive professional assessment of Lake Julia's health and water quality, conducted by Onterra LLC. The conclusion: Lake Julia is in very good condition.</p>
+    <div class="doc-list">
+      <!-- Final report: the primary deliverable of the study -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1HmqnNMknOmxEMCEcQls_P6Msvjhjdc88/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <h4>Final Report</h4>
+          <p>October 2013 — full findings and recommendations</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Supplemental maps: spatial data referenced in the final report -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1meoKISfi7Q-bIKCz2JMxwXJPz7VomUnj/view?usp=sharing" target="_blank">
+        <div class="doc-icon">🗺️</div>
+        <div class="doc-info">
+          <h4>Maps</h4>
+          <p>Supplemental maps from the study</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Appendices: technical data supporting the report conclusions -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1gfERgHmrehrKCD8gU9hq15bW1WCasa-T/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📎</div>
+        <div class="doc-info">
+          <h4>Appendices</h4>
+          <p>Supporting data and technical appendices</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Stakeholder survey form: the questionnaire distributed to lake residents -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1P2mHSXu9J04OQXON6Ud-UEZqG9lL2sCD/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📝</div>
+        <div class="doc-info">
+          <h4>Stakeholder Survey Form</h4>
+          <p>November 14, 2011</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Survey results: compiled community responses to the questionnaire -->
+      <a class="doc-item" href="https://drive.google.com/file/d/1C5H2vSTmF2BlwFh6BHGQxNVYiSkkBknH/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📊</div>
+        <div class="doc-info">
+          <h4>Stakeholder Survey Results</h4>
+          <p>Compiled community responses</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Wrap-up meeting announcement: invitation to the final community briefing -->
+      <a class="doc-item" href="https://drive.google.com/file/d/14G1_zEQ1PTGQUH4VQzYNuzTyu80UMfyD/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📅</div>
+        <div class="doc-info">
+          <h4>Wrap-Up Meeting Announcement</h4>
+          <p>July 20, 2013</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <!-- Original Onterra proposal: defines scope and methodology from June 2010 -->
+      <a class="doc-item" href="https://drive.google.com/file/d/14kRB0rDK5yvzvmtmJcXX_ktcj-M4ZmnK/view?usp=sharing" target="_blank">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <h4>Initial Onterra Proposal</h4>
+          <p>June 2010 — original project scope and methodology</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 3: 2022 Community Survey ──
+       A one-item list linking to the June 2022 communications survey
+       results hosted on the old Google Sites platform. -->
+  <div class="doc-group fade-up">
+    <p class="section-label">Community Input</p>
+    <h2 class="section-title sm">2022 Community Survey</h2>
+    <p style="font-size:0.92rem; color:var(--text-muted);">Results of the June 2022 community communications survey.</p>
+    <div class="doc-list">
+      <a class="doc-item" href="https://sites.google.com/view/lakejulia/documents/survey-communictions-220626" target="_blank">
+        <div class="doc-icon">📊</div>
+        <div class="doc-info">
+          <h4>Survey — Communications (June 26, 2022)</h4>
+          <p>Community feedback on Association communications</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 4: Memorabilia & Miscellaneous ──
+       Historical photos, clippings, and keepsakes from Lake Julia's past.
+       Hosted on the old Google Sites platform. -->
+  <div class="doc-group fade-up">
+    <p class="section-label">Memorabilia</p>
+    <h2 class="section-title sm">Memorabilia &amp; Miscellaneous</h2>
+    <p style="font-size:0.92rem; color:var(--text-muted);">Scrapbook items, historical photos, and miscellaneous keepsakes from Lake Julia's history.</p>
+    <div class="doc-list">
+      <a class="doc-item" href="https://sites.google.com/view/lakejulia/documents/memorabilia-misc" target="_blank">
+        <div class="doc-icon">🖼️</div>
+        <div class="doc-info">
+          <h4>Memorabilia &amp; Miscellaneous</h4>
+          <p>Photos, clippings, and community keepsakes</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── PLAIN ENGLISH MODAL ───────────────────────────────────────────
+     Full-screen overlay that appears when the "Not an attorney?" button
+     is clicked. It summarizes the Articles of Incorporation and Bylaws
+     in plain language, organized by topic (Members, Board, Officers, etc.)
+
+     Backdrop click behavior: onclick="if(event.target===this)..." checks
+     that the click landed on the overlay itself (the dark scrim), not on
+     the modal content panel, before removing the "open" class.         -->
+<div id="pe-modal-overlay" class="pe-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <!-- role="dialog" and aria-modal="true" tell screen readers this is a modal.
+       aria-labelledby connects the dialog to its visible heading for accessibility. -->
+  <div class="pe-modal" role="dialog" aria-modal="true" aria-labelledby="pe-modal-title">
+
+    <!-- Sticky modal header with title and close button -->
+    <div class="pe-modal-header">
+      <h3 id="pe-modal-title">Not an attorney? Here's what it means.</h3>
+      <!-- ✕ button: removes "open" class, hiding the overlay -->
+      <button class="pe-close" onclick="document.getElementById('pe-modal-overlay').classList.remove('open')" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Scrollable modal body: two sections separated by a .pe-divider -->
+    <div class="pe-modal-body">
+
+      <!-- ── Articles of Incorporation plain-English summary ── -->
+      <div class="pe-section">
+        <h4>Articles of Incorporation</h4>
+        <p class="pe-label">What is this document?</p>
+        <p class="pe-blurb">The legal paperwork filed with the State of Wisconsin in July 2004 that officially created the Lake Julia Association, Inc. as a recognized nonprofit corporation.</p>
+        <p class="pe-label">What does it say, in plain English?</p>
+        <ul>
+          <li><strong>We're official.</strong> The Lake Julia Association is a legally incorporated nonprofit under Wisconsin law, filed and stamped by the Wisconsin Department of Financial Institutions.</li>
+          <li><strong>Our mission.</strong> We exist to protect, preserve, and improve the properties, water quality, wildlife, and general welfare of Lake Julia and its surrounding areas in Oneida and Forest Counties.</li>
+          <li><strong>We're a nonprofit.</strong> No profits are distributed to individuals. We operate like a charity under IRS 501(c)(3) rules, meaning donations may be tax-deductible.</li>
+          <li><strong>No politics.</strong> The association cannot campaign for political candidates or spend a substantial portion of its activities trying to influence legislation.</li>
+          <li><strong>We have members.</strong> Membership rules are defined in the Bylaws.</li>
+          <li><strong>We have a Board.</strong> A Board of Directors (minimum 3, initially 6) manages the association's affairs.</li>
+          <li><strong>If we ever dissolve,</strong> any remaining assets go to another qualifying nonprofit — nothing goes to private individuals.</li>
+          <li><strong>Changes require a vote.</strong> Amending these Articles requires a 2/3 vote of members or a majority of the Board.</li>
+        </ul>
+      </div>
+
+      <!-- Thin rule between the two document summaries -->
+      <hr class="pe-divider">
+
+      <!-- ── Bylaws plain-English summary ──
+           Organized into sub-sections matching the bylaw structure:
+           Members, Board of Directors, Officers, Finances, Other Rules. -->
+      <div class="pe-section">
+        <h4>Bylaws</h4>
+        <p class="pe-label">What is this document?</p>
+        <p class="pe-blurb">The Bylaws are the association's rulebook — the day-to-day operating procedures that govern how the Lake Julia Association actually runs.</p>
+        <p class="pe-label">Members</p>
+        <ul>
+          <li>Membership is open to property owners and residents on the Lake Julia shoreline, as well as others who support the association's mission.</li>
+          <li>Each paid membership gets one vote.</li>
+          <li>Annual dues are set by the Board at the start of each year. Membership lapses if dues aren't paid by December 31st.</li>
+          <li>The annual membership meeting is held in July or August each year.</li>
+        </ul>
+        <p class="pe-label">Board of Directors</p>
+        <ul>
+          <li>The Board consists of 6 directors, each serving 3-year rotating terms (so roughly 2 seats turn over each year).</li>
+          <li>Directors are elected by members at the annual meeting.</li>
+          <li>The Board manages the association's affairs, but any single expense over $750 must be approved by the membership.</li>
+          <li>The Board can act between meetings via written consent if 2/3 of directors agree.</li>
+        </ul>
+        <p class="pe-label">Officers</p>
+        <ul>
+          <li>The association has a President, Vice President, Secretary, and Treasurer.</li>
+          <li>Officers are elected annually by the Board.</li>
+          <li>The President runs day-to-day operations. The Secretary keeps records and minutes. The Treasurer manages finances and reports to the Board and members annually.</li>
+        </ul>
+        <p class="pe-label">Finances</p>
+        <ul>
+          <li>No loans can be taken out without Board authorization.</li>
+          <li>All checks and financial instruments must be signed by authorized officers.</li>
+          <li>The fiscal year end date is set by the Board.</li>
+        </ul>
+        <p class="pe-label">Other Rules</p>
+        <ul>
+          <li>The Bylaws can be amended by a 2/3 vote of members present at a meeting where a quorum exists, provided members were given advance notice of the proposed change.</li>
+          <li>The association is expected to join county and state lake organizations (like WLIA) and appoint delegates.</li>
+          <li>Directors and officers are indemnified (legally protected) when acting in good faith on behalf of the association.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+<script>
+  /* ── Escape key handler for the Plain English modal ──────────────────
+     Listens for the Escape key globally and removes the "open" class
+     from the modal overlay, closing it without requiring a mouse click.
+     This is standard accessible behavior for modal dialogs.          */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.getElementById('pe-modal-overlay').classList.remove('open');
+  });
+</script>
+</body>
+</html>

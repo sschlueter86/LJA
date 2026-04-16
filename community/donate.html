@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Payment option cards ──────────────────
+     A 2-column grid of payment method cards. On narrow screens
+     (≤540px) it collapses to a single column. */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 540px) {
+    .payment-grid { grid-template-columns: 1fr; }
+  }
+  /* Each payment card: white box with a sand border, rounded corners,
+     and a hover effect that shifts the border to blue with a shadow. */
+  .payment-card {
+    background: white;
+    border: 2px solid var(--sand-dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .payment-card:hover { border-color: var(--water-light); box-shadow: 0 4px 16px rgba(44,95,122,0.1); }
+  /* Large emoji icon at the top of each payment card */
+  .payment-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  /* Payment method name (e.g. "Zelle", "Venmo") */
+  .payment-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--water-deep);
+    margin-bottom: 0.5rem;
+  }
+  .payment-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+  /* Monospace pill showing the payment handle (e.g. "@sally-wahl") */
+  .payment-card .detail {
+    display: inline-block;
+    margin-top: 0.75rem;
+    background: var(--sand);
+    border: 1px solid var(--sand-dark);
+    border-radius: 5px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: monospace;
+    letter-spacing: 0.03em;
+  }
+  /* ── Suggested donation amount display ──────────────────────────
+     A blue gradient box prominently showing the recommended
+     $300/family contribution amount. */
+  .amount-suggest {
+    background: linear-gradient(135deg, var(--water-deep) 0%, var(--water) 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  /* The large "$300" amount displayed prominently */
+  .amount-suggest .big-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--water-mist);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .amount-suggest p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+  }
+</style>
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Community</a> / Donate</p>
+    <h1>Support the Association</h1>
+    <p>Your contributions fund the programs that keep Lake Julia clean, safe, and thriving.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. "Donate"
+     tab is active on this page.                                    -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="about.html">About the Association</a>
+    <a href="email-list.html">Email List</a>
+    <a href="directory.html">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html">Annual Meeting</a>
+    <a href="donate.html" class="active">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this page to 780px max-width.               -->
+<div class="content-wrap narrow">
+
+  <!-- ── SECTION: Where your money goes ──
+       Explains the CBCW program costs and other Association expenses,
+       with a summary table breaking down the annual funding gap.    -->
+  <div class="fade-up">
+    <p class="section-label">Where It Goes</p>
+    <h2 class="section-title">What your contribution supports</h2>
+    <div class="prose">
+      <p>The Association's largest annual expense — by far — is the <strong>Clean Boats, Clean Waters</strong> monitoring program, which stations trained inspectors at the public boat landing to check incoming boats for aquatic invasive species. Without this program, Eurasian Water Milfoil from nearby Virgin Lake could spread to Lake Julia.</p>
+      <p>Contributions also cover costs for the annual meeting and picnic, special programs and outside speakers, and general Association administration.</p>
+    </div>
+
+    <!-- Funding breakdown table: program | total cost | state grant | resident gap -->
+    <table class="rule-table" style="margin-top:1.5rem;">
+      <thead><tr><th>Program</th><th>Annual Cost</th><th>State Funding</th><th>Needed from Residents</th></tr></thead>
+      <tbody>
+        <tr><td>Clean Boats, Clean Waters</td><td>~$12,000</td><td>~$4,000</td><td>~$8,000</td></tr>
+        <tr><td>Annual meeting &amp; events</td><td>Varies</td><td>—</td><td>Resident supported</td></tr>
+        <tr><td>Special programs</td><td>Varies</td><td>—</td><td>Resident supported</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SUGGESTED AMOUNT BOX ──
+       Prominently displays the $300 recommended household contribution.
+       "current-year" span is populated by the JS snippet at page bottom. -->
+  <div class="amount-suggest fade-up">
+    <span class="big-amount">$300</span>
+    <p>Recommended contribution per family or household for <span id="current-year"></span>.<br>Though any amount is gratefully accepted.</p>
+  </div>
+
+  <!-- ── SECTION: Payment method cards ──
+       Four payment options displayed in a 2×2 grid.
+       ORDER: Zelle first (treasurer's preference), then Venmo, PayPal, Check. -->
+  <div class="fade-up">
+    <p class="section-label">How to Give</p>
+    <h2 class="section-title sm">Payment options</h2>
+
+    <div class="payment-grid">
+
+      <!-- Zelle card: preferred digital method per treasurer request -->
+      <div class="payment-card">
+        <span class="payment-icon">🏦</span>
+        <h3>Zelle</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:-0.5rem; margin-bottom:0.5rem;">Preferred digital method.  No fees — sends<br>directly to the Association</p>
+        <p>Send to the Association treasurer via Zelle:</p>
+        <span class="detail">sallywahl@me.com</span>
+        <p style="margin-top:0.6rem; font-size:0.8rem;">Include your name and "Lake Julia" in the memo.</p>
+      </div>
+
+      <!-- Venmo card: sends to treasurer's personal account -->
+      <div class="payment-card">
+        <span class="payment-icon">📱</span>
+        <h3>Venmo</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:-0.5rem; margin-bottom:0.5rem;">No fees — sends to the Association<br>via our fundraising chair - Sally Wahl</p>
+        <p>Send to the Association treasurer via Venmo:</p>
+        <span class="detail">@Sally-Wahl</span>
+        <p style="margin-top:0.6rem; font-size:0.8rem;">Include your name and "Lake Julia" in the note/memo.</p>
+      </div>
+
+      <!-- PayPal card: credit/debit cards accepted; fees apply for cards -->
+      <div class="payment-card">
+        <span class="payment-icon">💳</span>
+        <h3>PayPal</h3>
+        <p>Any credit or debit card accepted. Credit card fees apply. Click below to donate online — you do not need a PayPal account.</p>
+        <br>
+        <!-- PayPal hosted donation button linking to the Association's PayPal account -->
+        <a href="https://www.paypal.com/donate?hosted_button_id=L4GYV8R53Y8AS" target="_blank" class="donate-btn" style="display:inline-block; background:var(--water); color:white; padding:0.6rem 1.4rem; border-radius:5px; font-size:0.85rem; font-weight:600; text-decoration:none; letter-spacing:0.05em; text-transform:uppercase;">Donate via PayPal</a>
+      </div>
+
+      <!-- Check card: physical mail to the Association treasurer -->
+      <div class="payment-card">
+        <span class="payment-icon">✉️</span>
+        <h3>Check</h3>
+        <p>Make payable to <strong>"Lake Julia Association, Inc."</strong> and mail to the Association Treasurer:</p>
+        <!-- Treasurer mailing address -->
+        <p style="margin-top:0.6rem; font-size:0.85rem; line-height:1.7;">
+          Sally Wahl<br>
+          1208 E. Goodrich Lane<br>
+          Fox Point, WI 53217
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── CALLOUT: Why the CBCW program matters ──
+       A success (green) callout linking to the aquatic invasives page
+       for context on why donations directly protect Lake Julia.     -->
+  <div class="callout success fade-up">
+    <div class="callout-icon">🌿</div>
+    <div class="callout-body">
+      <h4>Why the CBCW program matters</h4>
+      <p>Eurasian Water Milfoil is already established in Virgin Lake, just downstream on Julia Creek. Boat inspection at the public landing is one of the few practical defenses available. <a href="../environment/aquatic-invasives.html">Learn more about the threat →</a></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+<!-- Populate the current year dynamically so the suggested amount text stays current -->
+<script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About the Association — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Board of Directors table ──────────────
+     A custom table for displaying board member roles, photos, names,
+     and house numbers. The photo column is fixed at 102px wide. */
+  .gov-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+  }
+  .gov-table th {
+    text-align: left;
+    padding: 0.55rem 0.85rem;
+    background: var(--water-deep);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+  .gov-table td {
+    padding: 0.5rem 0.85rem;
+    border-bottom: 1px solid var(--sand-dark);
+    color: var(--text-dark);
+    vertical-align: top;
+  }
+  .gov-table tr:last-child td {
+    border-bottom: none;
+  }
+  /* Subtle highlight on row hover for readability */
+  .gov-table tbody tr:hover td {
+    background: var(--sand-light);
+  }
+  /* Role label (e.g. "President", "Treasurer") appears bold in blue */
+  .gov-table td.role-label {
+    font-weight: 600;
+    color: var(--water-deep);
+    white-space: nowrap;
+  }
+  /* House number column is muted and non-wrapping */
+  .gov-table td.house {
+    white-space: nowrap;
+    color: var(--text-muted);
+  }
+  /* Fixed-width photo column containing the member portrait */
+  .gov-table td.photo-cell {
+    width: 102px;
+    padding: 0.35rem 0.5rem;
+  }
+  /* Member portrait: square crop, slightly rounded corners */
+  .member-photo {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+</style>
+</head>
+<!-- data-page="community" tells nav.js to highlight "Community" in the top nav -->
+<body data-page="community">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Community</a> / About the Association</p>
+    <h1>About the Association</h1>
+    <p>How the Lake Julia Association, Inc. is organized — and how you can participate.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Community section. "About the Association"
+     tab is active on this page.                                    -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="about.html" class="active">About the Association</a>
+    <a href="email-list.html">Email List</a>
+    <a href="directory.html">Resident Directory</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="annual-meeting.html">Annual Meeting</a>
+    <a href="donate.html">Donate</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this text-heavy page to 780px max-width.    -->
+<div class="content-wrap narrow">
+
+  <!-- ── SECTION: Origin / History ── -->
+  <!-- Comment in original source preserved: Origin -->
+  <div class="fade-up">
+    <p class="section-label">Our History</p>
+    <h2 class="section-title">From informal gathering to incorporated association</h2>
+    <div class="prose">
+      <p>For years, Lake Julia property owners gathered informally each summer to discuss shared concerns and enjoy the lake together. In 2004, that tradition was formalized when the group incorporated as the <strong>Lake Julia Association, Inc. (LJA)</strong> — a Wisconsin Non-Stock Corporation, organized under articles and bylaws drafted by attorney Thomas J. Drought (#5, #6, #10).</p>
+      <p>The Corporation is comprised of <strong>'members'</strong>,  loosely defined as persons owning property or residing in homes located on the shoreline of Lake Julia, and other persons supporting the general purposes of the Corporation.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Governance structure and Board table ── -->
+  <div class="fade-up">
+    <p class="section-label">Governance</p>
+    <h2 class="section-title sm">How we're organized</h2>
+
+    <div class="prose">
+      <p><h4 style="font-family:'Playfair Display',serif; color:var(--water-deep); margin:1.25rem 0 0.05rem;">Members</h4> All shoreline property owners and regular lake users. Members elect the Board of Directors and vote on bylaw amendments (requiring a 2/3 majority).</p>
+    </div>
+
+    <h4 style="font-family:'Playfair Display',serif; color:var(--water-deep); margin:1.25rem 0 0.05rem;">The LJA Board</h4>
+    <!-- Board of Directors table: role | photo | name | house # -->
+    <table class="gov-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th style="width:102px"></th>  <!-- Photo column header intentionally blank -->
+          <th>Name</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="role-label">President</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/TJ_Drought.png" alt="TJ Drought"></td>
+          <td>TJ Drought</td>
+          <td class="house">#5, #6, #10</td>
+        </tr>
+        <!-- rowspan="7" means the "Directors" label covers all 7 director rows -->
+        <tr>
+          <td class="role-label" rowspan="7">Directors</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/TommyDrought.png" alt="Tommy Drought"></td>
+          <td>Tommy Drought</td>
+          <td class="house">#5, #6, #10</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/CJKraft.png" alt="C.J. Kraft"></td>
+          <td>C.J. Kraft</td>
+          <td class="house">#11</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/GailLewis.png" alt="Gail Lewis"></td>
+          <td>Gail Lewis</td>
+          <td class="house">#8</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/Chuck.png" alt="Chuck Munkwitz"></td>
+          <td>Chuck Munkwitz</td>
+          <td class="house">#24</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/PrestonPitz.png" alt="Preston Pitz"></td>
+          <td>Preston Pitz</td>
+          <td class="house">#3</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/IsabelUllrich.png" alt="Isabel Ullrich"></td>
+          <td>Isabel Ullrich</td>
+          <td class="house">#45</td>
+        </tr>
+        <tr>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/SallyWahl.png" alt="Sally Wahl"></td>
+          <td>Sally Wahl</td>
+          <td class="house">#36</td>
+        </tr>
+        <tr>
+          <td class="role-label">Treasurer</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/DaveEvans.png" alt="Dave Evans"></td>
+          <td>Dave Evans</td>
+          <td class="house">#32</td>
+        </tr>
+        <tr>
+          <td class="role-label">Secretary</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/JayFranke.png" alt="Jay Franke"></td>
+          <td>Jay Franke</td>
+          <td class="house">#15</td>
+        </tr>
+        <tr>
+          <td class="role-label">Technology Officer</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/ScottSchlueter.png" alt="Scott Schlueter"></td>
+          <td>Scott Schlueter</td>
+          <td class="house">#23</td>
+        </tr>
+        <tr>
+          <td class="role-label">Advisor</td>
+          <td class="photo-cell"><img class="member-photo" src="../images/BoardMembers/DaveMiztner.png" alt="Dave Mitzner"></td>
+          <td>Dave Mitzner</td>
+          <td class="house">#4</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Board meeting cadence note -->
+    <div class="prose" style="margin-top:0.75rem;">
+      <p><h4 style="font-family:'Playfair Display',serif; color:var(--water-deep); margin:1.25rem 0 0.05rem;">LJA Board meetings</h4> Board meetings are held periodically by videoconference throughout the year, with a required in-person meeting held annually around the Fourth of July.</p>
+    </div>
+
+    <!-- Bylaws note callout -->
+    <div class="callout info" style="margin-top:1rem;">
+      <div class="callout-icon">📋</div>
+      <div class="callout-body">
+        <h4>Bylaws note</h4>
+        <p>The 2004 corporate organizing documents have not been amended since their adoption. Any provision may be amended by a 2/3 vote of the Membership. Governing documents are available in the <a href="../resources/documents.html">Documents section</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Annual Meeting summary ── -->
+  <div class="fade-up">
+    <p class="section-label">Annual Meeting</p>
+    <h2 class="section-title sm">Meeting of Members</h2>
+    <div class="prose">
+      <p>The Annual Meeting of Members — for the election of directors and any other business — is held on a weekend day shortly before or after the Fourth of July. The timing is intentional: it maximizes attendance by lake families who may only be present during the summer holiday period.</p>
+      <p>The meeting typically includes a lake picnic and community social. <a href="annual-meeting.html">See past meeting records →</a></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Contact methods ── -->
+  <div class="fade-up">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title sm">Reach us</h2>
+    <!-- Three contact cards: board email, community list email, Facebook -->
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag">Board &amp; Admin</span>
+        <h3>Email</h3>
+        <p>For questions about the Association, the website, or membership:</p>
+        <a class="card-link" href="mailto:lakejuliaassn@gmail.com">lakejuliaassn@gmail.com →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Community List</span>
+        <h3>Email All Residents</h3>
+        <p>Messages to the community email list reach ~200 people. Use thoughtfully.</p>
+        <a class="card-link" href="mailto:lakejuliapeople@googlegroups.com">lakejuliapeople@googlegroups.com →</a>
+      </div>
+      <div class="card">
+        <span class="card-tag">Social</span>
+        <h3>Facebook</h3>
+        <p>Follow the Lake Julia Association Facebook page for occasional updates and community posts.</p>
+        <a class="card-link" href="https://www.facebook.com/lakejulia" target="_blank">Facebook →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

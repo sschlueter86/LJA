@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Histories — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Property ownership tables ─────────────
+     Each road section has its own ownership table. Tables are wrapped
+     in .table-scroll (added by JS) to allow horizontal scrolling on
+     mobile without the table overflowing the viewport.            */
+
+  /* Visual separator between road sections */
+  .road-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--sand-dark);
+  }
+  /* Wrapper added by JS to enable horizontal table scrolling on mobile */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;   /* smooth momentum scrolling on iOS */
+  }
+  /* Ownership history table: min-width ensures columns aren't crushed */
+  .ownership-table {
+    width: 100%;
+    min-width: 640px;   /* below this width, the table scrolls horizontally */
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+  /* Description column is widest — 36% — to accommodate the narrative text */
+  .ownership-table th:nth-child(3),
+  .ownership-table td:nth-child(3) {
+    width: 36%;
+  }
+  /* Table header row: sand background with water-deep text */
+  .ownership-table th {
+    background: var(--sand);
+    color: var(--water-deep);
+    font-weight: 700;
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--sand-dark);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .ownership-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--sand-dark);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .ownership-table tr:last-child td { border-bottom: none; }
+  /* Zebra striping for readability */
+  .ownership-table tr:nth-child(even) td { background: var(--sand); }
+  /* scroll-margin-top accounts for the sticky header (64px) + subnav
+     height (~48px) so jump-links land below both sticky bars.     */
+  p[id].section-label {
+    scroll-margin-top: 9rem;
+  }
+  /* House number in the first column: bold blue, no wrapping */
+  .house-num {
+    font-weight: 700;
+    color: var(--water-deep);
+    white-space: nowrap;
+  }
+  /* Small pill links inside table cells (e.g. obituary or archive references) */
+  .table-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+  .table-links a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--water);
+    text-decoration: none;
+    background: var(--sand);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--sand-dark);
+  }
+  .table-links a:hover {
+    background: var(--water-mist);
+    border-color: var(--water-light);
+  }
+  /* Ownership chain: shows transfer history as a stacked list */
+  .ownership-chain {
+    line-height: 1.7;
+  }
+  /* Each ownership transfer is indented on a new line with an arrow (→) */
+  .ownership-chain .transfer {
+    display: block;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<!-- data-page="history" tells nav.js to highlight "History" in the top nav -->
+<body data-page="history">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">History</a> / Properties</p>
+    <h1>Property Histories</h1>
+    <p>At their choice, owners may record the ownership and development history of individual parcels on Lake Julia.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the History section. "Properties" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="in-memoriam.html">In Memoriam</a>
+    <a href="archives.html">Archives</a>
+    <a href="ccc.html">CCC History</a>
+    <a href="properties.html" class="active">Properties</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     Full-width layout (no .narrow) to accommodate wide ownership tables. -->
+<div class="content-wrap">
+
+  <!-- Amber callout: page is incomplete, content added gradually -->
+  <div class="callout amber fade-up" style="margin-bottom: 1.25rem;">
+    <div class="callout-icon">🚧</div>
+    <div class="callout-body">
+      <h4>Page in progress</h4>
+      <p>This page is incomplete and will be filled in gradually as owners contribute their property histories. Check back as more stories are added over time.</p>
+    </div>
+  </div>
+
+  <!-- Info callout: any owner may contribute their property's history -->
+  <div class="callout info fade-up">
+    <div class="callout-icon">🏡</div>
+    <div class="callout-body">
+      <h4>Share your property's history</h4>
+      <p>Any owner may add their property's history to this section. Contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">site administrator</a> to contribute. House numbers correspond to the <a href="../resources/maps.html">lake map</a>.</p>
+    </div>
+  </div>
+
+  <!-- ── JUMP NAVIGATION ──
+       Quick links to each road section below. scroll-margin-top on
+       the section anchors accounts for the double sticky bar height. -->
+  <div class="fade-up" style="text-align:center; margin-top: 2rem;">
+    <p style="font-size:1.2rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.6rem;">Jump to...</p>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem 1.25rem;">
+      <a href="#julia-creek" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Julia Creek Road</a>
+      <a href="#sheltered-valley" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Sheltered Valley / Hillside Drive</a>
+      <a href="#woodbury-lake" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Woodbury Lake Road</a>
+      <a href="#harmony-lane" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Harmony Lane</a>
+      <a href="#bradford-lane" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Bradford Lane</a>
+      <a href="#puelicher-lane" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Puelicher Lane</a>
+      <a href="#scott-lake" style="font-size:1rem; color:var(--water); font-weight:600; text-decoration:none;">Scott Lake Road</a>
+    </div>
+  </div>
+
+  <!-- ══════════════ JULIA CREEK RD (Houses #1–10) ══════════════ -->
+  <!-- id="julia-creek" on the section-label is the jump anchor target -->
+  <div class="road-section fade-up">
+    <p id="julia-creek" class="section-label">Houses #1–10</p>
+    <h2 class="section-title">Julia Creek Road</h2>
+    <!-- Ownership table — content not yet contributed for this section -->
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="house-num">#1</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#2</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#3</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#4</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#5</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#6</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#7</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#8</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#9</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#10</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ SHELTERED VALLEY / HILLSIDE DR (Houses #11–16) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="sheltered-valley" class="section-label">Houses #11–16</p>
+    <h2 class="section-title">Sheltered Valley / Hillside Drive</h2>
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="house-num">#11</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#12</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#13</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#14</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#15</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#16</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ WOODBURY LAKE RD (Houses #17–20) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="woodbury-lake" class="section-label">Houses #17–20</p>
+    <h2 class="section-title">Woodbury Lake Road</h2>
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="house-num">#17</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#18</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#19</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#20</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ HARMONY LANE (Houses #21–24) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="harmony-lane" class="section-label">Houses #21–24</p>
+    <h2 class="section-title">Harmony Lane</h2>
+
+    <!-- Narrative history of the Harmony Lane parcel before the table -->
+    <div class="prose">
+      <p>Houses #21–24 occupy land originally acquired by the Thunder Lake Lumber Company on December 20, 1859 from Wisconsin state holdings. The area borders the Read property (#20) northward, Government Point (Piper's Point, #25) southward, Lake Julia westward, and Nicolet National Forest eastward.</p>
+      <p>Irv and Dora Koten purchased this property during the 1940s. Their son Don constructed the first structure, "Koten Point" (#21), in 1953. The Kotens subsequently divided southern portions among other families.</p>
+      <p>Harmony Lane is privately maintained by the owners of properties #21–24. The unpaved road spans approximately 1.3 miles from its Bradford Lane entrance to the Mayer property, with the Munkwitz and Schlueter properties at midpoint.</p>
+      <p>The road's former name was <em>"Ups-N-Downs"</em> until approximately 1995, when Forest County assigned the official designation "Harmony Lane" for emergency services. Local children initially removed the new sign; it was reinstalled in reinforced concrete.</p>
+    </div>
+
+    <!-- Ownership table: each row has its own id anchor for direct linking
+         (e.g. href="properties.html#harmony-23") -->
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="house-num" id="harmony-21">#21</td>
+          <td>1953</td>
+          <td>Built by Don Koten — the first structure on the Harmony Lane parcel. Known as "Koten Point."
+          <td>
+            <!-- .ownership-chain stacks transfers with → arrows on new lines -->
+            <span class="ownership-chain">Koten family (~1940s)<span class="transfer">&rdsh; (2005) Rick &amp; Paula Mayer</span></span>
+          </td>
+          <td>Mayer, Rick &amp; Paula</td>
+        </tr>
+        <tr>
+          <td class="house-num" id="harmony-22">#22</td>
+          <td>1957</td>
+          <td>Built on land from the Koten family. Passed through the Augustine and Munkwitz families.</td>
+          <td>
+            <span class="ownership-chain">Koten family<span class="transfer">&rdsh; (1956) Leland Augustine</span><span class="transfer">&rdsh; (1957) Adam Letsch</span><span class="transfer">&rdsh; (1958) Doris &amp; George Munkwitz Sr.</span><span class="transfer">&rdsh; (2003) Charles &amp; George Munkwitz</span></span>
+          </td>
+          <td>Munkwitz, George</td>
+        </tr>
+        <tr>
+          <td class="house-num" id="harmony-23">#23</td>
+          <td>1956</td>
+          <td>Built on Koten land. Leland Augustine was the maternal grandfather of Pete Schlueter, current co-owner.</td>
+          <td>
+            <span class="ownership-chain">Koten family<span class="transfer">&rdsh; (1956) Leland Augustine</span><span class="transfer">&rdsh; (1980) Marion Schlueter-Davis &amp; Betty Gibson</span><span class="transfer">&rdsh; (2003) Charles (Pete) &amp; Julie Schlueter</span></span>
+          </td>
+          <td>Schlueter, Pete &amp; Julie</td>
+        </tr>
+        <tr>
+          <td class="house-num" id="harmony-24">#24</td>
+          <td>1957</td>
+          <td>Built on Koten land. Passed through several owners before the Munkwitz family acquired it in 1963.</td>
+          <td>
+            <span class="ownership-chain">Koten family<span class="transfer">&rdsh; (1956) Leland Augustine</span><span class="transfer">&rdsh; (1957) Jim Steibel</span><span class="transfer">&rdsh; (1960) John Allen</span><span class="transfer">&rdsh; (1963) Chuck &amp; George Munkwitz</span></span>
+          </td>
+          <td>Munkwitz, Chuck &amp; Susan</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ BRADFORD LANE (Houses #25–34) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="bradford-lane" class="section-label">Houses #25–34</p>
+    <h2 class="section-title">Bradford Lane</h2>
+
+    <!-- Narrative history of Bradford Lane land ownership -->
+    <div class="prose">
+      <p>Houses #28–33 are located on land originally acquired by Harry Gray Smith around 1916. Harry sold sites #28–30 to his brother Ernest Bradford (née Smith) in 1927. When Harry died in 1949, his remaining land — including the Smith cabin (#33) — descended to Bradford to repay Depression-era debt. Bradford later sold sites #31–33 to Wallace and Ada Evans of Davenport, Iowa.</p>
+      <p>Houses #25–27 at the northern end of the lane have more limited documented history at this time.</p>
+    </div>
+
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- #25 Government Point — limited history documented -->
+        <tr>
+          <td class="house-num" id="bradford-25">#25</td>
+          <td>unknown</td>
+          <td>Known as "Government Point." Further details not yet documented.</td>
+          <td><span class="ownership-chain">Piper family</span></td>
+          <td>Piper</td>
+        </tr>
+        <!-- #26 Reckmeyer — limited history documented -->
+        <tr>
+          <td class="house-num" id="bradford-26">#26</td>
+          <td>unknown</td>
+          <td>Further details not yet documented.</td>
+          <td><span class="ownership-chain">Reckmeyer family</span></td>
+          <td>Reckmeyer</td>
+        </tr>
+        <!-- #27 Reckmeyer — limited history documented -->
+        <tr>
+          <td class="house-num" id="bradford-27">#27</td>
+          <td>unknown</td>
+          <td>Further details not yet documented.</td>
+          <td><span class="ownership-chain">Reckmeyer family</span></td>
+          <td>Reckmeyer</td>
+        </tr>
+        <!-- #28 Jakubowski — Bradford land via Eppler and McPherson -->
+        <tr>
+          <td class="house-num" id="bradford-28">#28</td>
+          <td>unknown</td>
+          <td>Originally Bradford land. Passed through the Eppler and McPherson families before current ownership.</td>
+          <td>
+            <span class="ownership-chain">Bradford land<span class="transfer">&rdsh; Eppler</span><span class="transfer">&rdsh; McPherson</span><span class="transfer">&rdsh; Jakubowski</span></span>
+          </td>
+          <td>Jakubowski</td>
+        </tr>
+        <!-- #29 Wahlstrom — Bradford land via Showers and Stratton -->
+        <tr>
+          <td class="house-num" id="bradford-29">#29</td>
+          <td>unknown</td>
+          <td>Originally Bradford land. Passed through the Showers and Stratton families before current ownership.</td>
+          <td>
+            <span class="ownership-chain">Bradford land<span class="transfer">&rdsh; Showers</span><span class="transfer">&rdsh; Stratton</span><span class="transfer">&rdsh; Wahlstrom</span></span>
+          </td>
+          <td>Wahlstrom</td>
+        </tr>
+        <!-- #30 Holz — the "Little Cabin" site; Wauda family cross-referenced in In Memoriam -->
+        <tr>
+          <td class="house-num" id="bradford-30">#30</td>
+          <td>1927</td>
+          <td>Site of the original "Little Cabin." Bradford land sold to the Mott family, then to Nathan and Marion Wauda.</td>
+          <td>
+            <span class="ownership-chain">Bradford land<span class="transfer">&rdsh; Mott family</span><span class="transfer">&rdsh; Nathan &amp; Marion Wauda</span><span class="transfer">&rdsh; Spicer</span><span class="transfer">&rdsh; Holz</span></span>
+          </td>
+          <td>Holz</td>
+        </tr>
+        <!-- #31 Lerner — Bradford/Evans land -->
+        <tr>
+          <td class="house-num" id="bradford-31">#31</td>
+          <td>unknown</td>
+          <td>Bradford land sold to Wallace and Ada Evans. Their daughter Yvonne and her husband built the house; it later passed to the Lerner family.</td>
+          <td>
+            <span class="ownership-chain">Bradford land<span class="transfer">&rdsh; Wallace &amp; Ada Evans</span><span class="transfer">&rdsh; Yvonne Evans &amp; husband</span><span class="transfer">&rdsh; Lerner</span></span>
+          </td>
+          <td>Lerner</td>
+        </tr>
+        <!-- #32 David Evans — A-frame inherited from Wallace Evans -->
+        <tr>
+          <td class="house-num" id="bradford-32">#32</td>
+          <td>unknown</td>
+          <td>Bradford land sold to Wallace and Ada Evans, who built an A-frame structure. Inherited by David Evans.</td>
+          <td>
+            <span class="ownership-chain">Bradford land<span class="transfer">&rdsh; Wallace &amp; Ada Evans (built A-frame)</span><span class="transfer">&rdsh; David Evans (inherited)</span></span>
+          </td>
+          <td>Evans, David</td>
+        </tr>
+        <!-- #33 Tomas Evans — original Harry Gray Smith cabin from ~1916 -->
+        <tr>
+          <td class="house-num" id="bradford-33">#33</td>
+          <td>~1916</td>
+          <td>The original Smith family cabin. Descended to Ernest Bradford in 1949 to repay Depression-era debt.</td>
+          <td>
+            <span class="ownership-chain">Harry Gray Smith (~1916)<span class="transfer">&rdsh; Ernest Bradford (1949)</span><span class="transfer">&rdsh; Wallace Evans</span><span class="transfer">&rdsh; Tomas Evans</span></span>
+          </td>
+          <td>Evans, Tomas</td>
+        </tr>
+        <!-- #34 Snell — formerly a timber area; current house built ~1998 -->
+        <tr>
+          <td class="house-num" id="bradford-34">#34</td>
+          <td>~1998</td>
+          <td>Originally a timber marshaling area and the site of Ernest Bradford's "Little Cabin." Hal Zager sold to John Snell, who constructed the present house.</td>
+          <td>
+            <span class="ownership-chain">Hal Zager<span class="transfer">&rdsh; John Snell (~1998, built present house)</span></span>
+          </td>
+          <td>Snell</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ PUELICHER LANE (Houses #36–45) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="puelicher-lane" class="section-label">Houses #36–45</p>
+    <h2 class="section-title">Puelicher Lane</h2>
+    <!-- Ownership table — content not yet contributed for this section -->
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="house-num">#36</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#37</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#38</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#39</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#40</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#41</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#42</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#43</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#44</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#45</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════ SCOTT LAKE RD (Houses #46–49) ══════════════ -->
+  <div class="road-section fade-up">
+    <p id="scott-lake" class="section-label">Houses #46–49</p>
+    <h2 class="section-title">Scott Lake Road</h2>
+    <!-- Ownership table — content not yet contributed for this section -->
+    <table class="ownership-table">
+      <thead>
+        <tr>
+          <th>House #</th>
+          <th>Built</th>
+          <th>Description</th>
+          <th>Ownership History</th>
+          <th>Current Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="house-num">#46</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#47</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#48</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+        <tr><td class="house-num">#49</td><td>—</td><td>No content available</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+<script>
+  // Wrap each ownership table in a .table-scroll div to enable
+  // horizontal scrolling on mobile without layout overflow.
+  // This runs after the DOM is ready (script is at bottom of body).
+  document.querySelectorAll('.ownership-table').forEach(function(t) {
+    var wrap = document.createElement('div');
+    wrap.className = 'table-scroll';
+    t.parentNode.insertBefore(wrap, t);
+    wrap.appendChild(t);
+  });
+</script>
+</body>
+</html>

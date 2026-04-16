@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helpful Links — Lake Julia Association</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── PAGE-SPECIFIC STYLES: Categorized link list component ──────────
+     External links are organized into named groups, each group
+     containing a bordered "link list" — a white card with row-style
+     link items separated by thin horizontal rules.                  */
+
+  /* Outer wrapper for each category (e.g. "Lake & Water", "County") */
+  .links-group { margin-bottom: 2.5rem; }
+  .links-group:last-child { margin-bottom: 0; }   /* no extra gap after final group */
+
+  /* The white rounded container that holds all link rows for a group */
+  .link-list {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 10px;
+    overflow: hidden;   /* ensures border-radius clips the child rows */
+    margin-top: 1rem;
+  }
+
+  /* Individual link row: flex layout with icon, text block, and arrow */
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--sand-dark);   /* row separator */
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s;                /* smooth hover highlight */
+  }
+  .link-item:last-child { border-bottom: none; } /* no rule below the last row */
+  .link-item:hover { background: var(--sand); }  /* sand tint on hover */
+
+  /* Emoji icon column — fixed width so text blocks align across all rows */
+  .link-icon { font-size: 1.1rem; flex-shrink: 0; width: 24px; text-align: center; }
+
+  /* Text block: title + description — flex:1 makes it fill available width */
+  .link-info { flex: 1; }
+  .link-info h4 { font-size: 0.92rem; font-weight: 600; color: var(--water-deep); margin-bottom: 0.1rem; }
+  .link-info p { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+
+  /* Right-side arrow indicator — subtle water-light color */
+  .link-arrow { color: var(--water-light); font-size: 0.85rem; flex-shrink: 0; }
+</style>
+</head>
+<!-- data-page="resources" tells nav.js to highlight "Resources" in the top nav -->
+<body data-page="resources">
+
+<!-- ── INJECTED HEADER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <header> element. -->
+<div id="site-header"></div>
+
+<!-- ── PAGE HEADER BAND ─────────────────────────────────────────────
+     Blue gradient banner with page title, subtitle, and breadcrumb. -->
+<div class="page-header">
+  <!-- Faded map image overlaid on the gradient — purely decorative -->
+  <img class="page-header-bg-map" src="../images/hero_image1.png" alt="">
+  <div class="page-header-inner">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Resources</a> / Helpful Links</p>
+    <h1>Helpful Links</h1>
+    <p>Useful external resources for Lake Julia residents — organized by category.</p>
+  </div>
+</div>
+
+<!-- ── SECTION SUB-NAV ──────────────────────────────────────────────
+     Sticky tab bar for the Resources section. "Helpful Links" is active. -->
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="index.html">Overview</a>
+    <a href="maps.html">Maps &amp; GIS</a>
+    <a href="documents.html">Documents</a>
+    <a href="attractions.html">Local Attractions</a>
+    <a href="links.html" class="active">Helpful Links</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
+     .narrow constrains this list-heavy page to 780px max-width.
+     Four link groups: Lake & Water, County, Boating, Environment.  -->
+<div class="content-wrap narrow">
+
+  <!-- ── GROUP 1: Lake & Water resources ──
+       DNR lake page, Clean Boats program, UW Extension, and the
+       two regional lake associations Lake Julia participates in.   -->
+  <div class="links-group fade-up">
+    <p class="section-label">Lake &amp; Water</p>
+    <h2 class="section-title sm">Wisconsin DNR &amp; Water Resources</h2>
+    <div class="link-list">
+      <!-- WI DNR official page for Julia Lake (WBIC 1614300 is the lake's state ID) -->
+      <a class="link-item" href="https://apps.dnr.wi.gov/lakes/lakepages/LakeDetail.aspx?wbic=1614300" target="_blank">
+        <div class="link-icon">🏞️</div>
+        <div class="link-info"><h4>Wisconsin DNR — Julia Lake</h4><p>Official lake page with water quality data, fish surveys, and regulations</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- Clean Boats, Clean Waters: DNR-funded AIS inspection program -->
+      <a class="link-item" href="https://dnr.wisconsin.gov/topic/lakes/cbcw" target="_blank">
+        <div class="link-icon">🚤</div>
+        <div class="link-info"><h4>Clean Boats, Clean Waters Program — DNR</h4><p>State program funding and grant information</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- UW Extension Lakes administers the CBCW program on the ground -->
+      <a class="link-item" href="https://www.uwsp.edu/cnr-ap/UWEXLakes/Pages/programs/cbcw/default.aspx" target="_blank">
+        <div class="link-icon">🎓</div>
+        <div class="link-info"><h4>UW Extension Lakes — CBCW Program</h4><p>UW-Stevens Point administration of the Clean Boats program</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- TLWA: the Three Lakes Waterfront Association added Lake Julia to its map in 2021 -->
+      <a class="link-item" href="https://tlwa.org/" target="_blank">
+        <div class="link-icon">🌊</div>
+        <div class="link-info"><h4>Three Lakes Waterfront Association</h4><p>Regional partner organization covering the Three Lakes chain</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- Forest County Association of Lakes: county-level lake stewardship org -->
+      <a class="link-item" href="https://www.fcal-wis.org/" target="_blank">
+        <div class="link-icon">🏔️</div>
+        <div class="link-info"><h4>Forest County Association of Lakes</h4><p>Lake stewardship organization for Forest County</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 2: County government resources ──
+       Lake Julia straddles Oneida County (west half) and Forest
+       County (east half), so both counties are relevant.           -->
+  <div class="links-group fade-up">
+    <p class="section-label">Local Government</p>
+    <h2 class="section-title sm">County Resources</h2>
+    <div class="link-list">
+      <!-- Oneida County government homepage -->
+      <a class="link-item" href="https://www.co.oneida.wi.us/" target="_blank">
+        <div class="link-icon">🏛️</div>
+        <div class="link-info"><h4>Oneida County</h4><p>County government homepage — permits, services, and departments</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- OCLWC: handles shoreline management, erosion, and water quality permits -->
+      <a class="link-item" href="https://www.oclw.org/" target="_blank">
+        <div class="link-icon">🌱</div>
+        <div class="link-info"><h4>Oneida County Land &amp; Water Conservation</h4><p>Shoreline management, erosion control, water quality programs</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- Solid waste / recycling: for residents using the county transfer station -->
+      <a class="link-item" href="https://www.oneidacountywi.gov/departments/sw/" target="_blank">
+        <div class="link-icon">♻️</div>
+        <div class="link-info"><h4>Oneida County Solid Waste</h4><p>Recycling drop-off and hazardous waste disposal</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- Forest County covers the east half of the lake and shoreline -->
+      <a class="link-item" href="https://co.forest.wi.gov/" target="_blank">
+        <div class="link-icon">🏛️</div>
+        <div class="link-info"><h4>Forest County</h4><p>Forest County government — the east half of Lake Julia</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 3: Boating & recreation regulations ──
+       State-level boating and fishing rules plus the USFS trail index. -->
+  <div class="links-group fade-up">
+    <p class="section-label">Boating &amp; Recreation</p>
+    <h2 class="section-title sm">Regulations &amp; Trails</h2>
+    <div class="link-list">
+      <!-- WI DNR boating: registration, safety, and navigation rules -->
+      <a class="link-item" href="https://dnr.wi.gov/topic/boat/" target="_blank">
+        <div class="link-icon">⛵</div>
+        <div class="link-info"><h4>Wisconsin DNR Boating Regulations</h4><p>Registration, safety requirements, and rules of the water</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- WI DNR fishing: licenses, seasons, and bag limits for the region -->
+      <a class="link-item" href="https://dnr.wi.gov/topic/fishing/" target="_blank">
+        <div class="link-icon">🎣</div>
+        <div class="link-info"><h4>Wisconsin DNR Fishing Regulations</h4><p>License requirements, seasons, and bag limits</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- USFS hiking index for the Chequamegon-Nicolet National Forest -->
+      <a class="link-item" href="https://www.fs.usda.gov/activity/cnnf/recreation/hiking/?recid=27717&actid=50" target="_blank">
+        <div class="link-icon">🥾</div>
+        <div class="link-info"><h4>Chequamegon-Nicolet National Forest Trails</h4><p>Full listing of USFS hiking and recreation trails in the region</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 4: Environmental and conservation resources ──
+       Aquatic invasive species, shoreland zoning, and Lyme disease. -->
+  <div class="links-group fade-up">
+    <p class="section-label">Environment</p>
+    <h2 class="section-title sm">Invasives &amp; Conservation</h2>
+    <div class="link-list">
+      <!-- WI DNR invasive species: identification, reporting, and management -->
+      <a class="link-item" href="https://dnr.wi.gov/topic/Invasives/" target="_blank">
+        <div class="link-icon">🌿</div>
+        <div class="link-info"><h4>Wisconsin DNR — Invasive Species</h4><p>Identification, reporting, and management of aquatic invasives</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- Shoreland zoning: rules for docks, vegetation buffers, and construction -->
+      <a class="link-item" href="https://dnr.wi.gov/topic/shorelandzoning/" target="_blank">
+        <div class="link-icon">🏡</div>
+        <div class="link-info"><h4>Wisconsin DNR — Shoreland Zoning</h4><p>Rules and best practices for shoreline property management</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+      <!-- CDC Lyme disease: northern Wisconsin has high tick activity in summer -->
+      <a class="link-item" href="https://www.cdc.gov/lyme/" target="_blank">
+        <div class="link-icon">🦟</div>
+        <div class="link-info"><h4>CDC — Lyme Disease</h4><p>Prevention, symptoms, and treatment information</p></div>
+        <div class="link-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INJECTED FOOTER ──────────────────────────────────────────────
+     nav.js replaces this placeholder with the full <footer> element. -->
+<div id="site-footer"></div>
+<!-- Load the shared nav/footer injection script -->
+<script src="../js/nav.js"></script>
+</body>
+</html>

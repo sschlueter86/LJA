@@ -218,7 +218,7 @@
   <div class="page-header-inner">
     <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Resources</a> / Documents</p>
     <h1>Documents</h1>
-    <p>Association records, the Onterra lake study, community surveys, and memorabilia.</p>
+    <p>Association records, newsletters, the Onterra lake study, community surveys, and memorabilia.</p>
   </div>
 </div>
 
@@ -246,6 +246,9 @@
 
     <h3 class="section-title sm" style="margin-bottom:0.5rem;">Association Corporate Documents</h3>
     <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:1rem;">The 2004 articles of incorporation and bylaws drafted by Attorney Thomas J. Drought. These documents have not been amended since their adoption.</p>
+    <button class="pe-trigger" onclick="document.getElementById('pe-modal-overlay').classList.add('open')">
+      📖 Not an attorney? Here's what it states...
+    </button>
     <div class="doc-list">
       <a class="doc-item" href="https://drive.google.com/file/d/1nOnaELbBjSE_OBL1533ukzuuG2ImXvBQ/view" target="_blank">
         <div class="doc-icon">📋</div>
@@ -256,29 +259,46 @@
         <div class="doc-arrow">↗</div>
       </a>
     </div>
-    <button class="pe-trigger" onclick="document.getElementById('pe-modal-overlay').classList.add('open')">
-      📖 Not an attorney? Here's what it states...
-    </button>
-
-    <h3 class="section-title sm" style="margin-top:2rem; margin-bottom:0.5rem;">Annual Meeting History</h3>
-    <div style="background:white; border:1px solid var(--sand-dark); border-radius:10px; overflow:hidden;">
-      <div class="meeting-entry">
-        <div class="meeting-year">2021 Annual Meeting &amp; Picnic</div>
-        <p>Held at the lake. Photos available in the community archives.</p>
-      </div>
-      <div class="meeting-entry">
-        <div class="meeting-year">2020 Annual Meeting &amp; Boat Parade</div>
-        <p>Despite pandemic restrictions, the community gathered for the annual meeting and organized a beloved boat parade — one of the most memorable lake events in recent years. The parade became a model for future community celebrations.</p>
-      </div>
-    </div>
-
-    <h3 class="section-title sm" style="margin-top:2rem; margin-bottom:0.5rem;">Monthly Meeting Minutes</h3>
-    <p style="font-size:0.92rem; color:var(--text-muted);">Board meeting minutes will be archived here as they become available.</p>
   </div>
 
   <hr class="divider">
 
-  <!-- ── GROUP 2: Onterra Lake Study (2010–13) ──
+  <!-- ── GROUP 2: Newsletter Repository ── -->
+  <div class="doc-group fade-up">
+    <p class="section-label">Newsletters</p>
+    <h2 class="section-title sm">Lake Julia Newsletter Repository</h2>
+    <p style="font-size:0.92rem; color:var(--text-muted);">Association newsletters distributed to Lake Julia residents. Published as needed when there is enough news to share, not on a fixed schedule.</p>
+    <div class="doc-list">
+      <a class="doc-item" href="https://drive.google.com/file/d/1lHy-NKICE7klLgJdSq9Np7d0BMLrPoZk/view?usp=drive_link" target="_blank">
+        <div class="doc-icon">📰</div>
+        <div class="doc-info">
+          <h4>Newsletter — December 2025</h4>
+          <p>Lake Julia Association newsletter, December 2025</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <a class="doc-item" href="https://drive.google.com/file/d/1WoY0gtDFbRFVOfVfmfuz-UO6qzRWjPi9/view?usp=drive_link" target="_blank">
+        <div class="doc-icon">📰</div>
+        <div class="doc-info">
+          <h4>Newsletter — May 2025</h4>
+          <p>Lake Julia Association newsletter, May 2025</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+      <a class="doc-item" href="https://drive.google.com/file/d/1tmyOdkCC_a7rmVfd0evGlVKllO2t-_k5/view?usp=drive_link" target="_blank">
+        <div class="doc-icon">📰</div>
+        <div class="doc-info">
+          <h4>Newsletter — November 2024</h4>
+          <p>Lake Julia Association newsletter, November 2024</p>
+        </div>
+        <div class="doc-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── GROUP 3: Onterra Lake Study (2010–13) ──
        A multi-year professional assessment of Lake Julia's health.
        Broken into seven documents: final report, maps, appendices,
        survey form, survey results, wrap-up meeting, and initial proposal. -->
@@ -286,12 +306,15 @@
     <p class="section-label">Lake Study</p>
     <h2 class="section-title sm">2010–13 Onterra Lake Study</h2>
     <p style="font-size:0.92rem; color:var(--text-muted);">A comprehensive professional assessment of Lake Julia's health and water quality, conducted by Onterra LLC. The conclusion: Lake Julia is in very good condition.</p>
+    <button class="pe-trigger" onclick="document.getElementById('cmp-modal-overlay').classList.add('open')">
+      🔬 Not an environmental scientist? Here's what it found...
+    </button>
     <div class="doc-list">
       <!-- Final report: the primary deliverable of the study -->
       <a class="doc-item" href="https://drive.google.com/file/d/1HmqnNMknOmxEMCEcQls_P6Msvjhjdc88/view?usp=sharing" target="_blank">
         <div class="doc-icon">📄</div>
         <div class="doc-info">
-          <h4>Final Report</h4>
+          <h4>The Final Report</h4>
           <p>October 2013 — full findings and recommendations</p>
         </div>
         <div class="doc-arrow">↗</div>
@@ -486,6 +509,68 @@
   </div>
 </div>
 
+<!-- ── CMP PLAIN ENGLISH MODAL ──────────────────────────────────────
+     Full-screen overlay that appears when the "Not a scientist?" button
+     on the Onterra Lake Study is clicked. Separate from the governance
+     modal above. Backdrop click and Escape key both close it.       -->
+<div id="cmp-modal-overlay" class="pe-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="pe-modal" role="dialog" aria-modal="true" aria-labelledby="cmp-modal-title">
+    <div class="pe-modal-header">
+      <h3 id="cmp-modal-title">Not a scientist? Here's what it found.</h3>
+      <button class="pe-close" onclick="document.getElementById('cmp-modal-overlay').classList.remove('open')" aria-label="Close">✕</button>
+    </div>
+    <div class="pe-modal-body">
+
+      <div class="pe-section">
+        <h4>2013 Comprehensive Management Plan</h4>
+        <p class="pe-label">What is this document?</p>
+        <p class="pe-blurb">A 75-page professional assessment of Lake Julia's ecological health, commissioned by the Lake Julia Association and funded in part by Wisconsin DNR grants. It was researched and written by Onterra LLC between 2010 and 2013, with input from a community planning committee and a survey of lake residents.</p>
+
+        <p class="pe-label">The bottom line</p>
+        <ul>
+          <li><strong>Lake Julia is in exceptional shape.</strong> When compared to similar lakes across Wisconsin and within the Northern Lakes and Forests region, Lake Julia ranks as having excellent water quality — low nutrient levels, no algae problems, and no invasive aquatic plants at the time of the study.</li>
+          <li><strong>The watershed protects the lake.</strong> About 58% of the 5,363-acre watershed surrounding the lake is wetlands, and another 31% is forest. These natural land covers filter runoff before it reaches the lake, keeping nutrient inputs low.</li>
+          <li><strong>The plant community is remarkable.</strong> Surveyors found 58 native aquatic plant species — an extraordinarily high number. The lake's Floristic Quality Index score (a measure of ecological health) was nearly double the state and regional averages, indicating that many of the plants present are species that only survive in pristine conditions.</li>
+          <li><strong>No invasive plants were found.</strong> Despite nearby lakes battling Eurasian water milfoil (Virgin Lake, Long Lake, Eagle River Chain), Lake Julia was free of this and other invasive species at the time of the survey. The only invasive species present were rusty crayfish.</li>
+        </ul>
+
+        <p class="pe-label">Water quality findings</p>
+        <ul>
+          <li>The lake is classified as <em>mesotrophic</em> — meaning it falls in a healthy middle range between nutrient-poor and nutrient-rich. It has enough productivity to support fish and wildlife, but not so much that algae blooms are a problem.</li>
+          <li>Phosphorus levels ranked <em>Excellent</em> compared to similar Wisconsin lakes. Phosphorus is the nutrient that drives algae growth, so keeping it low is the primary goal of lake management.</li>
+          <li>The water has a natural dark, tea-like color caused by organic tannins that leach from surrounding wetlands and forests — not pollution. This tint limits light penetration, which actually helps keep invasive plant growth in check.</li>
+          <li>The lake is not sensitive to acid rain. Its alkalinity is sufficient to buffer against acidic inputs, and its pH is within normal range for Wisconsin lakes.</li>
+          <li>No evidence of faulty septic systems was found during the study period.</li>
+        </ul>
+
+        <p class="pe-label">Shoreline condition</p>
+        <ul>
+          <li>70% of Lake Julia's 6.9-mile shoreline is natural and undeveloped — a rarity for Wisconsin lakes, and a major reason the lake is in such good ecological health.</li>
+          <li>Only about 4% (0.2 miles) of the shoreline showed significant human disturbance. Protecting what remains natural was identified as more important than restoring what has already been developed.</li>
+          <li>Natural shorelands filter runoff, prevent erosion, provide wildlife habitat, and protect spawning areas for fish. Clearing vegetation, building seawalls, or mowing to the water's edge degrades all of these functions.</li>
+        </ul>
+
+        <p class="pe-label">Fishery</p>
+        <ul>
+          <li>The lake supports a diverse mix of game fish including walleye, muskellunge, smallmouth bass, northern pike, and panfish. The WDNR actively stocks walleye (on even years) and muskellunge (on odd years) to supplement natural reproduction.</li>
+          <li>Because Lake Julia is relatively nutrient-poor, it will never produce the large numbers of trophy-sized fish found in more productive lakes — this is a natural characteristic, not a management failure.</li>
+          <li>Lake Julia falls within Native American ceded territory under the Treaty of 1842, which allows tribal members a regulated spear harvest. In practice, spearing has been rare — the only recorded harvest was 25 walleye in 2003.</li>
+          <li>Mercury has accumulated in larger walleye. The WDNR recommends that walleye over 15 inches be eaten no more than once a month by adults, and not at all by women of childbearing age or children under 15.</li>
+        </ul>
+
+        <p class="pe-label">What the plan recommended</p>
+        <ul>
+          <li><strong>Communicate and educate.</strong> Form an Education Committee to distribute newsletters, promote responsible boating, shoreland stewardship, and awareness of lake ecology among residents.</li>
+          <li><strong>Monitor water quality.</strong> Enroll volunteers in the WDNR's Citizens Lake Monitoring Network to collect ongoing Secchi disk (water clarity) data, building a long-term record for the lake.</li>
+          <li><strong>Prevent invasive species.</strong> Continue and expand the Clean Boats Clean Waters (CBCW) boat inspection program at the public landing, and conduct annual volunteer "lake sweeps" to detect any early invasive plant arrivals before they can establish.</li>
+          <li><strong>Work with fisheries managers.</strong> Maintain contact with WDNR fisheries staff, explore habitat enhancement options (such as fish cribs or brush structures), and share fishing information with the community.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ── INJECTED FOOTER ──────────────────────────────────────────────
      nav.js replaces this placeholder with the full <footer> element. -->
 <div id="site-footer"></div>
@@ -497,7 +582,10 @@
      from the modal overlay, closing it without requiring a mouse click.
      This is standard accessible behavior for modal dialogs.          */
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') document.getElementById('pe-modal-overlay').classList.remove('open');
+    if (e.key === 'Escape') {
+      document.getElementById('pe-modal-overlay').classList.remove('open');
+      document.getElementById('cmp-modal-overlay').classList.remove('open');
+    }
   });
 </script>
 </body>

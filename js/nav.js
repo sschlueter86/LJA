@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '04/09/2026 @ 2:06 PM CST'; // update this each time the site is published
+const LAST_UPDATED = '04/20/2026 @ 10:23 PM CST'; // update this each time the site is published
 
 // ── SEARCH INDEX ──────────────────────────────────────────────────
 // Each entry: { title, url (root-relative), section, snippet, body }

@@ -38,90 +38,74 @@
   </div>
 </nav>
 
-<!-- ── MAIN CONTENT ─────────────────────────────────────────────────
-     Full-width layout for the card grid.                           -->
-<div class="content-wrap">
+<!-- ── MAIN CONTENT ──────────────────────────────────────────────── -->
+<div class="content-wrap narrow">
 
-  <!-- ── SECTION: Wildlife and ecology card grid ──
-       Each card covers one topic: ticks, beavers, otters, fishing,
-       forest ecology, and county conservation organizations.       -->
-  <div class="cards-grid">
-
-    <!-- Ticks card: .danger tag signals a health concern -->
-    <div class="card fade-up">
-      <span class="card-tag danger">Health Alert</span>
-      <h3>Tick-Borne Illness</h3>
+  <!-- ── SECTION: Health ── -->
+  <div class="fade-up">
+    <p class="section-label">Health Alert</p>
+    <h2 class="section-title">Tick-Borne Illness</h2>
+    <div class="prose">
       <p>Ticks carrying Lyme disease and other illnesses are present in the Lake Julia area. Check yourself, children, and pets after time outdoors — especially in wooded and grassy areas.</p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">
-        <strong>Lyme disease symptoms</strong> include a bullseye rash, fever, fatigue, and joint pain. Early treatment is effective — consult a doctor promptly if you suspect exposure.
-      </p>
-      <a class="card-link" href="https://www.cdc.gov/lyme/" target="_blank">CDC Lyme Disease Info →</a>
+      <p>Lyme disease symptoms include a bullseye rash, fever, fatigue, and joint pain. Early treatment is effective — consult a doctor promptly if you suspect exposure. For more information, visit the <a href="https://www.cdc.gov/lyme/" target="_blank">CDC Lyme Disease page</a>.</p>
     </div>
-
-    <!-- Beavers card: wildlife note with management guidance -->
-    <div class="card fade-up">
-      <span class="card-tag pine">Wildlife</span>
-      <h3>Beavers</h3>
-      <p>Beavers are active in the Lake Julia watershed. While they are a natural part of the ecosystem, beaver activity can affect shoreline vegetation, water levels, and drainage structures.</p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">If beaver activity is affecting your property, contact Oneida County for guidance on management options.</p>
-    </div>
-
-    <!-- Otters card: behavioral notes and safety information -->
-    <div class="card fade-up">
-      <span class="card-tag pine">Wildlife</span>
-      <h3>Otters</h3>
-      <p>North American River Otters are active in the Lake Julia watershed as well.  Otters tend to more active during the day (diurnal) in winter, and more active during the night (nocturnal) for the remainder of the year. Some otters may live in solitude, but they are known to socialize in groups</p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">Known as being playful, River otters have been known to attack humans and pets when they feel threatened, cornered, or are protecting their young.</p>
-    </div>
-
-    <!-- Fishing card: links to DNR for license information -->
-    <div class="card fade-up">
-      <span class="card-tag">Fishing</span>
-      <h3>Fishing</h3>
-      <p>Lake Julia supports a healthy fishery. A professional lake study by Onterra LLC (2010–13) confirmed the lake's good overall health.</p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">All Wisconsin fishing regulations apply. Licenses are available through the <a href="https://dnr.wi.gov/topic/fishing/" target="_blank" style="color:var(--water);">Wisconsin DNR</a>.</p>
-    </div>
-
-    <!-- Forest ecology card: CCC legacy and mycorrhizal network reading -->
-    <div class="card fade-up">
-      <span class="card-tag pine">Forest</span>
-      <h3>Forest Ecology</h3>
-      <p>The forests surrounding Lake Julia were significantly shaped by the Civilian Conservation Corps in the 1930s. Today they support a rich mix of northern hardwoods and conifers.</p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">
-        Recommended reading: <a href="https://www.nytimes.com/interactive/2020/12/02/magazine/tree-communication-mycorrhiza.html" target="_blank" style="color:var(--water);">"The Social Life of Trees"</a> — NYT Magazine, Dec. 2020 — on how trees communicate through mycorrhizal networks.
-      </p>
-    </div>
-
-    <!-- Forest County Association of Lakes: spans both counties -->
-    <div class="card fade-up">
-      <span class="card-tag pine">Regional</span>
-      <h3>Forest County Association of Lakes</h3>
-      <p>Lake Julia spans both Oneida and Forest Counties. The Forest County Association of Lakes works on water quality and lake stewardship across the county.</p>
-      <a class="card-link" href="https://www.fcal-wis.org/" target="_blank">Visit FCAL →</a>
-    </div>
-
-    <!-- Oneida County LWCD: shoreline and erosion resources -->
-    <div class="card fade-up">
-      <span class="card-tag">Conservation</span>
-      <h3>Oneida County Land &amp; Water Conservation</h3>
-      <p>The Oneida County Land and Water Conservation Department (LWCD) provides resources and programs for shoreline management, erosion control, and water quality protection.</p>
-      <a class="card-link" href="https://www.co.oneida.wi.us/departments/land_water_conservation/" target="_blank">Oneida County LWCD →</a>
-    </div>
-
   </div>
 
-  <hr class="divider" style="margin-top:2.5rem;">
+  <hr class="divider">
 
-  <!-- ── SECTION: Shoreline stewardship advice ──
-       max-width:720px on this div narrows the prose within the
-       wider full-width content-wrap container.                     -->
-  <div class="fade-up" style="max-width:720px;">
+  <!-- ── SECTION: Wildlife ── -->
+  <div class="fade-up">
+    <p class="section-label">Wildlife</p>
+    <h2 class="section-title">Beavers &amp; Otters</h2>
+    <div class="prose">
+      <p>Beavers are active in the Lake Julia watershed. While they are a natural part of the ecosystem, beaver activity can affect shoreline vegetation, water levels, and drainage structures. If beaver activity is affecting your property, contact Oneida County for guidance on management options.</p>
+      <p>North American River Otters are also present in the watershed. Otters tend to be more active during the day in winter and more nocturnal the rest of the year. They are known for being playful and social, though they can be aggressive toward humans and pets when cornered or protecting their young.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Fishing ── -->
+  <div class="fade-up">
+    <p class="section-label">Fishing</p>
+    <h2 class="section-title">Fishing on Lake Julia</h2>
+    <div class="prose">
+      <p>Lake Julia supports a healthy fishery. A professional lake study by Onterra LLC (2010–13) confirmed the lake's good overall ecological health. All Wisconsin fishing regulations apply. Licenses and regulations are available through the <a href="https://dnr.wi.gov/topic/fishing/" target="_blank">Wisconsin DNR</a>.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Forest Ecology ── -->
+  <div class="fade-up">
+    <p class="section-label">Forest</p>
+    <h2 class="section-title">Forest Ecology</h2>
+    <div class="prose">
+      <p>The forests surrounding Lake Julia were significantly shaped by the Civilian Conservation Corps in the 1930s. Today they support a rich mix of northern hardwoods and conifers. For an interesting look at how forests communicate and function as interconnected systems, see <a href="https://www.nytimes.com/interactive/2020/12/02/magazine/tree-communication-mycorrhiza.html" target="_blank">"The Social Life of Trees"</a> — NYT Magazine, Dec. 2020.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Shoreline Stewardship ── -->
+  <div class="fade-up">
     <p class="section-label">Shoreline Stewardship</p>
-    <h2 class="section-title sm">What you can do</h2>
+    <h2 class="section-title">What you can do</h2>
     <div class="prose">
       <p>Healthy shoreline vegetation — native grasses, shrubs, and trees — filters runoff, prevents erosion, and provides critical habitat. Consider maintaining a natural buffer of native plants along your shoreline rather than manicured lawn to the water's edge.</p>
-      <p>Avoid using fertilizers or pesticides near the water, and minimize impervious surfaces that direct runoff directly into the lake.</p>
-      <p>The Wisconsin DNR's <a href="https://dnr.wi.gov/topic/shorelandzoning/" target="_blank">shoreland zoning program</a> provides guidance on best practices and regulations.</p>
+      <p>Avoid using fertilizers or pesticides near the water, and minimize impervious surfaces that direct runoff directly into the lake. The Wisconsin DNR's <a href="https://dnr.wi.gov/topic/shorelandzoning/" target="_blank">shoreland zoning program</a> provides guidance on best practices and regulations.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION: Regional Organizations ── -->
+  <div class="fade-up">
+    <p class="section-label">Conservation Organizations</p>
+    <h2 class="section-title">Regional resources</h2>
+    <div class="prose">
+      <p>Lake Julia spans both Oneida and Forest Counties. The <a href="https://www.fcal-wis.org/" target="_blank">Forest County Association of Lakes</a> works on water quality and lake stewardship across Forest County.</p>
+      <p>The <a href="https://www.co.oneida.wi.us/departments/land_water_conservation/" target="_blank">Oneida County Land and Water Conservation Department (LWCD)</a> provides resources and programs for shoreline management, erosion control, and water quality protection.</p>
     </div>
   </div>
 

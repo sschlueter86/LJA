@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maps & GIS — Lake Julia Association</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Match existing LJA site nav/footer -->
+  <script src="../js/nav.js" defer></script>
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    /* ── Page layout ─────────────────────────────────────────── */
+    body { margin: 0; font-family: Georgia, serif; background: #f4f1eb; color: #2c2c2c; }
+
+    .page-header {
+      background: #1a3a2a;
+      color: #e8dfc8;
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 3px solid #4a7c59;
+    }
+    .page-header h1 { margin: 0 0 .25rem; font-size: 1.8rem; letter-spacing: .04em; }
+    .page-header p  { margin: 0; font-size: .95rem; opacity: .8; font-style: italic; }
+
+    /* ── Map container ───────────────────────────────────────── */
+    #map-wrap {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 160px);
+      min-height: 500px;
+    }
+    #map { width: 100%; height: 100%; }
+
+    /* ── Layer control panel ─────────────────────────────────── */
+    .layer-panel {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(255,255,255,.95);
+      border: 1px solid #c8bfa8;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-family: 'Georgia', serif;
+      font-size: .82rem;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      min-width: 160px;
+    }
+    .layer-panel h3 {
+      margin: 0 0 8px;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #555;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .layer-panel label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 5px 0;
+      cursor: pointer;
+      color: #2c2c2c;
+    }
+    .layer-panel input[type=checkbox] { accent-color: #4a7c59; cursor: pointer; }
+
+    /* ── Popup styling ───────────────────────────────────────── */
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px;
+      border: 1px solid #c8bfa8;
+      box-shadow: 0 3px 12px rgba(0,0,0,.2);
+      font-family: Georgia, serif;
+      min-width: 320px;
+    }
+    .leaflet-popup-content { margin: 12px 14px; }
+
+    .popup-header {
+      border-bottom: 2px solid #4a7c59;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .popup-prop-number {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .popup-name {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #1a3a2a;
+      margin: 0;
+    }
+    .popup-alias {
+      font-size: .82rem;
+      color: #666;
+      font-style: italic;
+      margin: 0;
+    }
+
+    .popup-section { margin: 7px 0; font-size: .83rem; }
+    .popup-label {
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #888;
+      display: block;
+      margin-bottom: 1px;
+    }
+    .popup-value { color: #2c2c2c; }
+
+    .popup-residents {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px solid #e5e0d5;
+    }
+    .popup-residents-toggle {
+      background: none;
+      border: 1px solid #4a7c59;
+      border-radius: 4px;
+      color: #4a7c59;
+      font-family: Georgia, serif;
+      font-size: .78rem;
+      padding: 4px 10px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      margin-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .popup-residents-toggle:hover { background: #f0f7f3; }
+    .popup-residents-panel {
+      display: none;
+      margin-top: 6px;
+    }
+    .popup-residents-panel.open { display: block; }
+    .popup-residents-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 160px;
+      overflow-y: auto;
+      font-size: .81rem;
+      line-height: 1.7;
+      color: #3a3a3a;
+      border: 1px solid #e5e0d5;
+      border-radius: 4px;
+      padding: 6px 10px;
+      background: #faf8f4;
+    }
+    .popup-residents-list::-webkit-scrollbar { width: 4px; }
+    .popup-residents-list::-webkit-scrollbar-track { background: #f0ede6; }
+    .popup-residents-list::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 2px; }
+
+    /* ── Cabin square marker icon ────────────────────────────── */
+    .cabin-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+      border: 2px solid rgba(0,0,0,.45);
+      border-radius: 3px;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-size: .80rem;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,.4);
+      box-sizing: border-box;
+    }
+
+    /* ── Permanent name label ────────────────────────────────── */
+    .leaflet-tooltip.cabin-label {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      font-family: Georgia, serif;
+      font-size: .75rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      white-space: nowrap;
+      padding: 0;
+      /* white halo so label reads against any basemap */
+      text-shadow:
+        1px  1px 2px #fff, -1px  1px 2px #fff,
+        1px -1px 2px #fff, -1px -1px 2px #fff;
+    }
+    .leaflet-tooltip.cabin-label::before { display: none; }
+
+    /* ── Access road color legend squares ────────────────────── */
+    .legend-dot {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border: 2px solid rgba(0,0,0,.35);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer note ─────────────────────────────────────────── */
+    .map-footer {
+      background: #1a3a2a;
+      color: #a0b8a8;
+      font-size: .75rem;
+      padding: .6rem 1.5rem;
+      text-align: center;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Maps &amp; GIS</h1>
+  <p>Lake Julia Association — Property &amp; Community Map</p>
+</div>
+
+<div id="map-wrap">
+  <div id="map"></div>
+
+  <div class="layer-panel">
+    <h3>Layers</h3>
+    <label>
+      <span class="legend-dot" style="background:#2e7d4f; border: 2px solid #1a4d30;"></span>
+      <input type="checkbox" id="toggle-cabins" checked /> Properties
+    </label>
+    <!-- Future layers added here -->
+  </div>
+</div>
+
+<div class="map-footer">
+  Map data © <a href="https://www.openstreetmap.org/copyright" style="color:#7cad8c">OpenStreetMap</a> contributors &nbsp;|&nbsp;
+  Property locations are approximate &nbsp;|&nbsp; Contact information available to LJA members only
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ── Resident lookup (names only) ──────────────────────────────
+// ALT_CABINS: if a property has 0 residents, fall back to the listed cabin's residents
+// Populate from the Alt Cabin Number column in residents.csv
+const ALT_CABINS = {
+  "6": 5,
+  "13": 12,
+  "17": 19,
+  "27": 26,
+};
+
+const RESIDENTS = {
+  "1": [["Ginny Starke",1],["Kim Starke",1]],
+  "2": [["Johnathan Starke",2],["Peter Starke",1],["Michael Tibbs",2],["Susan Tibbs",2]],
+  "3": [["Anna Burrall",3],["Grant Burrall",3],["Mark Burrall",1],["Penny Burrall",1],["Joel Evenson",3],["Keenie Evenson",3],["Linda Pitz",1],["Margaret Pitz",1],["Preston Pitz",2]],
+  "4": [["Jerry Hart",4],["Dave Hoffman",3],["Keri Hoffman",3],["Benjamin Mitzner",4],["Dave Mitzner",1],["Nancy Mitzner",4],["Tess Mitzner",2],["Tracy Mitzner",4],["Christine O'Connor",2]],
+  "5": [["Adam Drought",2],["Ellen Drought",2],["James Drought",1],["Jonathan Drought",2],["Julia Drought",2],["Kay Drought",1],["Liza Drought",2],["Matthew Drought",2],["Nancy Drought",1],["Timothy Drought",2],["Tommy Drought",2],["Amy Drought-Griffin",2],["Thomas Drought, Jr.",1],["Jeffrey Griffin",1],["Paul Griffin",3],["Samuel Griffin",3],["Thomas Griffin",3],["Jeff Levin",3]],
+  "7": [["Carolyn Heil",2],["Katherine Heil",1],["Peter Heil",1],["Barbara Howard",3],["Matthew Howard",3]],
+  "8": [["Gail Lewis",1],["Helen Lewis",2],["Jonathan Lewis",1],["Parker Lewis",2],["Marty Shaffer",2],["Clifford Stanley",1],["Craig Stanley",1],["Edward Stanley",3],["Eve Stanley",3],["Georgia Stanley",2],["Julia Stanley",2],["Mary Stanley",2],["Mary Stanley",3],["Nathaniel Stanley",2],["Olivia Stanley",2],["Claire VanHee",1],["Kate VanHee",2],["Kelly VanHee",2],["Kendall VanHee",2],["Kirk VanHee",1]],
+  "9": [["Rick Chaltry",3],["Christopher Coakley",2],["Tony Noblett",2],["Daniel Read",1],["Frederick Read",1],["Mary Read",2],["Cynthia Read-Coakley",2],["Cathe Read-Noblett",1],["Libby Chaltry",3],["Robby Strommen",4],["Sarah Woodward",4]],
+  "10": [["Mer Grossman",3],["Peter Grossman",3],["Emma Levin",7],["Lynn Lindsey",6],["Dorla Mayer",2],["Kathy Mayer",2],["Marjorie Mayer",1],["Peter Mayer",5],["Susan Mayer",5],["Zachary Mayer",7],["Pauline Nathanson",1],["Kathy Pawlak",4],["Richard Pawlak",4]],
+  "11": [["C. J. Kraft",3],["Linda Kraft",3],["Brittany Zellmer",4],["James Zellmer",4],["Jesse Zellmer",5],["Mary Zellmer",1],["Nancy Zellmer",2],["Ronald Zellmer",2],["Steven Zellmer",1]],
+  "12": [["Billy Ringenoldus",3],["Christopher Ringenoldus",1],["Elaine Ringenoldus",2],["Jane Ringenoldus",3],["Linda Ringenoldus",1],["Paul Ringenoldus",3],["Robert Ringenoldus",2],["Sally Ringenoldus",2],["Scott Ringenoldus",4],["Tim Ringenoldus",4]],
+  "14": [["Amy Doyle",1],["Jamie Doyle",1]],
+  "15": [["Pamela Baker",1],["Dana Currier",3],["Alexandra Franke",2],["Baker Franke",2],["Jay Franke",1],["Adam Lubin",2],["Kay Poyner Brown",3]],
+  "16": [["Cynthia Doth",2],["Gregory Doth",2],["Janet Kurtz",1]],
+  "18": [["David Stern",1],["Kaitlyn Stern",2],["Lynne Stern",1],["Zachary Stern",2]],
+  "19": [["Laurie Seftar Christoph",3],["Ralph Christoph",3],["Nancy Seftar",1],["Robb Seftar",2]],
+  "20": [["Don Read",1],["Virginia Read",1]],
+  "21": [["Maddy Mayer",2],["Mira Mayer",3],["Rick Mayer",1],["Zach Mayer",3]],
+  "22": [["George Munkwitz",1]],
+  "23": [["Shannon Lemasters",8],["Brandy Millen",5],["Greg Millen",5],["Kent Millen",5],["Mindy Millen",5],["Aaron Ogden",7],["Katie Ogden",7],["Aimee Schlueter",4],["Charles Schlueter \"Pete\"",1],["Chris Schlueter",2],["Judy Schlueter",3],["Julie Schlueter",1],["Karin Schlueter",2],["Kurt Schlueter",3],["Scott Schlueter",4]],
+  "24": [["Dave Bartkus",3],["Fred Beaudry",3],["Cameron MCGregor",3],["Charles Munkwitz",1],["Irma Munkwitz",2],["Lindsey Munkwitz",2],["Melissa Munkwitz",2],["Nicole Munkwitz",2],["Susan Munkwitz",1],["Charles Munkwitz, Jr.",2]],
+  "25": [["Steve Piper",1]],
+  "26": [["Amy Kuesel",3],["Thomas Kuesel",3],["Edy Reckmeyer",4],["Grace Reckmeyer",4],["Lisa Reckmeyer",2],["Mike Reckmeyer",2],["Peter Reckmeyer",2],["Sheila Reckmeyer",2],["William Reckmeyer",5],["Victor Reckmeyer, II",1]],
+  "28": [["Brie Dorcy",2],["Christine Jakubowski",1],["Matt Jakubowski",1],["Bob McPherson",2],["Sally McPherson",2],["James Richter",3]],
+  "29": [["Brynne Wahlstrom",2],["Eva Wahlstrom",2],["Jen Wahlstrom",2],["Neil Wahlstrom",2],["Nelsen Wahlstrom",2],["Thea Wahlstrom",2],["Holly Wahlstrom- Stratton",1]],
+  "30": [["Andrea Holz",3],["Deborah Holz",1],["Katherine Holz",3],["Michael Holz",2]],
+  "31": [["AJ Lerner",2],["Alan Lerner",1],["Alicia Lerner",1],["Kelley Lerner",2],["Nina McLendon",2]],
+  "32": [["David Evans",1],["Eileen Evans",1],["Matt Evans",1]],
+  "33": [["Edward Evans",2]],
+  "34": [["John Paczkowski",2],["Julie Paczkowski",2],["Jeanie Snell",1],["John Snell",1],["John Snell",2],["Joy Snell",2]],
+  "35": [["Carolyn Zager",1],["Mark Zager",1],["Susan Zager",1]],
+  "36": [["Alec Wahl",2],["Jack Wahl",2],["Nic Wahl",1],["Sally Wahl",1],["Nic Wahl (Jr.)",2]],
+  "37": [["Andrea Dedrick",1],["Ellie Dedrick",3],["Rich Dedrick",3],["Richard Dedrick",2],["Rob Dedrick",3]],
+  "38": [["Lacey Christophersen",2],["Tessa Christophersen",2],["Brent Zanzinger",1],["Missy (Christophersen) Zanzinger",1]],
+  "39": [["Jan Kittoe",1],["Michael Kittoe",1]],
+  "40": [["Aaron Lynch",2],["Ana Paula Lynch",2],["April Lynch",2],["Charlene Lynch",1],["Charles Lynch",2],["Lawrence Lynch",1],["Max Lynch",2],["Melissa Lynch",2],["Patrick Lynch",2],["Sean Lynch",2]],
+  "41": [["Charles Mahoney",2],["John Mahoney",1],["Katie Mahoney",2],["Thomas Mahoney",2]],
+  "42": [["Daniella Honkamp",2],["Melissa Honkamp",1],["Michael Honkamp",1]],
+  "43": [["Maria Gray",1],["Mike Gray",1]],
+  "44": [["Erika Brandt",1],["Jenny Corona",2],["Paul Corona",2],["Steven Jacobus",1]],
+  "45": [["Isabel Ullrich",2],["Joseph Ullrich",1],["Katie Ullrich",2],["Peter Ullrich",2],["Trish Ullrich",1]],
+  "46": [["Adam Dallimore",2],["Jack Dallimore",2],["Hannah Reckmeyer",2],["Jennifer Reckmeyer",1],["John Reckmeyer",1],["Samantha Reckmeyer",2]],
+  "47": [["Kevin Armstrong",4],["Lizanne Armstrong",4],["Benjamin Grindel",2],["Jacob Grindel",2],["Laurie Grindel",1],["Samuel Grindel",2],["Steve Grindel",1],["Jamie Uihlein",3],["Mary Uihlein",3]],
+  "48": [["Cindy Uhen",1],["Greg Uhen",1]],
+  "49": [["Christianne Camera",1],["Maria Camera",1]],
+};
+
+// ── Access road → marker color ────────────────────────────────
+const ACCESS_COLORS = {
+  'LakeJulia':           '#2e7d4f',
+  'HillTop':             '#1565c0',
+  'Harmony/Woodbury':    '#6a1fa0',
+  'Bradford':            '#b45309',
+  'Puelicher/ScottLake': '#b91c1c',
+};
+const DEFAULT_COLOR = '#555';
+
+function markerColor(access) {
+  return ACCESS_COLORS[access] || DEFAULT_COLOR;
+}
+
+function makeIcon(color, number) {
+  return L.divIcon({
+    html: `<div class="cabin-icon" style="background:${color}">${number}</div>`,
+    className: '',
+    iconSize: [22, 22],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -16]
+  });
+}
+
+// ── Popup builder ─────────────────────────────────────────────
+function buildPopup(props) {
+  const num     = props.PropertyMapNumber;
+  const direct  = RESIDENTS[String(num)] || [];
+  const names   = direct.length > 0
+                ? direct
+                : RESIDENTS[String(ALT_CABINS[String(num)])] || [];
+  const alias = props.Alias && props.Alias !== props.Name ? props.Alias : null;
+  const addr  = props.Address && !props.Address.startsWith('#') ? props.Address : null;
+
+  const residentItems = [...names]
+    .sort((a, b) => (Array.isArray(a) ? a[1] : 0) - (Array.isArray(b) ? b[1] : 0))
+    .map(entry => `<li>${Array.isArray(entry) ? entry[0] : entry}</li>`)
+    .join('');
+  const uid = 'res_' + num;
+  const residentBlock = names.length
+    ? `<div class="popup-residents">
+         <button class="popup-residents-toggle" onclick="toggleResidents('${uid}')">
+           <span>Residents &amp; Visitors (${names.length})</span>
+           <span id="arrow_${uid}">▼</span>
+         </button>
+         <div class="popup-residents-panel" id="${uid}">
+           <ul class="popup-residents-list">${residentItems}</ul>
+         </div>
+       </div>`
+    : '';
+
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Property #${num}</div>
+      <div class="popup-name">${props.Name}</div>
+      ${alias ? `<div class="popup-alias">"${alias}"</div>` : ''}
+    </div>
+    ${props.PrimaryPointOfContact ? `
+    <div class="popup-section">
+      <span class="popup-label">Primary Contact</span>
+      <span class="popup-value">${props.PrimaryPointOfContact}</span>
+    </div>` : ''}
+    ${addr ? `
+    <div class="popup-section">
+      <span class="popup-label">Address</span>
+      <span class="popup-value">${addr}</span>
+    </div>` : ''}
+    <div class="popup-section">
+      <span class="popup-label">Lake Access</span>
+      <span class="popup-value">${props.LakeAccess}</span>
+    </div>
+    ${residentBlock}
+  `;
+}
+
+// ── Residents toggle ─────────────────────────────────────────
+function toggleResidents(uid) {
+  const panel = document.getElementById(uid);
+  const arrow = document.getElementById('arrow_' + uid);
+  if (!panel) return;
+  panel.classList.toggle('open');
+  arrow.textContent = panel.classList.contains('open') ? '▲' : '▼';
+}
+
+// ── Initialize map ────────────────────────────────────────────
+const map = L.map('map', {
+  center: [45.795, -89.048],
+  zoom: 14,
+  zoomControl: true,
+});
+
+// OSM via openstreetmap.fr — works without referer restriction (localhost + production)
+L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+  maxZoom: 20,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// ── Load cabin GeoJSON ────────────────────────────────────────
+const cabinsLayer = L.layerGroup().addTo(map);
+
+fetch('data/cabins.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      pointToLayer: (feature, latlng) => {
+        const color = markerColor(feature.properties.LakeAccess);
+        const num   = feature.properties.PropertyMapNumber;
+        return L.marker(latlng, { icon: makeIcon(color, num) });
+      },
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(buildPopup(feature.properties), { maxWidth: 380, minWidth: 320, autoPan: false });
+        layer._labelName = feature.properties.Name || '';
+        layer._tooltipDir = null;
+        featureLayers.push(layer);
+        layer.on('click', () => {
+          const c = map.getCenter();
+          const t = layer.getLatLng();
+          const f = 0.35;
+          map.panTo(L.latLng(c.lat + (t.lat - c.lat) * f, c.lng + (t.lng - c.lng) * f),
+                    { animate: true, duration: 0.5 });
+        });
+      }
+    }).addTo(cabinsLayer);
+    updateLabels();
+  })
+  .catch(err => {
+    console.warn('Could not load cabins.geojson:', err);
+  });
+
+// ── Label conflict detection ──────────────────────────────────
+const featureLayers  = [];
+const LABEL_MIN_ZOOM = 15;
+const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
+const LABEL_H        = 15;   // label height px
+const LABEL_PAD      = 6;    // horizontal padding px
+const MARGIN         = 3;    // clearance buffer px
+
+// Candidate positions tried in order; first clear of all icons wins
+const CANDIDATES = [
+  { dir: 'top',    off: [0,   -14] },
+  { dir: 'right',  off: [14,    0] },
+  { dir: 'left',   off: [-14,   0] },
+  { dir: 'bottom', off: [0,    14] },
+];
+
+function labelBox(dir, p, w) {
+  switch (dir) {
+    case 'top':    return { x1: p.x-w/2,   y1: p.y-14-LABEL_H, x2: p.x+w/2,  y2: p.y-14 };
+    case 'right':  return { x1: p.x+14,    y1: p.y-LABEL_H/2,  x2: p.x+14+w, y2: p.y+LABEL_H/2 };
+    case 'left':   return { x1: p.x-14-w,  y1: p.y-LABEL_H/2,  x2: p.x-14,   y2: p.y+LABEL_H/2 };
+    case 'bottom': return { x1: p.x-w/2,   y1: p.y+14,         x2: p.x+w/2,  y2: p.y+14+LABEL_H };
+  }
+}
+
+function overlaps(box, regions) {
+  return regions.some(r =>
+    box.x1 - MARGIN < r.x2 && box.x2 + MARGIN > r.x1 &&
+    box.y1 - MARGIN < r.y2 && box.y2 + MARGIN > r.y1
+  );
+}
+
+function updateLabels() {
+  if (!featureLayers.length) return;
+  const zoom = map.getZoom();
+
+  if (zoom < LABEL_MIN_ZOOM) {
+    featureLayers.forEach(l => {
+      const el = l.getTooltip()?.getElement();
+      if (el) el.style.visibility = 'hidden';
+    });
+    return;
+  }
+
+  // Icon boxes are the only obstacles
+  const iconBoxes = featureLayers.map(l => {
+    const p = map.latLngToContainerPoint(l.getLatLng());
+    return { x1: p.x-12, y1: p.y-12, x2: p.x+12, y2: p.y+12 };
+  });
+
+  featureLayers.forEach((layer, i) => {
+    const p = map.latLngToContainerPoint(layer.getLatLng());
+    const w = layer._labelName.length * CHAR_W + LABEL_PAD * 2;
+
+    // Check only OTHER icons — own icon is already cleared by the offset values
+    const otherIcons = iconBoxes.filter((_, j) => j !== i);
+    const winner = CANDIDATES.find(c => !overlaps(labelBox(c.dir, p, w), otherIcons));
+
+    if (!winner) {
+      const el = layer.getTooltip()?.getElement();
+      if (el) el.style.visibility = 'hidden';
+      return;
+    }
+
+    // Rebind only when direction changes (avoids unnecessary DOM churn)
+    if (layer._tooltipDir !== winner.dir) {
+      layer._tooltipDir = winner.dir;
+      layer.unbindTooltip();
+      layer.bindTooltip(layer._labelName, {
+        permanent:  true,
+        direction:  winner.dir,
+        offset:     winner.off,
+        className:  'cabin-label',
+      });
+    } else {
+      const el = layer.getTooltip()?.getElement();
+      if (el) el.style.visibility = '';
+    }
+  });
+}
+
+map.on('zoomend', updateLabels);
+
+// ── Layer toggle ──────────────────────────────────────────────
+document.getElementById('toggle-cabins').addEventListener('change', function () {
+  if (this.checked) map.addLayer(cabinsLayer);
+  else map.removeLayer(cabinsLayer);
+});
+</script>
+
+</body>
+</html>

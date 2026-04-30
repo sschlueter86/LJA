@@ -204,6 +204,12 @@
     .popup-residents-list::-webkit-scrollbar-track { background: #f0ede6; }
     .popup-residents-list::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 2px; }
 
+    /* ── Highlighted marker ──────────────────────────────────── */
+    .cabin-icon.cabin-highlight {
+      box-shadow: 0 0 0 3px #facc15, 0 0 10px rgba(250,204,21,.65);
+      border-color: #facc15 !important;
+    }
+
     /* ── Cabin square marker icon ────────────────────────────── */
     .cabin-icon {
       display: flex;
@@ -322,6 +328,23 @@
     .search-result-item .result-sub  { font-size: .72rem; color: #888; margin-top: 1px; }
     .search-no-results { padding: 9px 12px; font-size: .82rem; color: #999; font-style: italic; font-family: Georgia, serif; }
 
+    /* ── Opacity slider ──────────────────────────────────────── */
+    .opacity-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 4px 0 2px;
+      padding-left: 2px;
+    }
+    .opacity-row label { font-size: .70rem; color: #888; margin: 0; cursor: default; flex-shrink: 0; }
+    .opacity-row input[type=range] {
+      flex: 1;
+      accent-color: #4a7c59;
+      height: 3px;
+      cursor: pointer;
+    }
+    .opacity-val { font-size: .70rem; color: #888; width: 28px; text-align: right; flex-shrink: 0; }
+
     /* ── Line legend swatch ──────────────────────────────────── */
     .legend-line-svg { flex-shrink: 0; }
 
@@ -378,6 +401,17 @@
         <span class="toggle-arrow" id="legend-arrow">▲</span>
       </div>
       <div class="access-legend section-body" id="access-legend"></div>
+    </div>
+    <div class="panel-section">
+      <label>
+        <span class="legend-dot" style="background:linear-gradient(135deg,#fff,#aaa,#333); border-color:#888;"></span>
+        <input type="checkbox" id="toggle-hillshade" /> Hillshade
+      </label>
+      <div class="opacity-row">
+        <label>Opacity</label>
+        <input type="range" id="opacity-hillshade" min="0" max="1" step="0.05" value="0.5" />
+        <span class="opacity-val" id="opacity-hillshade-val">50%</span>
+      </div>
     </div>
     <div class="panel-section">
       <label>
@@ -633,6 +667,40 @@ function buildLakePopup(p) {
   `;
 }
 
+// ── Feature highlight ─────────────────────────────────────────
+let _highlighted = null;
+
+function highlightFeature(layer) {
+  if (_highlighted && _highlighted !== layer) resetHighlight(_highlighted);
+  if (layer.setStyle) {
+    layer._origStyle = {
+      color:       layer.options.color,
+      weight:      layer.options.weight,
+      opacity:     layer.options.opacity,
+      fillColor:   layer.options.fillColor,
+      fillOpacity: layer.options.fillOpacity,
+      fill:        layer.options.fill,
+    };
+    const hl = { color: '#facc15', weight: 4, opacity: 1 };
+    if (layer.options.fill !== false) { hl.fillColor = '#facc15'; hl.fillOpacity = 0.25; }
+    layer.setStyle(hl);
+    if (layer.bringToFront) layer.bringToFront();
+  } else {
+    layer.getElement()?.querySelector('.cabin-icon')?.classList.add('cabin-highlight');
+  }
+  _highlighted = layer;
+}
+
+function resetHighlight(layer) {
+  if (!layer) return;
+  if (layer.setStyle && layer._origStyle) {
+    layer.setStyle(layer._origStyle);
+  } else {
+    layer.getElement()?.querySelector('.cabin-icon')?.classList.remove('cabin-highlight');
+  }
+  _highlighted = null;
+}
+
 // ── Section collapse toggle ───────────────────────────────────
 function toggleSection(bodyId, arrowId) {
   const body  = document.getElementById(bodyId);
@@ -698,10 +766,32 @@ fetch('data/lkjulia.geojson')
       style: { fillOpacity: 0, stroke: false },
       onEachFeature: (feature, layer) => {
         layer.bindPopup(buildLakePopup(feature.properties), { maxWidth: 360, minWidth: 260 });
+        layer.on('click', () => highlightFeature(layer));
       }
     }).addTo(lakeLayer);
   })
   .catch(err => console.warn('Could not load lkjulia.geojson:', err));
+
+// ── ESRI World Hillshade ──────────────────────────────────────
+const hillshadeLayer = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 20,
+  opacity: 0.5,
+  attribution: 'Hillshade &copy; Esri'
+});
+
+document.getElementById('toggle-hillshade').addEventListener('change', function () {
+  if (this.checked) hillshadeLayer.addTo(map);
+  else map.removeLayer(hillshadeLayer);
+});
+
+const hillshadeOpacitySlider = document.getElementById('opacity-hillshade');
+const hillshadeOpacityVal    = document.getElementById('opacity-hillshade-val');
+hillshadeOpacitySlider.addEventListener('input', function () {
+  hillshadeLayer.setOpacity(parseFloat(this.value));
+  hillshadeOpacityVal.textContent = Math.round(this.value * 100) + '%';
+});
+
 
 // ── Subwatershed HUC12 (feathered outline) ───────────────────
 const watershedLayer = L.layerGroup().addTo(map);
@@ -722,6 +812,7 @@ fetch('data/Subwatershed_HUC12.geojson')
       style: { color: '#7c3aed', weight: 1.5, opacity: 0.9, fill: false },
       onEachFeature: (feature, layer) => {
         layer.bindPopup(buildWatershedPopup(feature.properties), { maxWidth: 320, minWidth: 240 });
+        layer.on('click', () => highlightFeature(layer));
       }
     }).addTo(watershedLayer);
   })
@@ -736,6 +827,7 @@ fetch('data/parcels.geojson')
       style: { color: '#f59e0b', weight: 1.5, opacity: 0.9, fillColor: '#f59e0b', fillOpacity: 0.08 },
       onEachFeature: (feature, layer) => {
         layer.bindPopup(buildParcelPopup(feature.properties), { maxWidth: 320, minWidth: 260 });
+        layer.on('click', () => highlightFeature(layer));
       }
     }).addTo(parcelsLayer);
   })
@@ -760,6 +852,7 @@ fetch('data/NHD_Flowlines.geojson')
       style: lineStyle,
       onEachFeature: (feature, layer) => {
         layer.bindPopup(buildFlowlinePopup(feature.properties), { maxWidth: 320, minWidth: 240 });
+        layer.on('click', () => highlightFeature(layer));
       }
     }).addTo(flowlinesLayer);
 
@@ -805,6 +898,7 @@ fetch('data/cabins.geojson')
           });
 
         layer.on('click', () => {
+          highlightFeature(layer);
           const c = map.getCenter();
           const t = layer.getLatLng();
           const f = 0.35;
@@ -902,6 +996,7 @@ function updateLabels() {
 }
 
 map.on('zoomend', updateLabels);
+map.on('popupclose', () => resetHighlight(_highlighted));
 
 // ── Layer toggles ─────────────────────────────────────────────
 [

@@ -7,6 +7,8 @@
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Geoman draw tools CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 
   <!-- Match existing LJA site nav/footer -->
   <script src="../js/nav.js" defer></script>
@@ -17,13 +19,33 @@
     body { margin: 0; font-family: Georgia, serif; background: #f4f1eb; color: #2c2c2c; }
 
     .page-header {
-      background: #1a3a2a;
+      background: linear-gradient(135deg, #1a3a2a 0%, #22503a 100%);
       color: #e8dfc8;
-      padding: 2rem 2rem 1.5rem;
+      padding: 1.4rem 2rem 1.3rem;
       border-bottom: 3px solid #4a7c59;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
     }
-    .page-header h1 { margin: 0 0 .25rem; font-size: 1.8rem; letter-spacing: .04em; }
-    .page-header p  { margin: 0; font-size: .95rem; opacity: .8; font-style: italic; }
+    .page-header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: .03em;
+      font-weight: bold;
+    }
+    .page-header .header-divider {
+      width: 48px;
+      height: 2px;
+      background: #4a7c59;
+      border-radius: 1px;
+    }
+    .page-header p {
+      margin: 0;
+      font-size: .85rem;
+      color: #a8c4b0;
+      font-style: italic;
+      letter-spacing: .02em;
+    }
 
     /* ── Map container ───────────────────────────────────────── */
     #map-wrap {
@@ -65,7 +87,31 @@
       cursor: pointer;
       color: #2c2c2c;
     }
-    .layer-panel input[type=checkbox] { accent-color: #4a7c59; cursor: pointer; }
+    .layer-panel input[type=checkbox],
+    .layer-panel input[type=radio]    { accent-color: #4a7c59; cursor: pointer; }
+
+    .layer-panel .panel-section {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px solid #ddd;
+    }
+    .layer-panel .panel-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .section-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .section-toggle .toggle-arrow { font-size: .65rem; color: #888; }
+    .section-body { overflow: hidden; }
+    .section-body.collapsed { display: none; }
 
     /* ── Popup styling ───────────────────────────────────────── */
     .leaflet-popup-content-wrapper {
@@ -201,6 +247,84 @@
       flex-shrink: 0;
     }
 
+    .access-legend {
+      margin-top: 5px;
+      padding-left: 6px;
+      border-left: 2px solid #e0dbd0;
+    }
+    .access-legend .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .76rem;
+      color: #555;
+      margin: 3px 0;
+    }
+
+    /* ── Resident / property search ─────────────────────────── */
+    .map-search {
+      position: absolute;
+      top: 12px;
+      right: 192px;
+      z-index: 1000;
+      width: 270px;
+    }
+    #search-input {
+      width: 100%;
+      padding: 8px 32px 8px 12px;
+      border: 1px solid #c8bfa8 !important;
+      border-radius: 6px;
+      font-family: Georgia, serif;
+      font-size: .84rem;
+      background: #ffffff !important;
+      box-shadow: 0 3px 14px rgba(0,0,0,.45) !important;
+      box-sizing: border-box;
+      outline: none !important;
+      color: #2c2c2c;
+    }
+    #search-input:focus {
+      border-color: #4a7c59 !important; /* green on focus */
+      box-shadow: 0 3px 14px rgba(0,0,0,.45), 0 0 0 2px rgba(74,124,89,.25) !important;
+    }
+    #search-input::placeholder { color: #999; }
+    .search-clear {
+      position: absolute;
+      right: 9px; top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #aaa;
+      font-size: .9rem;
+      line-height: 1;
+      display: none;
+    }
+    .search-clear:hover { color: #555; }
+    .search-results {
+      margin-top: 4px;
+      background: rgba(255,255,255,.97);
+      border: 1px solid #c8bfa8;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.15);
+      max-height: 250px;
+      overflow-y: auto;
+      display: none;
+    }
+    .search-results::-webkit-scrollbar { width: 4px; }
+    .search-results::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 2px; }
+    .search-result-item {
+      padding: 7px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0ede6;
+      font-family: Georgia, serif;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #f0f7f3; }
+    .search-result-item .result-name { font-size: .84rem; font-weight: 600; color: #1a3a2a; }
+    .search-result-item .result-sub  { font-size: .72rem; color: #888; margin-top: 1px; }
+    .search-no-results { padding: 9px 12px; font-size: .82rem; color: #999; font-style: italic; font-family: Georgia, serif; }
+
+    /* ── Line legend swatch ──────────────────────────────────── */
+    .legend-line-svg { flex-shrink: 0; }
+
     /* ── Footer note ─────────────────────────────────────────── */
     .map-footer {
       background: #1a3a2a;
@@ -215,20 +339,69 @@
 <body>
 
 <div class="page-header">
-  <h1>Maps &amp; GIS</h1>
-  <p>Lake Julia Association — Property &amp; Community Map</p>
+  <h1>Lake Julia Association &mdash; Property &amp; Community Map</h1>
+  <div class="header-divider"></div>
+  <p>An interactive GIS application for exploring properties, access roads, and community resources across the lake</p>
 </div>
 
 <div id="map-wrap">
   <div id="map"></div>
 
+  <div class="map-search" id="search-box">
+    <input type="text" id="search-input" placeholder="Search residents or properties…" autocomplete="off" />
+    <span class="search-clear" id="search-clear">&#x2715;</span>
+    <div class="search-results" id="search-results"></div>
+  </div>
+
   <div class="layer-panel">
     <h3>Layers</h3>
-    <label>
-      <span class="legend-dot" style="background:#2e7d4f; border: 2px solid #1a4d30;"></span>
-      <input type="checkbox" id="toggle-cabins" checked /> Properties
-    </label>
-    <!-- Future layers added here -->
+    <div class="panel-section">
+      <div class="section-toggle" onclick="toggleSection('basemap-body', 'basemap-arrow')">
+        <span>Basemap</span>
+        <span class="toggle-arrow" id="basemap-arrow">▲</span>
+      </div>
+      <div class="section-body" id="basemap-body">
+        <label><input type="radio" name="basemap" value="osm"              /> Street</label>
+        <label><input type="radio" name="basemap" value="satellite"        /> Satellite</label>
+        <label><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
+        <label><input type="radio" name="basemap" value="usgs"             /> USGS</label>
+      </div>
+    </div>
+    <div class="panel-section">
+      <label>
+        <span class="legend-dot" style="background:#2e7d4f; border: 2px solid #1a4d30;"></span>
+        <input type="checkbox" id="toggle-cabins" checked /> Properties
+      </label>
+      <div class="section-toggle" style="margin-top:5px; padding-left:6px;"
+           onclick="toggleSection('access-legend', 'legend-arrow')">
+        <span style="font-size:.72rem; color:#777; letter-spacing:.06em;">Access Roads</span>
+        <span class="toggle-arrow" id="legend-arrow">▲</span>
+      </div>
+      <div class="access-legend section-body" id="access-legend"></div>
+    </div>
+    <div class="panel-section">
+      <label>
+        <span class="legend-dot" style="background:rgba(29,78,216,0.45); border-color:#2563eb;"></span>
+        <input type="checkbox" id="toggle-lake" checked /> Lake Julia
+      </label>
+    </div>
+    <div class="panel-section">
+      <label>
+        <svg class="legend-line-svg" width="22" height="12" viewBox="0 0 22 12">
+          <line x1="1" y1="6" x2="14" y2="6" stroke="#3b82f6" stroke-width="2"/>
+          <polygon points="12,3 21,6 12,9" fill="#3b82f6"/>
+        </svg>
+        <input type="checkbox" id="toggle-flowlines" checked /> Flowlines
+      </label>
+      <label>
+        <span class="legend-dot" style="background:rgba(245,158,11,0.12); border-color:#f59e0b;"></span>
+        <input type="checkbox" id="toggle-parcels" checked /> Parcels
+      </label>
+      <label>
+        <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
+        <input type="checkbox" id="toggle-watershed" checked /> Subwatershed
+      </label>
+    </div>
   </div>
 </div>
 
@@ -238,6 +411,8 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+<script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
 <script>
 // ── Resident lookup (names only) ──────────────────────────────
 // ALT_CABINS: if a property has 0 residents, fall back to the listed cabin's residents
@@ -269,7 +444,7 @@ const RESIDENTS = {
   "20": [["Don Read",1],["Virginia Read",1]],
   "21": [["Maddy Mayer",2],["Mira Mayer",3],["Rick Mayer",1],["Zach Mayer",3]],
   "22": [["George Munkwitz",1]],
-  "23": [["Shannon Lemasters",8],["Brandy Millen",5],["Greg Millen",5],["Kent Millen",5],["Mindy Millen",5],["Aaron Ogden",7],["Katie Ogden",7],["Aimee Schlueter",4],["Charles Schlueter \"Pete\"",1],["Chris Schlueter",2],["Judy Schlueter",3],["Julie Schlueter",1],["Karin Schlueter",2],["Kurt Schlueter",3],["Scott Schlueter",4]],
+  "23": [["Shannon Lemasters",8],["Brandy Millen",5],["Greg Millen",5],["Kent Millen",5],["Mindy Millen",5],["Aaron Ogden",7],["Katie Ogden",7],["Aimee Schlueter",4],["Charles \"Pete\" Schlueter ",1],["Chris Schlueter",2],["Judy Schlueter",3],["Julie Schlueter",1],["Karin Schlueter",2],["Kurt Schlueter",3],["Scott Schlueter",4]],
   "24": [["Dave Bartkus",3],["Fred Beaudry",3],["Cameron MCGregor",3],["Charles Munkwitz",1],["Irma Munkwitz",2],["Lindsey Munkwitz",2],["Melissa Munkwitz",2],["Nicole Munkwitz",2],["Susan Munkwitz",1],["Charles Munkwitz, Jr.",2]],
   "25": [["Steve Piper",1]],
   "26": [["Amy Kuesel",3],["Thomas Kuesel",3],["Edy Reckmeyer",4],["Grace Reckmeyer",4],["Lisa Reckmeyer",2],["Mike Reckmeyer",2],["Peter Reckmeyer",2],["Sheila Reckmeyer",2],["William Reckmeyer",5],["Victor Reckmeyer, II",1]],
@@ -305,7 +480,24 @@ const ACCESS_COLORS = {
   'Bradford':            '#b45309',
   'Puelicher/ScottLake': '#b91c1c',
 };
+const ROAD_LABELS = {
+  'LakeJulia':           'Lake Julia Rd',
+  'HillTop':             'Hill Top Rd',
+  'Harmony/Woodbury':    'Harmony / Woodbury',
+  'Bradford':            'Bradford Ln',
+  'Puelicher/ScottLake': 'Puelicher / Scott Lake',
+};
+
 const DEFAULT_COLOR = '#555';
+
+// Populate access road legend
+const legendEl = document.getElementById('access-legend');
+Object.entries(ACCESS_COLORS).forEach(([key, color]) => {
+  const item = document.createElement('div');
+  item.className = 'legend-item';
+  item.innerHTML = `<span class="legend-dot" style="background:${color}"></span>${ROAD_LABELS[key] || key}`;
+  legendEl.appendChild(item);
+});
 
 function markerColor(access) {
   return ACCESS_COLORS[access] || DEFAULT_COLOR;
@@ -372,6 +564,83 @@ function buildPopup(props) {
   `;
 }
 
+// ── Shared popup utilities ────────────────────────────────────
+function popupRow(label, value) {
+  if (value === null || value === undefined || value === '') return '';
+  return `<div class="popup-section">
+    <span class="popup-label">${label}</span>
+    <span class="popup-value">${value}</span>
+  </div>`;
+}
+
+function buildFlowlinePopup(p) {
+  const name = (p.GNIS_Name && p.GNIS_Name.trim())
+    ? p.GNIS_Name
+    : (p.ROW_NAME && p.ROW_NAME !== 'Unnamed' ? p.ROW_NAME : 'Unnamed Stream');
+  const len = p.LengthKM < 1
+    ? (p.LengthKM * 1000).toFixed(0) + ' m'
+    : p.LengthKM.toFixed(2) + ' km';
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">NHD Flowline &middot; Stream Order ${p.STREAM_ORDER}</div>
+      <div class="popup-name">${name}</div>
+    </div>
+    ${popupRow('Length', len)}
+    ${popupRow('Reach Code', p.ReachCode)}
+    ${p.RIVER_SYS_NAME && p.RIVER_SYS_NAME !== 'Unnamed' ? popupRow('River System', p.RIVER_SYS_NAME) : ''}
+  `;
+}
+
+function buildParcelPopup(p) {
+  const acres = p['Assessed Acres'] != null ? p['Assessed Acres'].toFixed(2) + ' ac' : null;
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Parcel &nbsp;${p['STATE ID'] || ''}</div>
+      <div class="popup-name">${p['Primary Owner Name'] || 'Unknown Owner'}</div>
+    </div>
+    ${p['Physical Address'] ? popupRow('Address', p['Physical Address']) : ''}
+    ${popupRow('Assessed Area', acres)}
+    ${popupRow('Municipality', p['Place Name'])}
+    ${popupRow('County', p['County'])}
+    ${popupRow('Tax Year', p['Tax Roll Year'])}
+  `;
+}
+
+function buildWatershedPopup(p) {
+  const acres = Math.round(p.SHAPE__Area * 0.000247105).toLocaleString() + ' acres';
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">HUC12 Subwatershed</div>
+      <div class="popup-name">${p.HUC12_NAME}</div>
+    </div>
+    ${popupRow('HUC12 Code', p.HUC12_CODE)}
+    ${popupRow('Flows Into', p.DOWNSTREAM_HUC12_CODE)}
+    ${popupRow('Area', acres)}
+  `;
+}
+
+function buildLakePopup(p) {
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Wisconsin Waterbody &middot; WBIC ${p.WBIC}</div>
+      <div class="popup-name">${p.WATERBODY_}</div>
+    </div>
+    ${popupRow('Surface Area', p.WATER_TYPE?.toFixed(1) + ' acres')}
+    ${popupRow('DNR Category', p.DNR_CATEGO)}
+    ${popupRow('Impairment', p.ALL_IMPAIR)}
+    ${popupRow('Source', p.ALL_SOURCE)}
+    ${popupRow('Designated Uses', p.USE_DESIGN)}
+  `;
+}
+
+// ── Section collapse toggle ───────────────────────────────────
+function toggleSection(bodyId, arrowId) {
+  const body  = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  body.classList.toggle('collapsed');
+  arrow.textContent = body.classList.contains('collapsed') ? '▼' : '▲';
+}
+
 // ── Residents toggle ─────────────────────────────────────────
 function toggleResidents(uid) {
   const panel = document.getElementById(uid);
@@ -388,11 +657,119 @@ const map = L.map('map', {
   zoomControl: true,
 });
 
-// OSM via openstreetmap.fr — works without referer restriction (localhost + production)
-L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-  maxZoom: 20,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+// ── Basemap definitions ───────────────────────────────────────
+const BASEMAPS = {
+  osm: L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }),
+  satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 20,
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, USGS, NOAA'
+  }),
+  topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 20,
+    attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, DeLorme, TomTom, NGA, USGS'
+  }),
+  usgs: L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 16,
+    attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+  }),
+};
+
+let activeBasemap = BASEMAPS.topo;
+activeBasemap.addTo(map);
+
+document.querySelectorAll('input[name="basemap"]').forEach(radio => {
+  radio.addEventListener('change', function () {
+    map.removeLayer(activeBasemap);
+    activeBasemap = BASEMAPS[this.value];
+    activeBasemap.addTo(map);
+    activeBasemap.bringToBack();
+  });
+});
+
+// ── Lake Julia polygon ────────────────────────────────────────
+const lakeLayer = L.layerGroup().addTo(map);
+fetch('data/lkjulia.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      style: { fillOpacity: 0, stroke: false },
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(buildLakePopup(feature.properties), { maxWidth: 360, minWidth: 260 });
+      }
+    }).addTo(lakeLayer);
+  })
+  .catch(err => console.warn('Could not load lkjulia.geojson:', err));
+
+// ── Subwatershed HUC12 (feathered outline) ───────────────────
+const watershedLayer = L.layerGroup().addTo(map);
+fetch('data/Subwatershed_HUC12.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    // Outermost → innermost glow passes, then crisp line on top
+    [
+      { weight: 20, opacity: 0.04 },
+      { weight: 11, opacity: 0.09 },
+      { weight:  5, opacity: 0.18 },
+    ].forEach(({ weight, opacity }) => {
+      L.geoJSON(geojson, {
+        style: { color: '#7c3aed', weight, opacity, fill: false }
+      }).addTo(watershedLayer);
+    });
+    L.geoJSON(geojson, {
+      style: { color: '#7c3aed', weight: 1.5, opacity: 0.9, fill: false },
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(buildWatershedPopup(feature.properties), { maxWidth: 320, minWidth: 240 });
+      }
+    }).addTo(watershedLayer);
+  })
+  .catch(err => console.warn('Could not load Subwatershed_HUC12.geojson:', err));
+
+// ── Parcels (border highlight, transparent fill) ──────────────
+const parcelsLayer = L.layerGroup().addTo(map);
+fetch('data/parcels.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      style: { color: '#f59e0b', weight: 1.5, opacity: 0.9, fillColor: '#f59e0b', fillOpacity: 0.08 },
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(buildParcelPopup(feature.properties), { maxWidth: 320, minWidth: 260 });
+      }
+    }).addTo(parcelsLayer);
+  })
+  .catch(err => console.warn('Could not load parcels.geojson:', err));
+
+// ── NHD Flowlines (line + midpoint & endpoint arrowheads) ─────
+const flowlinesLayer = L.layerGroup().addTo(map);
+fetch('data/NHD_Flowlines.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    const lineStyle = { color: '#3b82f6', weight: 1.5, opacity: 0.85 };
+    const arrowPattern = (offset) => ({
+      offset,
+      repeat: 0,
+      symbol: L.Symbol.arrowHead({
+        pixelSize: 7,
+        polygon: false,
+        pathOptions: { color: '#3b82f6', weight: 2, opacity: 0.9 }
+      })
+    });
+    const geoLayer = L.geoJSON(geojson, {
+      style: lineStyle,
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(buildFlowlinePopup(feature.properties), { maxWidth: 320, minWidth: 240 });
+      }
+    }).addTo(flowlinesLayer);
+
+    geoLayer.eachLayer(layer => {
+      L.polylineDecorator(layer, {
+        patterns: [ arrowPattern('50%'), arrowPattern('100%') ]
+      }).addTo(flowlinesLayer);
+    });
+  })
+  .catch(err => console.warn('Could not load NHD_Flowlines.geojson:', err));
 
 // ── Load cabin GeoJSON ────────────────────────────────────────
 const cabinsLayer = L.layerGroup().addTo(map);
@@ -411,6 +788,22 @@ fetch('data/cabins.geojson')
         layer._labelName = feature.properties.Name || '';
         layer._tooltipDir = null;
         featureLayers.push(layer);
+
+        // Build search index entry for this property
+        const p   = feature.properties;
+        const num = String(p.PropertyMapNumber);
+        if (p.Name) searchIndex.push({ label: p.Name, sub: `Property #${num}`, layer });
+        if (p.Alias && p.Alias !== p.Name)
+          searchIndex.push({ label: p.Alias, sub: `Property #${num} · ${p.Name}`, layer });
+        const direct = RESIDENTS[num] || [];
+        const names  = direct.length > 0 ? direct : (RESIDENTS[String(ALT_CABINS[num])] || []);
+        [...names]
+          .sort((a, b) => (Array.isArray(a) ? a[1] : 0) - (Array.isArray(b) ? b[1] : 0))
+          .forEach(entry => {
+            const name = Array.isArray(entry) ? entry[0] : entry;
+            searchIndex.push({ label: name, sub: `Resident · Property #${num}`, layer });
+          });
+
         layer.on('click', () => {
           const c = map.getCenter();
           const t = layer.getLatLng();
@@ -428,6 +821,7 @@ fetch('data/cabins.geojson')
 
 // ── Label conflict detection ──────────────────────────────────
 const featureLayers  = [];
+const searchIndex    = [];
 const LABEL_MIN_ZOOM = 15;
 const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
 const LABEL_H        = 15;   // label height px
@@ -509,10 +903,144 @@ function updateLabels() {
 
 map.on('zoomend', updateLabels);
 
-// ── Layer toggle ──────────────────────────────────────────────
-document.getElementById('toggle-cabins').addEventListener('change', function () {
-  if (this.checked) map.addLayer(cabinsLayer);
-  else map.removeLayer(cabinsLayer);
+// ── Layer toggles ─────────────────────────────────────────────
+[
+  ['toggle-lake',      lakeLayer],
+  ['toggle-cabins',    cabinsLayer],
+  ['toggle-flowlines', flowlinesLayer],
+  ['toggle-parcels',   parcelsLayer],
+  ['toggle-watershed', watershedLayer],
+].forEach(([id, layer]) => {
+  document.getElementById(id).addEventListener('change', function () {
+    if (this.checked) map.addLayer(layer);
+    else map.removeLayer(layer);
+  });
+});
+
+// ── Resident / property search ────────────────────────────────
+const searchInput   = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchClear   = document.getElementById('search-clear');
+
+L.DomEvent.disableClickPropagation(document.getElementById('search-box'));
+L.DomEvent.disableScrollPropagation(document.getElementById('search-box'));
+
+function showResults(q) {
+  searchResults.innerHTML = '';
+  if (q.length < 2) { searchResults.style.display = 'none'; searchClear.style.display = 'none'; return; }
+  searchClear.style.display = 'block';
+
+  const matches = searchIndex.filter(item =>
+    item.label.toLowerCase().includes(q.toLowerCase())
+  ).slice(0, 10);
+
+  if (!matches.length) {
+    searchResults.innerHTML = '<div class="search-no-results">No results found</div>';
+    searchResults.style.display = 'block';
+    return;
+  }
+
+  matches.forEach(match => {
+    const div = document.createElement('div');
+    div.className = 'search-result-item';
+    div.innerHTML = `<div class="result-name">${match.label}</div>
+                     <div class="result-sub">${match.sub}</div>`;
+    div.addEventListener('click', () => {
+      if (!map.hasLayer(cabinsLayer)) map.addLayer(cabinsLayer);
+      document.getElementById('toggle-cabins').checked = true;
+      map.flyTo(match.layer.getLatLng(), 17, { duration: 1 });
+      map.once('moveend', () => match.layer.openPopup());
+      searchInput.value = '';
+      searchResults.style.display = 'none';
+      searchClear.style.display = 'none';
+    });
+    searchResults.appendChild(div);
+  });
+  searchResults.style.display = 'block';
+}
+
+searchInput.addEventListener('input', () => showResults(searchInput.value.trim()));
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchResults.style.display = 'none';
+  searchClear.style.display = 'none';
+  searchInput.focus();
+});
+
+document.addEventListener('click', e => {
+  if (!document.getElementById('search-box').contains(e.target)) {
+    searchResults.style.display = 'none';
+  }
+});
+
+// ── Draw / Measure tools (Leaflet-Geoman) ─────────────────────
+map.pm.addControls({
+  position:        'topleft',
+  drawMarker:      true,
+  drawCircleMarker: false,
+  drawPolyline:    true,
+  drawRectangle:   true,
+  drawPolygon:     true,
+  drawCircle:      false,
+  editMode:        true,
+  dragMode:        true,
+  cutPolygon:      false,
+  removalMode:     true,
+  rotateMode:      false,
+});
+
+function fmtLength(meters) {
+  const ft = meters * 3.28084;
+  return ft < 5280
+    ? ft.toFixed(0) + ' ft'
+    : (ft / 5280).toFixed(2) + ' mi';
+}
+
+function fmtArea(sqm) {
+  const acres = sqm * 0.000247105;
+  return acres < 0.1
+    ? (sqm * 10.7639).toFixed(0) + ' sq ft'
+    : acres.toFixed(2) + ' acres';
+}
+
+function geodesicArea(lls) {
+  const d2r = Math.PI / 180;
+  let area = 0;
+  for (let i = 0; i < lls.length; i++) {
+    const a = lls[i], b = lls[(i + 1) % lls.length];
+    area += (b.lng - a.lng) * d2r * (2 + Math.sin(a.lat * d2r) + Math.sin(b.lat * d2r));
+  }
+  return Math.abs(area * 6378137 * 6378137 / 2);
+}
+
+function polylineLength(lls) {
+  let total = 0;
+  for (let i = 1; i < lls.length; i++) total += lls[i - 1].distanceTo(lls[i]);
+  return total;
+}
+
+function measurementLabel(shape, layer) {
+  if (shape === 'Line') {
+    return 'Length: ' + fmtLength(polylineLength(layer.getLatLngs()));
+  }
+  if (shape === 'Polygon' || shape === 'Rectangle') {
+    return 'Area: ' + fmtArea(geodesicArea(layer.getLatLngs()[0]));
+  }
+  return null;
+}
+
+map.on('pm:create', ({ shape, layer }) => {
+  const label = measurementLabel(shape, layer);
+  if (label) layer.bindPopup(label).openPopup();
+
+  layer.on('pm:edit', () => {
+    const updated = measurementLabel(shape, layer);
+    if (updated) {
+      if (layer.getPopup()) layer.setPopupContent(updated);
+      else layer.bindPopup(updated).openPopup();
+    }
+  });
 });
 </script>
 

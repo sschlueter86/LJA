@@ -113,6 +113,16 @@
     .section-body { overflow: hidden; }
     .section-body.collapsed { display: none; }
 
+    .toc-group-label {
+      font-size: .64rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #aaa;
+      margin: 8px 0 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid #ede9e0;
+    }
+
     /* ── Popup styling ───────────────────────────────────────── */
     .leaflet-popup-content-wrapper {
       border-radius: 6px;
@@ -271,7 +281,7 @@
     .map-search {
       position: absolute;
       top: 12px;
-      right: 192px;
+      right: 265px;
       z-index: 1000;
       width: 270px;
     }
@@ -328,6 +338,28 @@
     .search-result-item .result-sub  { font-size: .72rem; color: #888; margin-top: 1px; }
     .search-no-results { padding: 9px 12px; font-size: .82rem; color: #999; font-style: italic; font-family: Georgia, serif; }
 
+    .search-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 12px;
+      background: #f4f1eb;
+      font-family: Georgia, serif;
+      font-size: .70rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #555;
+      cursor: pointer;
+      border-bottom: 1px solid #e5e0d5;
+      user-select: none;
+      position: sticky;
+      top: 0;
+    }
+    .search-group-header:hover { background: #ece8de; }
+    .search-group-count { color: #999; margin-left: 3px; }
+    .search-group-arrow { font-size: .58rem; color: #aaa; }
+    .search-group-items.collapsed { display: none; }
+
     /* ── Opacity slider ──────────────────────────────────────── */
     .opacity-row {
       display: flex;
@@ -378,21 +410,12 @@
 
   <div class="layer-panel">
     <h3>Layers</h3>
-    <div class="panel-section">
-      <div class="section-toggle" onclick="toggleSection('basemap-body', 'basemap-arrow')">
-        <span>Basemap</span>
-        <span class="toggle-arrow" id="basemap-arrow">▲</span>
-      </div>
-      <div class="section-body" id="basemap-body">
-        <label><input type="radio" name="basemap" value="osm"              /> Street</label>
-        <label><input type="radio" name="basemap" value="satellite"        /> Satellite</label>
-        <label><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
-        <label><input type="radio" name="basemap" value="usgs"             /> USGS</label>
-      </div>
-    </div>
-    <div class="panel-section">
+
+    <!-- ── Points ── -->
+    <div class="toc-group-label">Points</div>
+    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
       <label>
-        <span class="legend-dot" style="background:#2e7d4f; border: 2px solid #1a4d30;"></span>
+        <span class="legend-dot" style="background:#2e7d4f; border:2px solid #1a4d30;"></span>
         <input type="checkbox" id="toggle-cabins" checked /> Properties
       </label>
       <div class="section-toggle" style="margin-top:5px; padding-left:6px;"
@@ -402,7 +425,39 @@
       </div>
       <div class="access-legend section-body" id="access-legend"></div>
     </div>
-    <div class="panel-section">
+
+    <!-- ── Lines ── -->
+    <div class="toc-group-label">Lines</div>
+    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
+      <label>
+        <svg class="legend-line-svg" width="22" height="12" viewBox="0 0 22 12">
+          <line x1="1" y1="6" x2="14" y2="6" stroke="#3b82f6" stroke-width="2"/>
+          <polygon points="12,3 21,6 12,9" fill="#3b82f6"/>
+        </svg>
+        <input type="checkbox" id="toggle-flowlines" /> Flowlines
+      </label>
+    </div>
+
+    <!-- ── Polygons ── -->
+    <div class="toc-group-label">Polygons</div>
+    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
+      <label>
+        <span class="legend-dot" style="background:rgba(29,78,216,0.45); border-color:#2563eb;"></span>
+        <input type="checkbox" id="toggle-lake" /> Lake Julia
+      </label>
+      <label>
+        <span class="legend-dot" style="background:rgba(245,158,11,0.12); border-color:#f59e0b;"></span>
+        <input type="checkbox" id="toggle-parcels" /> Parcels
+      </label>
+      <label>
+        <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
+        <input type="checkbox" id="toggle-watershed" />HUC12 Subwatershed
+      </label>
+    </div>
+
+    <!-- ── Raster ── -->
+    <div class="toc-group-label">Raster</div>
+    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
       <label>
         <span class="legend-dot" style="background:linear-gradient(135deg,#fff,#aaa,#333); border-color:#888;"></span>
         <input type="checkbox" id="toggle-hillshade" /> Hillshade
@@ -413,29 +468,22 @@
         <span class="opacity-val" id="opacity-hillshade-val">50%</span>
       </div>
     </div>
-    <div class="panel-section">
-      <label>
-        <span class="legend-dot" style="background:rgba(29,78,216,0.45); border-color:#2563eb;"></span>
-        <input type="checkbox" id="toggle-lake" checked /> Lake Julia
-      </label>
+
+    <!-- ── Basemap ── -->
+    <div class="toc-group-label">Basemap</div>
+    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
+      <div class="section-toggle" onclick="toggleSection('basemap-body', 'basemap-arrow')">
+        <span>Select</span>
+        <span class="toggle-arrow" id="basemap-arrow">▲</span>
+      </div>
+      <div class="section-body" id="basemap-body">
+        <label><input type="radio" name="basemap" value="osm"              /> Street</label>
+        <label><input type="radio" name="basemap" value="satellite"        /> Satellite</label>
+        <label><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
+        <label><input type="radio" name="basemap" value="usgs"             /> USGS</label>
+      </div>
     </div>
-    <div class="panel-section">
-      <label>
-        <svg class="legend-line-svg" width="22" height="12" viewBox="0 0 22 12">
-          <line x1="1" y1="6" x2="14" y2="6" stroke="#3b82f6" stroke-width="2"/>
-          <polygon points="12,3 21,6 12,9" fill="#3b82f6"/>
-        </svg>
-        <input type="checkbox" id="toggle-flowlines" checked /> Flowlines
-      </label>
-      <label>
-        <span class="legend-dot" style="background:rgba(245,158,11,0.12); border-color:#f59e0b;"></span>
-        <input type="checkbox" id="toggle-parcels" checked /> Parcels
-      </label>
-      <label>
-        <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
-        <input type="checkbox" id="toggle-watershed" checked /> Subwatershed
-      </label>
-    </div>
+
   </div>
 </div>
 
@@ -758,7 +806,7 @@ document.querySelectorAll('input[name="basemap"]').forEach(radio => {
 });
 
 // ── Lake Julia polygon ────────────────────────────────────────
-const lakeLayer = L.layerGroup().addTo(map);
+const lakeLayer = L.layerGroup();
 fetch('data/lkjulia.geojson')
   .then(r => r.json())
   .then(geojson => {
@@ -794,7 +842,7 @@ hillshadeOpacitySlider.addEventListener('input', function () {
 
 
 // ── Subwatershed HUC12 (feathered outline) ───────────────────
-const watershedLayer = L.layerGroup().addTo(map);
+const watershedLayer = L.layerGroup();
 fetch('data/Subwatershed_HUC12.geojson')
   .then(r => r.json())
   .then(geojson => {
@@ -819,7 +867,7 @@ fetch('data/Subwatershed_HUC12.geojson')
   .catch(err => console.warn('Could not load Subwatershed_HUC12.geojson:', err));
 
 // ── Parcels (border highlight, transparent fill) ──────────────
-const parcelsLayer = L.layerGroup().addTo(map);
+const parcelsLayer = L.layerGroup();
 fetch('data/parcels.geojson')
   .then(r => r.json())
   .then(geojson => {
@@ -834,7 +882,7 @@ fetch('data/parcels.geojson')
   .catch(err => console.warn('Could not load parcels.geojson:', err));
 
 // ── NHD Flowlines (line + midpoint & endpoint arrowheads) ─────
-const flowlinesLayer = L.layerGroup().addTo(map);
+const flowlinesLayer = L.layerGroup();
 fetch('data/NHD_Flowlines.geojson')
   .then(r => r.json())
   .then(geojson => {
@@ -885,16 +933,16 @@ fetch('data/cabins.geojson')
         // Build search index entry for this property
         const p   = feature.properties;
         const num = String(p.PropertyMapNumber);
-        if (p.Name) searchIndex.push({ label: p.Name, sub: `Property #${num}`, layer });
+        if (p.Name) searchIndex.push({ label: p.Name, sub: `Property #${num}`, layer, type: 'property' });
         if (p.Alias && p.Alias !== p.Name)
-          searchIndex.push({ label: p.Alias, sub: `Property #${num} · ${p.Name}`, layer });
+          searchIndex.push({ label: p.Alias, sub: `Property #${num} · ${p.Name}`, layer, type: 'property' });
         const direct = RESIDENTS[num] || [];
         const names  = direct.length > 0 ? direct : (RESIDENTS[String(ALT_CABINS[num])] || []);
         [...names]
           .sort((a, b) => (Array.isArray(a) ? a[1] : 0) - (Array.isArray(b) ? b[1] : 0))
           .forEach(entry => {
             const name = Array.isArray(entry) ? entry[0] : entry;
-            searchIndex.push({ label: name, sub: `Resident · Property #${num}`, layer });
+            searchIndex.push({ label: name, sub: `Resident · Property #${num}`, layer, type: 'resident' });
           });
 
         layer.on('click', () => {
@@ -916,7 +964,7 @@ fetch('data/cabins.geojson')
 // ── Label conflict detection ──────────────────────────────────
 const featureLayers  = [];
 const searchIndex    = [];
-const LABEL_MIN_ZOOM = 15;
+const LABEL_MIN_ZOOM = 16;
 const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
 const LABEL_H        = 15;   // label height px
 const LABEL_PAD      = 6;    // horizontal padding px
@@ -1025,32 +1073,68 @@ function showResults(q) {
   if (q.length < 2) { searchResults.style.display = 'none'; searchClear.style.display = 'none'; return; }
   searchClear.style.display = 'block';
 
-  const matches = searchIndex.filter(item =>
-    item.label.toLowerCase().includes(q.toLowerCase())
-  ).slice(0, 10);
+  const ql = q.toLowerCase();
+  const all = searchIndex.filter(i => i.label.toLowerCase().includes(ql));
 
-  if (!matches.length) {
+  // Deduplicate properties by layer so name + alias don't double-count
+  const seenProps = new Set();
+  const properties = all.filter(i => {
+    if (i.type !== 'property') return false;
+    if (seenProps.has(i.layer)) return false;
+    seenProps.add(i.layer);
+    return true;
+  });
+  const residents = all.filter(i => i.type === 'resident');
+
+  if (!all.length) {
     searchResults.innerHTML = '<div class="search-no-results">No results found</div>';
     searchResults.style.display = 'block';
     return;
   }
 
-  matches.forEach(match => {
-    const div = document.createElement('div');
-    div.className = 'search-result-item';
-    div.innerHTML = `<div class="result-name">${match.label}</div>
-                     <div class="result-sub">${match.sub}</div>`;
-    div.addEventListener('click', () => {
-      if (!map.hasLayer(cabinsLayer)) map.addLayer(cabinsLayer);
-      document.getElementById('toggle-cabins').checked = true;
-      map.flyTo(match.layer.getLatLng(), 17, { duration: 1 });
-      map.once('moveend', () => match.layer.openPopup());
-      searchInput.value = '';
-      searchResults.style.display = 'none';
-      searchClear.style.display = 'none';
+  function onResultClick(match) {
+    if (!map.hasLayer(cabinsLayer)) map.addLayer(cabinsLayer);
+    document.getElementById('toggle-cabins').checked = true;
+    map.flyTo(match.layer.getLatLng(), 17, { duration: 1 });
+    map.once('moveend', () => match.layer.openPopup());
+    searchInput.value = '';
+    searchResults.style.display = 'none';
+    searchClear.style.display = 'none';
+  }
+
+  function renderGroup(label, items, startExpanded) {
+    if (!items.length) return;
+    const group = document.createElement('div');
+
+    const header = document.createElement('div');
+    header.className = 'search-group-header';
+    header.innerHTML = `<span>${label}<span class="search-group-count">(${items.length})</span></span>
+                        <span class="search-group-arrow">${startExpanded ? '▲' : '▼'}</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'search-group-items' + (startExpanded ? '' : ' collapsed');
+
+    items.forEach(match => {
+      const div = document.createElement('div');
+      div.className = 'search-result-item';
+      div.innerHTML = `<div class="result-name">${match.label}</div>
+                       <div class="result-sub">${match.sub}</div>`;
+      div.addEventListener('click', () => onResultClick(match));
+      body.appendChild(div);
     });
-    searchResults.appendChild(div);
-  });
+
+    header.addEventListener('click', () => {
+      const collapsed = body.classList.toggle('collapsed');
+      header.querySelector('.search-group-arrow').textContent = collapsed ? '▼' : '▲';
+    });
+
+    group.appendChild(header);
+    group.appendChild(body);
+    searchResults.appendChild(group);
+  }
+
+  renderGroup('Properties', properties, true);
+  renderGroup('Residents',  residents,  false);
   searchResults.style.display = 'block';
 }
 

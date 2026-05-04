@@ -68,34 +68,81 @@
       font-size: .82rem;
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,.15);
-      min-width: 160px;
+      width: 240px;
+      box-sizing: border-box;
+    }
+    .panel-title {
+      font-size: .95rem;
+      font-weight: bold;
+      color: #1a3a2a;
+      margin: 0 0 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #4a7c59;
+      letter-spacing: .02em;
     }
     .layer-panel h3 {
-      margin: 0 0 8px;
-      font-size: .8rem;
+      margin: 0 0 7px;
+      font-size: .78rem;
       text-transform: uppercase;
       letter-spacing: .08em;
       color: #555;
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
     }
-    .layer-panel label {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin: 5px 0;
-      cursor: pointer;
-      color: #2c2c2c;
+    .layer-panel h3.section-h3 {
+      margin-top: 10px;
     }
     .layer-panel input[type=checkbox],
     .layer-panel input[type=radio]    { accent-color: #4a7c59; cursor: pointer; }
 
-    .layer-panel .panel-section {
-      margin-top: 8px;
-      padding-top: 7px;
-      border-top: 1px solid #ddd;
+    /* ── TOC layer items ─────────────────────────────────────── */
+    .toc-item {
+      padding: 3px 0;
+      border-bottom: 1px solid #ede9e0;
     }
-    .layer-panel .panel-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .toc-item:last-child { border-bottom: none; }
+
+    .toc-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 0;
+    }
+    .toc-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      cursor: pointer;
+      font-size: .83rem;
+      color: #2c2c2c;
+      margin: 0;
+    }
+    .toc-arrow {
+      cursor: pointer;
+      color: #999;
+      font-size: .6rem;
+      padding: 2px 3px;
+      user-select: none;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .toc-arrow:hover { color: #333; }
+
+    .toc-legend {
+      padding: 4px 0 4px 22px;
+      font-size: .76rem;
+      color: #555;
+    }
+    .toc-legend.collapsed { display: none; }
+
+    .toc-legend-sublabel {
+      font-size: .66rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #bbb;
+      margin-bottom: 4px;
+    }
 
     .section-toggle {
       display: flex;
@@ -113,14 +160,14 @@
     .section-body { overflow: hidden; }
     .section-body.collapsed { display: none; }
 
-    .toc-group-label {
-      font-size: .64rem;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: #aaa;
-      margin: 8px 0 4px;
-      padding-bottom: 3px;
-      border-bottom: 1px solid #ede9e0;
+    .layer-panel label.radio-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 4px 0;
+      cursor: pointer;
+      color: #2c2c2c;
+      font-size: .82rem;
     }
 
     /* ── Popup styling ───────────────────────────────────────── */
@@ -264,9 +311,7 @@
     }
 
     .access-legend {
-      margin-top: 5px;
-      padding-left: 6px;
-      border-left: 2px solid #e0dbd0;
+      margin-top: 2px;
     }
     .access-legend .legend-item {
       display: flex;
@@ -371,6 +416,7 @@
     .opacity-row label { font-size: .70rem; color: #888; margin: 0; cursor: default; flex-shrink: 0; }
     .opacity-row input[type=range] {
       flex: 1;
+      min-width: 0;
       accent-color: #4a7c59;
       height: 3px;
       cursor: pointer;
@@ -409,80 +455,120 @@
   </div>
 
   <div class="layer-panel">
-    <h3>Layers</h3>
+    <div class="panel-title">Layer List</div>
+    <h3>Feature Layers</h3>
 
-    <!-- ── Points ── -->
-    <div class="toc-group-label">Points</div>
-    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
-      <label>
-        <span class="legend-dot" style="background:#2e7d4f; border:2px solid #1a4d30;"></span>
-        <input type="checkbox" id="toggle-cabins" checked /> Properties
-      </label>
-      <div class="section-toggle" style="margin-top:5px; padding-left:6px;"
-           onclick="toggleSection('access-legend', 'legend-arrow')">
-        <span style="font-size:.72rem; color:#777; letter-spacing:.06em;">Access Roads</span>
-        <span class="toggle-arrow" id="legend-arrow">▲</span>
+    <!-- ── Properties ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-cabins" checked />
+          Properties
+        </label>
+        <span class="toc-arrow" id="arrow-cabins" onclick="toggleTocLegend('legend-cabins','arrow-cabins')">▶</span>
       </div>
-      <div class="access-legend section-body" id="access-legend"></div>
+      <div class="toc-legend collapsed" id="legend-cabins">
+        <div class="toc-legend-sublabel">Access Road</div>
+        <div class="access-legend" id="access-legend"></div>
+      </div>
     </div>
 
-    <!-- ── Lines ── -->
-    <div class="toc-group-label">Lines</div>
-    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
-      <label>
-        <svg class="legend-line-svg" width="22" height="12" viewBox="0 0 22 12">
-          <line x1="1" y1="6" x2="14" y2="6" stroke="#3b82f6" stroke-width="2"/>
-          <polygon points="12,3 21,6 12,9" fill="#3b82f6"/>
-        </svg>
-        <input type="checkbox" id="toggle-flowlines" /> Flowlines
-      </label>
+    <!-- ── Flowlines ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-flowlines" />
+          Flowlines
+        </label>
+        <span class="toc-arrow" id="arrow-flowlines" onclick="toggleTocLegend('legend-flowlines','arrow-flowlines')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-flowlines">
+        <div class="legend-item">
+          <svg width="22" height="12" viewBox="0 0 22 12" style="flex-shrink:0">
+            <line x1="1" y1="6" x2="14" y2="6" stroke="#3b82f6" stroke-width="2"/>
+            <polygon points="12,3 21,6 12,9" fill="#3b82f6"/>
+          </svg>
+          NHD Flowline
+        </div>
+      </div>
     </div>
 
-    <!-- ── Polygons ── -->
-    <div class="toc-group-label">Polygons</div>
-    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
-      <label>
-        <span class="legend-dot" style="background:rgba(29,78,216,0.45); border-color:#2563eb;"></span>
-        <input type="checkbox" id="toggle-lake" /> Lake Julia
-      </label>
-      <label>
-        <span class="legend-dot" style="background:rgba(245,158,11,0.12); border-color:#f59e0b;"></span>
-        <input type="checkbox" id="toggle-parcels" /> Parcels
-      </label>
-      <label>
-        <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
-        <input type="checkbox" id="toggle-watershed" />HUC12 Subwatershed
-      </label>
+    <!-- ── Lake Julia ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-lake" />
+          Lake Julia
+        </label>
+        <span class="toc-arrow" id="arrow-lake" onclick="toggleTocLegend('legend-lake','arrow-lake')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-lake">
+        <div class="legend-item">
+          <span class="legend-dot" style="background:rgba(29,78,216,0.45); border-color:#2563eb;"></span>
+          Lake Polygon
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Land Parcels ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-parcels" />
+          Land Parcels
+        </label>
+        <span class="toc-arrow" id="arrow-parcels" onclick="toggleTocLegend('legend-parcels','arrow-parcels')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-parcels">
+        <div class="legend-item">
+          <span class="legend-dot" style="background:rgba(245,158,11,0.12); border-color:#f59e0b;"></span>
+          Parcel Boundary
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sub-watersheds ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-watershed" />
+          Sub-watersheds
+        </label>
+        <span class="toc-arrow" id="arrow-watershed" onclick="toggleTocLegend('legend-watershed','arrow-watershed')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-watershed">
+        <div class="legend-item">
+          <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
+          HUC12 Sub-watershed
+        </div>
+      </div>
     </div>
 
     <!-- ── Raster ── -->
-    <div class="toc-group-label">Raster</div>
-    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
-      <label>
-        <span class="legend-dot" style="background:linear-gradient(135deg,#fff,#aaa,#333); border-color:#888;"></span>
-        <input type="checkbox" id="toggle-hillshade" /> Hillshade
-      </label>
-      <div class="opacity-row">
-        <label>Opacity</label>
-        <input type="range" id="opacity-hillshade" min="0" max="1" step="0.05" value="0.5" />
-        <span class="opacity-val" id="opacity-hillshade-val">50%</span>
+    <h3 class="section-h3">Raster</h3>
+    <div class="toc-item" style="border-bottom:none;">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-hillshade" />
+          Hillshade
+        </label>
+        <span class="toc-arrow" id="arrow-hillshade" onclick="toggleTocLegend('legend-hillshade','arrow-hillshade')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-hillshade">
+        <div class="opacity-row">
+          <label style="font-size:.70rem; color:#888; margin:0; cursor:default; flex-shrink:0;">Opacity</label>
+          <input type="range" id="opacity-hillshade" min="0" max="1" step="0.05" value="0.5" />
+          <span class="opacity-val" id="opacity-hillshade-val">50%</span>
+        </div>
       </div>
     </div>
 
     <!-- ── Basemap ── -->
-    <div class="toc-group-label">Basemap</div>
-    <div class="panel-section" style="border-top:none; padding-top:0; margin-top:0;">
-      <div class="section-toggle" onclick="toggleSection('basemap-body', 'basemap-arrow')">
-        <span>Select</span>
-        <span class="toggle-arrow" id="basemap-arrow">▲</span>
-      </div>
-      <div class="section-body" id="basemap-body">
-        <label><input type="radio" name="basemap" value="osm"              /> Street</label>
-        <label><input type="radio" name="basemap" value="satellite"        /> Satellite</label>
-        <label><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
-        <label><input type="radio" name="basemap" value="usgs"             /> USGS</label>
-      </div>
-    </div>
+    <h3 class="section-h3">Basemap</h3>
+    <label class="radio-label"><input type="radio" name="basemap" value="osm"              /> Street</label>
+    <label class="radio-label"><input type="radio" name="basemap" value="satellite"        /> Satellite</label>
+    <label class="radio-label"><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
+    <label class="radio-label"><input type="radio" name="basemap" value="usgs"             /> USGS</label>
 
   </div>
 </div>
@@ -757,6 +843,14 @@ function toggleSection(bodyId, arrowId) {
   arrow.textContent = body.classList.contains('collapsed') ? '▼' : '▲';
 }
 
+// ── TOC legend collapse toggle ────────────────────────────────
+function toggleTocLegend(legendId, arrowId) {
+  const legend = document.getElementById(legendId);
+  const arrow  = document.getElementById(arrowId);
+  legend.classList.toggle('collapsed');
+  arrow.textContent = legend.classList.contains('collapsed') ? '▶' : '▼';
+}
+
 // ── Residents toggle ─────────────────────────────────────────
 function toggleResidents(uid) {
   const panel = document.getElementById(uid);
@@ -813,6 +907,7 @@ fetch('data/lkjulia.geojson')
     L.geoJSON(geojson, {
       style: { fillOpacity: 0, stroke: false },
       onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
         layer.bindPopup(buildLakePopup(feature.properties), { maxWidth: 360, minWidth: 260 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -852,13 +947,15 @@ fetch('data/Subwatershed_HUC12.geojson')
       { weight: 11, opacity: 0.09 },
       { weight:  5, opacity: 0.18 },
     ].forEach(({ weight, opacity }) => {
-      L.geoJSON(geojson, {
+      const glowGeo = L.geoJSON(geojson, {
         style: { color: '#7c3aed', weight, opacity, fill: false }
       }).addTo(watershedLayer);
+      glowGeo.eachLayer(l => { l.options.pmIgnore = true; });
     });
     L.geoJSON(geojson, {
       style: { color: '#7c3aed', weight: 1.5, opacity: 0.9, fill: false },
       onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
         layer.bindPopup(buildWatershedPopup(feature.properties), { maxWidth: 320, minWidth: 240 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -874,6 +971,7 @@ fetch('data/parcels.geojson')
     L.geoJSON(geojson, {
       style: { color: '#f59e0b', weight: 1.5, opacity: 0.9, fillColor: '#f59e0b', fillOpacity: 0.08 },
       onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
         layer.bindPopup(buildParcelPopup(feature.properties), { maxWidth: 320, minWidth: 260 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -899,15 +997,17 @@ fetch('data/NHD_Flowlines.geojson')
     const geoLayer = L.geoJSON(geojson, {
       style: lineStyle,
       onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
         layer.bindPopup(buildFlowlinePopup(feature.properties), { maxWidth: 320, minWidth: 240 });
         layer.on('click', () => highlightFeature(layer));
       }
     }).addTo(flowlinesLayer);
 
     geoLayer.eachLayer(layer => {
-      L.polylineDecorator(layer, {
+      const decorator = L.polylineDecorator(layer, {
         patterns: [ arrowPattern('50%'), arrowPattern('100%') ]
       }).addTo(flowlinesLayer);
+      decorator.options.pmIgnore = true;
     });
   })
   .catch(err => console.warn('Could not load NHD_Flowlines.geojson:', err));
@@ -922,7 +1022,7 @@ fetch('data/cabins.geojson')
       pointToLayer: (feature, latlng) => {
         const color = markerColor(feature.properties.LakeAccess);
         const num   = feature.properties.PropertyMapNumber;
-        return L.marker(latlng, { icon: makeIcon(color, num) });
+        return L.marker(latlng, { icon: makeIcon(color, num), pmIgnore: true });
       },
       onEachFeature: (feature, layer) => {
         layer.bindPopup(buildPopup(feature.properties), { maxWidth: 380, minWidth: 320, autoPan: false });

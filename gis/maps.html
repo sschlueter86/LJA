@@ -426,6 +426,142 @@
     /* ── Line legend swatch ──────────────────────────────────── */
     .legend-line-svg { flex-shrink: 0; }
 
+    /* ── Attribute Table ─────────────────────────────────────── */
+    #attr-table-btn {
+      position: absolute;
+      bottom: 35px;
+      left: 10px;
+      z-index: 1000;
+      background: rgba(255,255,255,.93);
+      border: 1px solid #c8bfa8;
+      border-radius: 5px;
+      padding: 6px 16px;
+      font-family: Georgia, serif;
+      font-size: .78rem;
+      color: #1a3a2a;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+      white-space: nowrap;
+    }
+    #attr-table-btn:hover { background: #f0f7f3; border-color: #4a7c59; }
+
+    #attr-panel {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 260px;
+      background: rgba(255,255,255,.97);
+      border-top: 2px solid #4a7c59;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -3px 14px rgba(0,0,0,.13);
+    }
+    .attr-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      background: #f4f1eb;
+      border-bottom: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+    .attr-panel-title {
+      font-family: Georgia, serif;
+      font-size: .85rem;
+      font-weight: bold;
+      color: #1a3a2a;
+      white-space: nowrap;
+    }
+    .attr-feature-count {
+      font-family: Georgia, serif;
+      font-size: .74rem;
+      color: #999;
+      font-style: italic;
+    }
+    #attr-layer-select {
+      margin-left: auto;
+      font-family: Georgia, serif;
+      font-size: .78rem;
+      padding: 3px 7px;
+      border: 1px solid #c8bfa8;
+      border-radius: 4px;
+      background: #fff;
+      color: #2c2c2c;
+      cursor: pointer;
+    }
+    .attr-close-btn {
+      background: none;
+      border: none;
+      font-size: .9rem;
+      color: #999;
+      cursor: pointer;
+      padding: 2px 6px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .attr-close-btn:hover { color: #333; }
+
+    .attr-table-scroll { overflow: auto; flex: 1; }
+    .attr-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Georgia, serif;
+      font-size: .78rem;
+    }
+    .attr-table th {
+      background: #1a3a2a;
+      color: #e8dfc8;
+      padding: 6px 10px;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      font-size: .72rem;
+      letter-spacing: .05em;
+    }
+    .attr-table th:hover { background: #22503a; }
+    .attr-table th .sort-arrow { margin-left: 4px; color: #7cad8c; }
+    .attr-table td {
+      padding: 5px 10px;
+      border-bottom: 1px solid #ede9e0;
+      color: #2c2c2c;
+      white-space: nowrap;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .attr-table tr:nth-child(even) td { background: #faf8f4; }
+    .attr-table tr:hover td { background: #eef5f0; cursor: pointer; }
+    .attr-table tr.attr-selected td { background: #d4edda !important; }
+    .attr-empty {
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      font-family: Georgia, serif;
+      font-size: .82rem;
+    }
+    .attr-resize-handle {
+      height: 8px;
+      cursor: ns-resize;
+      background: #ede9e0;
+      border-top: 1px solid #d0cbbf;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .attr-resize-handle::after {
+      content: '';
+      width: 36px;
+      height: 2px;
+      background: #b0a898;
+      border-radius: 1px;
+    }
+    .attr-resize-handle:hover { background: #e0dbd0; }
+
     /* ── Footer note ─────────────────────────────────────────── */
     .map-footer {
       background: #1a3a2a;
@@ -570,6 +706,33 @@
     <label class="radio-label"><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
     <label class="radio-label"><input type="radio" name="basemap" value="usgs"             /> USGS</label>
 
+  </div>
+</div>
+
+  <!-- Attribute Table Toggle Button -->
+  <button id="attr-table-btn" onclick="toggleAttrTable()">Table View</button>
+
+  <!-- Attribute Table Panel -->
+  <div id="attr-panel" style="display:none;">
+    <div class="attr-resize-handle" id="attr-resize-handle"></div>
+    <div class="attr-panel-header">
+      <span class="attr-panel-title">Table View</span>
+      <span id="attr-feature-count" class="attr-feature-count"></span>
+      <select id="attr-layer-select" onchange="renderAttrTable()">
+        <option value="cabins">Properties</option>
+        <option value="parcels">Land Parcels</option>
+        <option value="flowlines">Flowlines</option>
+        <option value="lake">Lake Julia</option>
+        <option value="watershed">Sub-watersheds</option>
+      </select>
+      <button class="attr-close-btn" onclick="toggleAttrTable()">&#x2715;</button>
+    </div>
+    <div class="attr-table-scroll">
+      <table class="attr-table">
+        <thead id="attr-thead"></thead>
+        <tbody id="attr-tbody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -908,6 +1071,7 @@ fetch('data/lkjulia.geojson')
       style: { fillOpacity: 0, stroke: false },
       onEachFeature: (feature, layer) => {
         layer.options.pmIgnore = true;
+        tableData.lake.push({ props: feature.properties, layer });
         layer.bindPopup(buildLakePopup(feature.properties), { maxWidth: 360, minWidth: 260 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -956,6 +1120,7 @@ fetch('data/Subwatershed_HUC12.geojson')
       style: { color: '#7c3aed', weight: 1.5, opacity: 0.9, fill: false },
       onEachFeature: (feature, layer) => {
         layer.options.pmIgnore = true;
+        tableData.watershed.push({ props: feature.properties, layer });
         layer.bindPopup(buildWatershedPopup(feature.properties), { maxWidth: 320, minWidth: 240 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -972,6 +1137,7 @@ fetch('data/parcels.geojson')
       style: { color: '#f59e0b', weight: 1.5, opacity: 0.9, fillColor: '#f59e0b', fillOpacity: 0.08 },
       onEachFeature: (feature, layer) => {
         layer.options.pmIgnore = true;
+        tableData.parcels.push({ props: feature.properties, layer });
         layer.bindPopup(buildParcelPopup(feature.properties), { maxWidth: 320, minWidth: 260 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -998,6 +1164,7 @@ fetch('data/NHD_Flowlines.geojson')
       style: lineStyle,
       onEachFeature: (feature, layer) => {
         layer.options.pmIgnore = true;
+        tableData.flowlines.push({ props: feature.properties, layer });
         layer.bindPopup(buildFlowlinePopup(feature.properties), { maxWidth: 320, minWidth: 240 });
         layer.on('click', () => highlightFeature(layer));
       }
@@ -1029,6 +1196,7 @@ fetch('data/cabins.geojson')
         layer._labelName = feature.properties.Name || '';
         layer._tooltipDir = null;
         featureLayers.push(layer);
+        tableData.cabins.push({ props: feature.properties, layer });
 
         // Build search index entry for this property
         const p   = feature.properties;
@@ -1064,6 +1232,7 @@ fetch('data/cabins.geojson')
 // ── Label conflict detection ──────────────────────────────────
 const featureLayers  = [];
 const searchIndex    = [];
+const tableData      = { cabins: [], parcels: [], flowlines: [], lake: [], watershed: [] };
 const LABEL_MIN_ZOOM = 16;
 const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
 const LABEL_H        = 15;   // label height px
@@ -1308,6 +1477,197 @@ function measurementLabel(shape, layer) {
   }
   return null;
 }
+
+// ── Attribute Table ───────────────────────────────────────────
+const TABLE_CONFIG = {
+  cabins: {
+    chkId: 'toggle-cabins', mapLayer: () => cabinsLayer,
+    columns: [
+      { key: 'PropertyMapNumber', label: '#' },
+      { key: 'Name',              label: 'Name' },
+      { key: 'Alias',             label: 'Alias' },
+      { key: 'LakeAccess',        label: 'Lake Access' },
+      { key: 'Address',           label: 'Address' },
+      { key: 'PrimaryPointOfContact', label: 'Contact' },
+    ]
+  },
+  parcels: {
+    chkId: 'toggle-parcels', mapLayer: () => parcelsLayer,
+    columns: [
+      { key: 'STATE ID',           label: 'State ID' },
+      { key: 'Primary Owner Name', label: 'Owner' },
+      { key: 'Physical Address',   label: 'Address' },
+      { key: 'Assessed Acres',     label: 'Acres', fmt: v => v != null ? Number(v).toFixed(2) : '' },
+      { key: 'Place Name',         label: 'Municipality' },
+      { key: 'County',             label: 'County' },
+    ]
+  },
+  flowlines: {
+    chkId: 'toggle-flowlines', mapLayer: () => flowlinesLayer,
+    columns: [
+      { key: 'GNIS_Name',      label: 'Name' },
+      { key: 'STREAM_ORDER',   label: 'Order' },
+      { key: 'LengthKM',       label: 'Length', fmt: v => v != null ? (v < 1 ? (v * 1000).toFixed(0) + ' m' : v.toFixed(2) + ' km') : '' },
+      { key: 'ReachCode',      label: 'Reach Code' },
+      { key: 'RIVER_SYS_NAME', label: 'River System' },
+    ]
+  },
+  lake: {
+    chkId: 'toggle-lake', mapLayer: () => lakeLayer,
+    columns: [
+      { key: 'WATERBODY_', label: 'Name' },
+      { key: 'WBIC',       label: 'WBIC' },
+      { key: 'DNR_CATEGO', label: 'DNR Category' },
+      { key: 'ALL_IMPAIR', label: 'Impairment' },
+      { key: 'USE_DESIGN', label: 'Designated Uses' },
+    ]
+  },
+  watershed: {
+    chkId: 'toggle-watershed', mapLayer: () => watershedLayer,
+    columns: [
+      { key: 'HUC12_NAME',            label: 'Name' },
+      { key: 'HUC12_CODE',            label: 'HUC12 Code' },
+      { key: 'DOWNSTREAM_HUC12_CODE', label: 'Downstream' },
+      { key: 'SHAPE__Area',           label: 'Area (acres)', fmt: v => v != null ? Math.round(v * 0.000247105).toLocaleString() : '' },
+    ]
+  },
+};
+
+let _attrSortCol = null;
+let _attrSortAsc = true;
+
+function toggleAttrTable() {
+  const panel = document.getElementById('attr-panel');
+  const opening = panel.style.display === 'none';
+  panel.style.display = opening ? 'flex' : 'none';
+  if (opening) renderAttrTable();
+}
+
+function renderAttrTable() {
+  _attrSortCol = null;
+  _attrSortAsc = true;
+  _renderAttrRows();
+}
+
+function _renderAttrRows() {
+  const key    = document.getElementById('attr-layer-select').value;
+  const config = TABLE_CONFIG[key];
+  const items  = tableData[key];
+  const thead  = document.getElementById('attr-thead');
+  const tbody  = document.getElementById('attr-tbody');
+  const count  = document.getElementById('attr-feature-count');
+
+  count.textContent = items.length ? items.length + ' feature' + (items.length !== 1 ? 's' : '') : '';
+
+  // Header row
+  thead.innerHTML = '';
+  const hRow = document.createElement('tr');
+  config.columns.forEach((col, i) => {
+    const th = document.createElement('th');
+    th.innerHTML = col.label + (_attrSortCol === i
+      ? `<span class="sort-arrow">${_attrSortAsc ? '▲' : '▼'}</span>` : '');
+    th.addEventListener('click', () => {
+      if (_attrSortCol === i) _attrSortAsc = !_attrSortAsc;
+      else { _attrSortCol = i; _attrSortAsc = true; }
+      _renderAttrRows();
+    });
+    hRow.appendChild(th);
+  });
+  thead.appendChild(hRow);
+
+  // Empty state
+  if (!items.length) {
+    tbody.innerHTML = `<tr><td colspan="${config.columns.length}" class="attr-empty">No data loaded for this layer</td></tr>`;
+    return;
+  }
+
+  // Sort
+  let sorted = [...items];
+  if (_attrSortCol !== null) {
+    const col = config.columns[_attrSortCol];
+    sorted.sort((a, b) => {
+      const va = a.props[col.key] ?? '';
+      const vb = b.props[col.key] ?? '';
+      if (typeof va === 'number' && typeof vb === 'number')
+        return _attrSortAsc ? va - vb : vb - va;
+      return _attrSortAsc
+        ? String(va).localeCompare(String(vb))
+        : String(vb).localeCompare(String(va));
+    });
+  }
+
+  // Data rows
+  tbody.innerHTML = '';
+  sorted.forEach(item => {
+    const row = document.createElement('tr');
+    config.columns.forEach(col => {
+      const td  = document.createElement('td');
+      let   val = item.props[col.key];
+      if (col.fmt && val != null) val = col.fmt(val);
+      td.textContent = val != null ? String(val) : '';
+      td.title = td.textContent;
+      row.appendChild(td);
+    });
+
+    row.addEventListener('click', () => {
+      tbody.querySelectorAll('.attr-selected').forEach(r => r.classList.remove('attr-selected'));
+      row.classList.add('attr-selected');
+
+      const ml = config.mapLayer();
+      if (!map.hasLayer(ml)) {
+        map.addLayer(ml);
+        document.getElementById(config.chkId).checked = true;
+      }
+
+      highlightFeature(item.layer);
+      if (item.layer.getLatLng) {
+        map.flyTo(item.layer.getLatLng(), 17, { duration: 0.8 });
+        map.once('moveend', () => item.layer.openPopup());
+      } else if (item.layer.getBounds) {
+        map.flyToBounds(item.layer.getBounds(), { padding: [60, 60], duration: 0.8 });
+        map.once('moveend', () => item.layer.openPopup());
+      }
+    });
+
+    tbody.appendChild(row);
+  });
+}
+
+// Prevent map interactions from firing through the table panel
+L.DomEvent.disableClickPropagation(document.getElementById('attr-panel'));
+L.DomEvent.disableScrollPropagation(document.getElementById('attr-panel'));
+L.DomEvent.disableClickPropagation(document.getElementById('attr-table-btn'));
+
+// ── Attribute panel resize handle ─────────────────────────────
+(function () {
+  const handle = document.getElementById('attr-resize-handle');
+  const panel  = document.getElementById('attr-panel');
+  const wrap   = document.getElementById('map-wrap');
+  let startY, startH;
+
+  handle.addEventListener('mousedown', e => {
+    startY = e.clientY;
+    startH = panel.offsetHeight;
+    document.body.style.cursor = 'ns-resize';
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', stopDrag);
+    e.preventDefault();
+  });
+
+  function onDrag(e) {
+    const delta = startY - e.clientY;
+    const max   = wrap.offsetHeight - 60;
+    panel.style.height = Math.min(Math.max(startH + delta, 80), max) + 'px';
+  }
+
+  function stopDrag() {
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', stopDrag);
+  }
+})();
 
 map.on('pm:create', ({ shape, layer }) => {
   const label = measurementLabel(shape, layer);

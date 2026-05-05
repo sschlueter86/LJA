@@ -3,7 +3,9 @@
     "allow": [
       "Bash(python -c ' *)",
       "PowerShell($content = Get-Content 'd:\\\\LakeJulia_GIS\\\\LakeJulia_stage\\\\gis\\\\data\\\\Subwatershed_HUC12.geojson' -Raw; $json = $content | ConvertFrom-Json; $props = $json.features[0].properties; $props)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

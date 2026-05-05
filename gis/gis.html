@@ -674,19 +674,40 @@
       </div>
     </div>
 
-    <!-- ── Sub-watersheds ── -->
-    <div class="toc-item">
-      <div class="toc-row">
-        <label class="toc-check">
-          <input type="checkbox" id="toggle-watershed" />
-          Sub-watersheds
-        </label>
-        <span class="toc-arrow" id="arrow-watershed" onclick="toggleTocLegend('legend-watershed','arrow-watershed')">▶</span>
+    <!-- ── Watersheds group ── -->
+    <div class="section-toggle" onclick="toggleSection('section-watersheds','arrow-section-watersheds')">
+      Watersheds
+      <span class="toggle-arrow" id="arrow-section-watersheds">▼</span>
+    </div>
+    <div class="section-body" id="section-watersheds">
+      <div class="toc-item">
+        <div class="toc-row">
+          <label class="toc-check">
+            <input type="checkbox" id="toggle-watershed" />
+            HUC12 Sub-watersheds
+          </label>
+          <span class="toc-arrow" id="arrow-watershed" onclick="toggleTocLegend('legend-watershed','arrow-watershed')">▶</span>
+        </div>
+        <div class="toc-legend collapsed" id="legend-watershed">
+          <div class="legend-item">
+            <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
+            HUC12 Sub-watershed
+          </div>
+        </div>
       </div>
-      <div class="toc-legend collapsed" id="legend-watershed">
-        <div class="legend-item">
-          <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
-          HUC12 Sub-watershed
+      <div class="toc-item" style="border-bottom:none;">
+        <div class="toc-row">
+          <label class="toc-check">
+            <input type="checkbox" id="toggle-catchments" />
+            WHD Catchments
+          </label>
+          <span class="toc-arrow" id="arrow-catchments" onclick="toggleTocLegend('legend-catchments','arrow-catchments')">▶</span>
+        </div>
+        <div class="toc-legend collapsed" id="legend-catchments">
+          <div class="legend-item">
+            <span class="legend-dot" style="background:transparent; border-color:#dc2626;"></span>
+            WHD Catchment
+          </div>
         </div>
       </div>
     </div>
@@ -734,7 +755,8 @@
         <option value="parcels">Land Parcels</option>
         <option value="flowlines">Flowlines</option>
         <option value="lake">Lake Julia</option>
-        <option value="watershed">Sub-watersheds</option>
+        <option value="watershed">HUC12 Sub-watersheds</option>
+        <option value="catchments">WHD Catchments</option>
       </select>
       <button class="attr-close-btn" onclick="toggleAttrTable()">&#x2715;</button>
     </div>
@@ -1025,6 +1047,14 @@ function toggleLayerPanel() {
   arrow.textContent = collapsed ? '▶' : '▼';
 }
 
+// ── TOC section group toggle ──────────────────────────────────
+function toggleSection(bodyId, arrowId) {
+  const body  = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  const collapsed = body.classList.toggle('collapsed');
+  arrow.textContent = collapsed ? '▶' : '▼';
+}
+
 // ── TOC legend collapse toggle ────────────────────────────────
 function toggleTocLegend(legendId, arrowId) {
   const legend = document.getElementById(legendId);
@@ -1044,7 +1074,7 @@ function toggleResidents(uid) {
 
 // ── Initialize map ────────────────────────────────────────────
 const map = L.map('map', {
-  center: [45.795, -89.048],
+  center: [45.79631141196683, -89.04265851743448],
   zoom: 14,
   zoomControl: true,
 });
@@ -1146,6 +1176,50 @@ fetch('data/Subwatershed_HUC12.geojson')
     }).addTo(watershedLayer);
   })
   .catch(err => console.warn('Could not load Subwatershed_HUC12.geojson:', err));
+
+// ── WHD Catchments (feathered red outline) ────────────────────
+function buildCatchmentPopup(p) {
+  const fmt = (v, suffix = '', decimals = 2) => v != null && !isNaN(v) ? v.toFixed(decimals) + suffix : 'N/A';
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">WHD Catchment</div>
+      <div class="popup-name">Reach ${p['Stream Reach ID']}</div>
+    </div>
+    ${popupRow('Stream Order',    p['Stream Order'] != null ? p['Stream Order'] : 'N/A')}
+    ${popupRow('Sinuosity',       fmt(p['Sinuosity']))}
+    ${popupRow('Channel Slope',   fmt(p['Channel Slope']))}
+    ${popupRow('Watershed Area',  fmt(p['Watershed Area'], ' km²'))}
+    ${popupRow('Annual Precip',   fmt(p['Annual Precip'], ' mm', 0))}
+    ${popupRow('Mean Annual Temp',fmt(p['Mean Annual Temp'], ' °C', 1))}
+    ${popupRow('Runoff Curve No.',p['Runoff Curve Number'] != null ? p['Runoff Curve Number'] : 'N/A')}
+  `;
+}
+
+const catchmentsLayer = L.layerGroup();
+fetch('data/WHD-Plus_Catchments.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    [
+      { weight: 20, opacity: 0.04 },
+      { weight: 11, opacity: 0.09 },
+      { weight:  5, opacity: 0.18 },
+    ].forEach(({ weight, opacity }) => {
+      const glowGeo = L.geoJSON(geojson, {
+        style: { color: '#dc2626', weight, opacity, fill: false }
+      }).addTo(catchmentsLayer);
+      glowGeo.eachLayer(l => { l.options.pmIgnore = true; });
+    });
+    L.geoJSON(geojson, {
+      style: { color: '#dc2626', weight: 1.5, opacity: 0.9, fill: false },
+      onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
+        tableData.catchments.push({ props: feature.properties, layer });
+        layer.bindPopup(buildCatchmentPopup(feature.properties), { maxWidth: 320, minWidth: 240 });
+        layer.on('click', () => highlightFeature(layer));
+      }
+    }).addTo(catchmentsLayer);
+  })
+  .catch(err => console.warn('Could not load WHD-Plus_Catchments.geojson:', err));
 
 // ── Parcels (border highlight, transparent fill) ──────────────
 const parcelsLayer = L.layerGroup();
@@ -1251,7 +1325,7 @@ fetch('data/cabins.geojson')
 // ── Label conflict detection ──────────────────────────────────
 const featureLayers  = [];
 const searchIndex    = [];
-const tableData      = { cabins: [], parcels: [], flowlines: [], lake: [], watershed: [] };
+const tableData      = { cabins: [], parcels: [], flowlines: [], lake: [], watershed: [], catchments: [] };
 const LABEL_MIN_ZOOM = 16;
 const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
 const LABEL_H        = 15;   // label height px
@@ -1340,7 +1414,8 @@ map.on('popupclose', () => resetHighlight(_highlighted));
   ['toggle-cabins',    cabinsLayer],
   ['toggle-flowlines', flowlinesLayer],
   ['toggle-parcels',   parcelsLayer],
-  ['toggle-watershed', watershedLayer],
+  ['toggle-watershed',   watershedLayer],
+  ['toggle-catchments',  catchmentsLayer],
 ].forEach(([id, layer]) => {
   document.getElementById(id).addEventListener('change', function () {
     if (this.checked) map.addLayer(layer);
@@ -1548,6 +1623,19 @@ const TABLE_CONFIG = {
       { key: 'HUC12_CODE',            label: 'HUC12 Code' },
       { key: 'DOWNSTREAM_HUC12_CODE', label: 'Downstream' },
       { key: 'SHAPE__Area',           label: 'Area (acres)', fmt: v => v != null ? Math.round(v * 0.000247105).toLocaleString() : '' },
+    ]
+  },
+  catchments: {
+    chkId: 'toggle-catchments', mapLayer: () => catchmentsLayer,
+    columns: [
+      { key: 'Stream Reach ID',    label: 'Reach ID' },
+      { key: 'Stream Order',       label: 'Stream Order' },
+      { key: 'Sinuosity',          label: 'Sinuosity',        fmt: v => v != null && !isNaN(v) ? v.toFixed(2) : '' },
+      { key: 'Channel Slope',      label: 'Channel Slope',    fmt: v => v != null && !isNaN(v) ? v.toFixed(2) : '' },
+      { key: 'Watershed Area',     label: 'Area (km²)',       fmt: v => v != null ? v.toFixed(2) : '' },
+      { key: 'Annual Precip',      label: 'Precip (mm)',      fmt: v => v != null ? Math.round(v) : '' },
+      { key: 'Mean Annual Temp',   label: 'Temp (°C)',        fmt: v => v != null && !isNaN(v) ? v.toFixed(1) : '' },
+      { key: 'Runoff Curve Number',label: 'Runoff Curve No.' },
     ]
   },
 };

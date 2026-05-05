@@ -5,7 +5,9 @@
       "PowerShell($content = Get-Content 'd:\\\\LakeJulia_GIS\\\\LakeJulia_stage\\\\gis\\\\data\\\\Subwatershed_HUC12.geojson' -Raw; $json = $content | ConvertFrom-Json; $props = $json.features[0].properties; $props)",
       "Bash(git mv *)",
       "Bash(git rm *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('WHD-Plus_Catchments.geojson'\\)\\); f=d['features'][0]; print\\('Props:', list\\(f['properties'].keys\\(\\)\\)\\); print\\('Sample:', f['properties']\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('WHD-Plus_Catchments.geojson'\\)\\); print\\('Features:', len\\(d['features']\\)\\); import os; print\\('File size:', round\\(os.path.getsize\\('WHD-Plus_Catchments.geojson'\\)/1024/1024, 1\\), 'MB'\\)\")"
     ]
   }
 }

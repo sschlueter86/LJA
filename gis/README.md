@@ -2,7 +2,8 @@
 
 An interactive web map for the Lake Julia Association, built with [Leaflet](https://leafletjs.com). It displays community property data, environmental layers, and supporting GIS context for the lake and surrounding watershed.
 
-**Live:** [lakejuliawi.org/gis/maps.html](https://lakejuliawi.org/gis/maps.html)
+**Live (full screen):** [lakejuliawi.org/gis/gis.html](https://lakejuliawi.org/gis/gis.html)
+**Embedded on site:** [lakejuliawi.org/resources/maps.html](https://lakejuliawi.org/resources/maps.html) — under "LJA Interactive Map"
 
 ---
 
@@ -27,6 +28,7 @@ Four switchable basemaps via radio buttons in the layer panel:
 | Parcels | Polygon | Oneida County GIS (2024) | Amber border, transparent fill |
 | NHD Flowlines | Line | WDNR / NHD | Blue lines with directional arrowheads |
 | Properties | Point | LJA (QGIS) | Color-coded squares by access road |
+| Hillshade | Tile | ESRI World Hillshade | Opacity-adjustable elevation shading |
 
 **Access road color key:**
 
@@ -38,11 +40,17 @@ Four switchable basemaps via radio buttons in the layer panel:
 | Orange | Bradford Ln |
 | Red | Puelicher / Scott Lake |
 
+### Layer List (TOC)
+The layer panel (top-right) is collapsible — click "Layer List" to expand or collapse it. Each layer row has a checkbox to toggle visibility and a ▶ arrow to expand its legend. Section groups (Feature Layers, Basemap) can also be collapsed independently.
+
 ### Popups
 Every layer has a styled popup on click. Properties additionally show a collapsible resident/visitor list sorted by relationship to the property.
 
 ### Resident & Property Search
-A search box (top-right, adjacent to the layer panel) filters against all resident names, property names, and aliases in real time. Clicking a result flies the map to that property and opens its popup.
+A search box (upper-left of map) filters against all resident names, property names, and aliases in real time. Clicking a result flies the map to that property and opens its popup.
+
+### Table View
+A "Table View" button (lower-left of map) opens a bottom-anchored attribute table for the selected layer. Features: sortable columns, click-to-zoom-and-highlight, drag-to-resize handle. The panel is positioned inside the map container so it never overlaps the page footer.
 
 ### Draw & Measure Tools
 Powered by [Leaflet-Geoman](https://geoman.io). The toolbar appears in the top-left corner (below zoom controls):
@@ -69,7 +77,7 @@ All GeoJSON files must be in **WGS84 (EPSG:4326)**. Layers exported from ArcGIS 
 ## Adding a New GeoJSON Layer
 
 1. Export the layer in **EPSG:4326** and place it in `gis/data/`
-2. In `maps.html`, add a `L.layerGroup().addTo(map)` before `cabinsLayer` (to control z-order)
+2. In `gis.html`, add a `L.layerGroup().addTo(map)` before `cabinsLayer` (to control z-order)
 3. Fetch the file and render with `L.geoJSON()`, including an `onEachFeature` popup handler
 4. Add a toggle checkbox to the layer panel HTML
 5. Register the toggle in the `[id, layer]` array near the bottom of the script
@@ -82,10 +90,10 @@ See the existing flowlines, parcels, and subwatershed blocks as reference patter
 
 ```
 gis/
-├── maps.html               # The map application
+├── gis.html                # The map application (renamed from maps.html)
 ├── README.md               # This file
 ├── WORKFLOW.md             # Resident data maintenance workflow
-├── build-residents.js      # Script: syncs residents.csv → maps.html
+├── build-residents.js      # Script: syncs residents.csv → gis.html
 ├── LakeJulia_Q.qgz         # QGIS project file
 └── data/
     ├── cabins.geojson          # LJA property points (maintained in QGIS)
@@ -110,10 +118,12 @@ gis/
 
 ## Local Development
 
-Open `maps.html` with **VS Code Live Server** — do not open via `file://` as the GeoJSON fetches will be blocked by CORS.
+Open `gis.html` with **VS Code Live Server** — do not open via `file://` as the GeoJSON fetches will be blocked by CORS.
 
 ```
-http://127.0.0.1:5500/gis/maps.html
+http://127.0.0.1:5500/gis/gis.html
 ```
+
+The map is also embedded as an iframe on `resources/maps.html`. Test both views before publishing — the iframe uses a 650px fixed height; the full-screen view fills the browser viewport.
 
 See `WORKFLOW.md` for the resident data update process.

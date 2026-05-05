@@ -3,13 +3,13 @@
 // Usage: node gis/build-residents.js
 //
 // Reads gis/data/residents.csv and rewrites the RESIDENTS and ALT_CABINS
-// constants in gis/maps.html. Run this after any change to the CSV.
+// constants in gis/gis.html. Run this after any change to the CSV.
 
 const fs   = require('fs');
 const path = require('path');
 
 const CSV_PATH  = path.join(__dirname, 'data', 'residents.csv');
-const HTML_PATH = path.join(__dirname, 'maps.html');
+const HTML_PATH = path.join(__dirname, 'gis.html');
 
 // ── CSV parser — handles quoted fields and embedded double-quotes ──────────
 function parseRow(line) {
@@ -100,20 +100,20 @@ const altCabinsBlock = altLines.length
   ? `const ALT_CABINS = {\n${altLines.join(',\n')},\n};`
   : `const ALT_CABINS = {};`;
 
-// ── Patch maps.html ───────────────────────────────────────────────────────
+// ── Patch gis.html ───────────────────────────────────────────────────────
 let html = fs.readFileSync(HTML_PATH, 'utf8');
 
 const beforeResidents = html.length;
 html = html.replace(/const RESIDENTS = \{[\s\S]*?\};/, residentsBlock);
 if (html.length === beforeResidents) {
-  console.error('ERROR: Could not find RESIDENTS block in maps.html');
+  console.error('ERROR: Could not find RESIDENTS block in gis.html');
   process.exit(1);
 }
 
 const beforeAlt = html.length;
 html = html.replace(/const ALT_CABINS = \{[\s\S]*?\};/, altCabinsBlock);
 if (html.length === beforeAlt) {
-  console.error('ERROR: Could not find ALT_CABINS block in maps.html');
+  console.error('ERROR: Could not find ALT_CABINS block in gis.html');
   process.exit(1);
 }
 

@@ -150,7 +150,7 @@ const SEARCH_INDEX = [
     url: 'resources/maps.html',
     section: 'Resources',
     snippet: 'Lake Julia lake maps, bathymetric depth chart, neighbor map, and interactive GIS viewer.',
-    body: 'maps gis bathymetric map lake map depth map interactive map gis viewer neighbors map boat launch shoreline contours depth chart topographic plat county parcels house map 49 properties numbered color-coded roads 18 24 pdf 2025 1975 survey hazard shallow rock beds arcgis parcel boundaries hydrology elevation slope satellite imagery wisconsin dnr swdv surface water data viewer wbic 1614300 fisheries wetlands floodplains dams construction permits oneida county land records parcel viewer snowmobile trails forest county east half landnav google maps'
+    body: 'maps gis bathymetric map lake map depth map interactive map gis viewer neighbors map boat launch shoreline contours depth chart topographic plat county parcels house map 49 properties numbered color-coded roads 18 24 pdf 2025 1975 survey hazard shallow rock beds leaflet parcel boundaries hydrology elevation slope satellite imagery wisconsin dnr swdv surface water data viewer wbic 1614300 fisheries wetlands floodplains dams construction permits oneida county land records parcel viewer snowmobile trails forest county east half landnav google maps'
   },
   {
     title: 'LJA Interactive Map',

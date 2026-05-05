@@ -16,13 +16,13 @@
 
   <style>
     /* ── Page layout ─────────────────────────────────────────── */
-    body { margin: 0; font-family: Georgia, serif; background: #f4f1eb; color: #2c2c2c; }
+    body { margin: 0; font-family: Georgia, serif; background: #fdf9f4; color: #2c2c2c; }
 
     .page-header {
-      background: linear-gradient(135deg, #1a3a2a 0%, #22503a 100%);
-      color: #e8dfc8;
+      background: linear-gradient(135deg, #1a3d52 0%, #2c5f7a 100%);
+      color: #d4e8f0;
       padding: 1.4rem 2rem 1.3rem;
-      border-bottom: 3px solid #4a7c59;
+      border-bottom: 3px solid #2c5f7a;
       display: flex;
       flex-direction: column;
       gap: .3rem;
@@ -36,13 +36,13 @@
     .page-header .header-divider {
       width: 48px;
       height: 2px;
-      background: #4a7c59;
+      background: #2c5f7a;
       border-radius: 1px;
     }
     .page-header p {
       margin: 0;
       font-size: .85rem;
-      color: #a8c4b0;
+      color: #a8cfd8;
       font-style: italic;
       letter-spacing: .02em;
     }
@@ -74,10 +74,10 @@
     .panel-title {
       font-size: .95rem;
       font-weight: bold;
-      color: #1a3a2a;
+      color: #1a3d52;
       margin: 0 0 8px;
       padding-bottom: 6px;
-      border-bottom: 2px solid #4a7c59;
+      border-bottom: 2px solid #2c5f7a;
       letter-spacing: .02em;
     }
     .layer-panel h3 {
@@ -93,7 +93,7 @@
       margin-top: 10px;
     }
     .layer-panel input[type=checkbox],
-    .layer-panel input[type=radio]    { accent-color: #4a7c59; cursor: pointer; }
+    .layer-panel input[type=radio]    { accent-color: #2c5f7a; cursor: pointer; }
 
     /* ── TOC layer items ─────────────────────────────────────── */
     .toc-item {
@@ -181,7 +181,7 @@
     .leaflet-popup-content { margin: 12px 14px; }
 
     .popup-header {
-      border-bottom: 2px solid #4a7c59;
+      border-bottom: 2px solid #2c5f7a;
       padding-bottom: 6px;
       margin-bottom: 8px;
     }
@@ -195,7 +195,7 @@
     .popup-name {
       font-size: 1.05rem;
       font-weight: bold;
-      color: #1a3a2a;
+      color: #1a3d52;
       margin: 0;
     }
     .popup-alias {
@@ -223,9 +223,9 @@
     }
     .popup-residents-toggle {
       background: none;
-      border: 1px solid #4a7c59;
+      border: 1px solid #2c5f7a;
       border-radius: 4px;
-      color: #4a7c59;
+      color: #2c5f7a;
       font-family: Georgia, serif;
       font-size: .78rem;
       padding: 4px 10px;
@@ -237,7 +237,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    .popup-residents-toggle:hover { background: #f0f7f3; }
+    .popup-residents-toggle:hover { background: #edf5f8; }
     .popup-residents-panel {
       display: none;
       margin-top: 6px;
@@ -259,7 +259,7 @@
     }
     .popup-residents-list::-webkit-scrollbar { width: 4px; }
     .popup-residents-list::-webkit-scrollbar-track { background: #f0ede6; }
-    .popup-residents-list::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 2px; }
+    .popup-residents-list::-webkit-scrollbar-thumb { background: #2c5f7a; border-radius: 2px; }
 
     /* ── Highlighted marker ──────────────────────────────────── */
     .cabin-icon.cabin-highlight {
@@ -344,7 +344,7 @@
       color: #2c2c2c;
     }
     #search-input:focus {
-      border-color: #4a7c59 !important; /* green on focus */
+      border-color: #2c5f7a !important; /* green on focus */
       box-shadow: 0 3px 14px rgba(0,0,0,.45), 0 0 0 2px rgba(74,124,89,.25) !important;
     }
     #search-input::placeholder { color: #999; }
@@ -370,7 +370,7 @@
       display: none;
     }
     .search-results::-webkit-scrollbar { width: 4px; }
-    .search-results::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 2px; }
+    .search-results::-webkit-scrollbar-thumb { background: #2c5f7a; border-radius: 2px; }
     .search-result-item {
       padding: 7px 12px;
       cursor: pointer;
@@ -378,8 +378,8 @@
       font-family: Georgia, serif;
     }
     .search-result-item:last-child { border-bottom: none; }
-    .search-result-item:hover { background: #f0f7f3; }
-    .search-result-item .result-name { font-size: .84rem; font-weight: 600; color: #1a3a2a; }
+    .search-result-item:hover { background: #edf5f8; }
+    .search-result-item .result-name { font-size: .84rem; font-weight: 600; color: #1a3d52; }
     .search-result-item .result-sub  { font-size: .72rem; color: #888; margin-top: 1px; }
     .search-no-results { padding: 9px 12px; font-size: .82rem; color: #999; font-style: italic; font-family: Georgia, serif; }
 
@@ -388,7 +388,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 5px 12px;
-      background: #f4f1eb;
+      background: #fdf9f4;
       font-family: Georgia, serif;
       font-size: .70rem;
       text-transform: uppercase;
@@ -417,7 +417,7 @@
     .opacity-row input[type=range] {
       flex: 1;
       min-width: 0;
-      accent-color: #4a7c59;
+      accent-color: #2c5f7a;
       height: 3px;
       cursor: pointer;
     }
@@ -438,19 +438,19 @@
       padding: 6px 16px;
       font-family: Georgia, serif;
       font-size: .78rem;
-      color: #1a3a2a;
+      color: #1a3d52;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,.2);
       white-space: nowrap;
     }
-    #attr-table-btn:hover { background: #f0f7f3; border-color: #4a7c59; }
+    #attr-table-btn:hover { background: #edf5f8; border-color: #2c5f7a; }
 
     #attr-panel {
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 260px;
       background: rgba(255,255,255,.97);
-      border-top: 2px solid #4a7c59;
+      border-top: 2px solid #2c5f7a;
       z-index: 1001;
       display: flex;
       flex-direction: column;
@@ -461,7 +461,7 @@
       align-items: center;
       gap: 10px;
       padding: 6px 12px;
-      background: #f4f1eb;
+      background: #fdf9f4;
       border-bottom: 1px solid #ddd;
       flex-shrink: 0;
     }
@@ -469,7 +469,7 @@
       font-family: Georgia, serif;
       font-size: .85rem;
       font-weight: bold;
-      color: #1a3a2a;
+      color: #1a3d52;
       white-space: nowrap;
     }
     .attr-feature-count {
@@ -509,8 +509,8 @@
       font-size: .78rem;
     }
     .attr-table th {
-      background: #1a3a2a;
-      color: #e8dfc8;
+      background: #1a3d52;
+      color: #d4e8f0;
       padding: 6px 10px;
       text-align: left;
       position: sticky;
@@ -521,8 +521,8 @@
       font-size: .72rem;
       letter-spacing: .05em;
     }
-    .attr-table th:hover { background: #22503a; }
-    .attr-table th .sort-arrow { margin-left: 4px; color: #7cad8c; }
+    .attr-table th:hover { background: #2c5f7a; }
+    .attr-table th .sort-arrow { margin-left: 4px; color: #4a8fa8; }
     .attr-table td {
       padding: 5px 10px;
       border-bottom: 1px solid #ede9e0;
@@ -564,8 +564,8 @@
 
     /* ── Footer note ─────────────────────────────────────────── */
     .map-footer {
-      background: #1a3a2a;
-      color: #a0b8a8;
+      background: #1a3d52;
+      color: #a0c8d8;
       font-size: .75rem;
       padding: .6rem 1.5rem;
       text-align: center;
@@ -737,7 +737,7 @@
 </div>
 
 <div class="map-footer">
-  Map data © <a href="https://www.openstreetmap.org/copyright" style="color:#7cad8c">OpenStreetMap</a> contributors &nbsp;|&nbsp;
+  Map data © <a href="https://www.openstreetmap.org/copyright" style="color:#4a8fa8">OpenStreetMap</a> contributors &nbsp;|&nbsp;
   Property locations are approximate &nbsp;|&nbsp; Contact information available to LJA members only
 </div>
 
@@ -805,7 +805,7 @@ const RESIDENTS = {
 
 // ── Access road → marker color ────────────────────────────────
 const ACCESS_COLORS = {
-  'LakeJulia':           '#2e7d4f',
+  'LakeJulia':           '#2c5f7a',
   'HillTop':             '#1565c0',
   'Harmony/Woodbury':    '#6a1fa0',
   'Bradford':            '#b45309',

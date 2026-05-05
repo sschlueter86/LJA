@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '04/20/2026 @ 10:23 PM CST'; // update this each time the site is published
+const LAST_UPDATED = '05/05/2026 @ 12:00 PM CST'; // update this each time the site is published
 
 // ── SEARCH INDEX ──────────────────────────────────────────────────
 // Each entry: { title, url (root-relative), section, snippet, body }
@@ -151,6 +151,13 @@ const SEARCH_INDEX = [
     section: 'Resources',
     snippet: 'Lake Julia lake maps, bathymetric depth chart, neighbor map, and interactive GIS viewer.',
     body: 'maps gis bathymetric map lake map depth map interactive map gis viewer neighbors map boat launch shoreline contours depth chart topographic plat county parcels house map 49 properties numbered color-coded roads 18 24 pdf 2025 1975 survey hazard shallow rock beds arcgis parcel boundaries hydrology elevation slope satellite imagery wisconsin dnr swdv surface water data viewer wbic 1614300 fisheries wetlands floodplains dams construction permits oneida county land records parcel viewer snowmobile trails forest county east half landnav google maps'
+  },
+  {
+    title: 'LJA Interactive Map',
+    url: 'gis/gis.html',
+    section: 'Resources',
+    snippet: 'Self-hosted Leaflet map with property markers, lake hydrology, parcels, hillshade, and resident search.',
+    body: 'gis interactive map leaflet property map properties cabins markers color-coded roads lake julia hydrology flowlines parcels sub-watersheds hillshade basemap satellite topo resident search attribute table drawing tools layer list layer control interactive viewer self-hosted open source'
   },
   {
     title: 'Association Documents',

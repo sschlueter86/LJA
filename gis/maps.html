@@ -16,41 +16,42 @@
 
   <style>
     /* ── Page layout ─────────────────────────────────────────── */
-    html, body { overflow: hidden; }
     body { margin: 0; font-family: Georgia, serif; background: #fdf9f4; color: #2c2c2c; }
 
     .page-header {
       background: linear-gradient(135deg, #1a3d52 0%, #2c5f7a 100%);
       color: #d4e8f0;
-      padding: 0.5rem 2rem 0.55rem;
+      padding: 1.4rem 2rem 1.3rem;
       border-bottom: 3px solid #2c5f7a;
       display: flex;
       flex-direction: column;
-      gap: .2rem;
+      gap: .3rem;
     }
     .page-header h1 {
       margin: 0;
-      font-size: 1.25rem;
+      font-size: 1.6rem;
       letter-spacing: .03em;
       font-weight: bold;
     }
-    .page-header .header-divider { display: none; }
+    .page-header .header-divider {
+      width: 48px;
+      height: 2px;
+      background: #2c5f7a;
+      border-radius: 1px;
+    }
     .page-header p {
       margin: 0;
-      font-size: .8rem;
+      font-size: .85rem;
       color: #a8cfd8;
       font-style: italic;
       letter-spacing: .02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     /* ── Map container ───────────────────────────────────────── */
     #map-wrap {
       position: relative;
       width: 100%;
-      height: calc(100vh - 105px);
+      height: calc(100vh - 160px);
       min-height: 500px;
     }
     #map { width: 100%; height: 100%; }
@@ -74,19 +75,11 @@
       font-size: .95rem;
       font-weight: bold;
       color: #1a3d52;
-      margin: 0;
+      margin: 0 0 8px;
       padding-bottom: 6px;
       border-bottom: 2px solid #2c5f7a;
       letter-spacing: .02em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
     }
-    .panel-title .panel-toggle-arrow { font-size: .65rem; color: #888; }
-    .panel-body { margin-top: 8px; }
-    .panel-body.collapsed { display: none; }
     .layer-panel h3 {
       margin: 0 0 7px;
       font-size: .78rem;
@@ -436,7 +429,7 @@
     /* ── Attribute Table ─────────────────────────────────────── */
     #attr-table-btn {
       position: absolute;
-      bottom: 10px;
+      bottom: 35px;
       left: 10px;
       z-index: 1000;
       background: rgba(255,255,255,.93);
@@ -583,9 +576,9 @@
 <body>
 
 <div class="page-header">
-<h1>Lake Julia Association &mdash; Interactive Property &amp; Community Map</h1>
+  <h1>Lake Julia Association &mdash; Property &amp; Community Map</h1>
   <div class="header-divider"></div>
-  <p>Properties, access roads, hydrology, parcels, and community resources</p>
+  <p>An interactive GIS application for exploring properties, access roads, and community resources across the lake</p>
 </div>
 
 <div id="map-wrap">
@@ -598,11 +591,7 @@
   </div>
 
   <div class="layer-panel">
-    <div class="panel-title" onclick="toggleLayerPanel()">
-      Layer List
-      <span class="panel-toggle-arrow" id="panel-toggle-arrow">▶</span>
-    </div>
-    <div class="panel-body collapsed" id="panel-body">
+    <div class="panel-title">Layer List</div>
     <h3>Feature Layers</h3>
 
     <!-- ── Properties ── -->
@@ -717,8 +706,8 @@
     <label class="radio-label"><input type="radio" name="basemap" value="topo"      checked /> Topo</label>
     <label class="radio-label"><input type="radio" name="basemap" value="usgs"             /> USGS</label>
 
-    </div><!-- end panel-body -->
   </div>
+</div>
 
   <!-- Attribute Table Toggle Button -->
   <button id="attr-table-btn" onclick="toggleAttrTable()">Table View</button>
@@ -1015,14 +1004,6 @@ function toggleSection(bodyId, arrowId) {
   const arrow = document.getElementById(arrowId);
   body.classList.toggle('collapsed');
   arrow.textContent = body.classList.contains('collapsed') ? '▼' : '▲';
-}
-
-// ── Layer panel collapse toggle ───────────────────────────────
-function toggleLayerPanel() {
-  const body  = document.getElementById('panel-body');
-  const arrow = document.getElementById('panel-toggle-arrow');
-  const collapsed = body.classList.toggle('collapsed');
-  arrow.textContent = collapsed ? '▶' : '▼';
 }
 
 // ── TOC legend collapse toggle ────────────────────────────────

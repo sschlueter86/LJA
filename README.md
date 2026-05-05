@@ -17,7 +17,8 @@ The site is designed to be simple, durable, and easy to hand off: no CMS, no dat
 ## Tech Stack
 
 - **Static HTML/CSS/JS** — no server-side code or build tools required
-- **Hosted** on GitHub Pages
+- **Leaflet** — open-source interactive map (replaces ESRI ArcGIS Online subscription)
+- **Hosted** on GitHub Pages (`.nojekyll` disables Jekyll so files are served as-is)
 - **Domain** lakejuliawi.org — registered through Cloudflare (~$10/yr, auto-renew)
 - **SSL** via GitHub Pages / Cloudflare
 
@@ -25,12 +26,13 @@ The site is designed to be simple, durable, and easy to hand off: no CMS, no dat
 
 ## Site Structure
 
-The site contains **23 pages** organized into five sections, plus a homepage and internal documentation.
+The site contains **23 pages** organized into five sections, plus a self-hosted GIS application and internal documentation.
 
 ```
 lakejuliawi.org/
 │
 ├── index.html                        # Homepage
+├── .nojekyll                         # Disables Jekyll on GitHub Pages
 │
 ├── community/
 │   ├── index.html                    # Community overview
@@ -57,16 +59,30 @@ lakejuliawi.org/
 │
 ├── resources/
 │   ├── index.html                    # Resources overview
-│   ├── maps.html                     # Maps & GIS
+│   ├── maps.html                     # Maps & GIS (embeds Leaflet map + DNR viewer)
 │   ├── documents.html                # Association documents
 │   ├── attractions.html              # Local attractions
 │   └── links.html                    # Helpful external links
+│
+├── gis/
+│   ├── gis.html                      # Leaflet interactive map application
+│   ├── build-residents.js            # Script: syncs residents.csv → gis.html
+│   ├── LakeJulia_Q.qgz               # QGIS project file
+│   ├── README.md                     # GIS map documentation
+│   ├── WORKFLOW.md                   # Resident data maintenance workflow
+│   └── data/
+│       ├── cabins.geojson            # LJA property points (maintained in QGIS)
+│       ├── residents.csv             # Resident data — NOT committed to git
+│       ├── lkjulia.geojson           # Lake Julia polygon
+│       ├── Subwatershed_HUC12.geojson
+│       ├── parcels.geojson           # Oneida County parcels (2024)
+│       └── NHD_Flowlines.geojson
 │
 ├── css/
 │   └── style.css                     # Shared stylesheet (all pages)
 │
 ├── js/
-│   └── nav.js                        # Shared nav & footer (injected into every page)
+│   └── nav.js                        # Shared nav, footer & search index (injected into every page)
 │
 ├── images/                           # Site imagery
 │

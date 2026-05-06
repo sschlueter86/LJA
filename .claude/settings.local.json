@@ -8,7 +8,14 @@
       "Bash(git commit -m ' *)",
       "Bash(python -c \"import json; d=json.load\\(open\\('WHD-Plus_Catchments.geojson'\\)\\); f=d['features'][0]; print\\('Props:', list\\(f['properties'].keys\\(\\)\\)\\); print\\('Sample:', f['properties']\\)\")",
       "Bash(python -c \"import json; d=json.load\\(open\\('WHD-Plus_Catchments.geojson'\\)\\); print\\('Features:', len\\(d['features']\\)\\); import os; print\\('File size:', round\\(os.path.getsize\\('WHD-Plus_Catchments.geojson'\\)/1024/1024, 1\\), 'MB'\\)\")",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(git -C \"d:\\\\LakeJulia_GIS\\\\LakeJulia_stage\" log --oneline -8)",
+      "Bash(git -C \"d:\\\\LakeJulia_GIS\\\\LakeJulia_stage\" show --stat HEAD)",
+      "PowerShell($f = \"d:\\\\LakeJulia_GIS\\\\LakeJulia_stage\\\\gis\\\\data\\\\WHD-Plus_Catchments.geojson\"; [math]::Round\\(\\(Get-Item $f\\).Length / 1KB, 1\\))",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2 --stat)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2 -- gis/data/WHD-Plus_Catchments.geojson)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" status gis/data/)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2:gis/data/WHD-Plus_Catchments.geojson)"
     ]
   }
 }

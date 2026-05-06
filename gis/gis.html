@@ -1154,7 +1154,8 @@ fetch('data/Subwatershed_HUC12.geojson')
       { weight:  5, opacity: 0.18 },
     ].forEach(({ weight, opacity }) => {
       const glowGeo = L.geoJSON(geojson, {
-        style: { color: '#7c3aed', weight, opacity, fill: false }
+        style: { color: '#7c3aed', weight, opacity, fill: false },
+        interactive: false
       }).addTo(watershedLayer);
       glowGeo.eachLayer(l => { l.options.pmIgnore = true; });
     });
@@ -1198,7 +1199,8 @@ fetch('data/WHD-Plus_Catchments.geojson')
       { weight:  5, opacity: 0.18 },
     ].forEach(({ weight, opacity }) => {
       const glowGeo = L.geoJSON(geojson, {
-        style: { color: '#dc2626', weight, opacity, fill: false }
+        style: { color: '#dc2626', weight, opacity, fill: false },
+        interactive: false
       }).addTo(catchmentsLayer);
       glowGeo.eachLayer(l => { l.options.pmIgnore = true; });
     });

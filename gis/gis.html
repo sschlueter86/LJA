@@ -675,38 +675,31 @@
     </div>
 
     <!-- ── Watersheds group ── -->
-    <div class="section-toggle" onclick="toggleSection('section-watersheds','arrow-section-watersheds')">
-      Watersheds
-      <span class="toggle-arrow" id="arrow-section-watersheds">▼</span>
-    </div>
-    <div class="section-body" id="section-watersheds">
-      <div class="toc-item">
-        <div class="toc-row">
-          <label class="toc-check">
-            <input type="checkbox" id="toggle-watershed" />
-            HUC12 Sub-watersheds
-          </label>
-          <span class="toc-arrow" id="arrow-watershed" onclick="toggleTocLegend('legend-watershed','arrow-watershed')">▶</span>
-        </div>
-        <div class="toc-legend collapsed" id="legend-watershed">
-          <div class="legend-item">
-            <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
-            HUC12 Sub-watershed
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-watersheds-group" />
+          Watersheds
+        </label>
+        <span class="toc-arrow" id="arrow-watersheds-group" onclick="toggleSection('section-watersheds','arrow-watersheds-group')">▶</span>
+      </div>
+      <div class="section-body collapsed" style="padding-left:18px;" id="section-watersheds">
+        <div class="toc-item">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-watershed" />
+              <span class="legend-dot" style="background:transparent; border-color:#7c3aed;"></span>
+              HUC12 Sub-watershed
+            </label>
           </div>
         </div>
-      </div>
-      <div class="toc-item" style="border-bottom:none;">
-        <div class="toc-row">
-          <label class="toc-check">
-            <input type="checkbox" id="toggle-catchments" />
-            WHD Catchments
-          </label>
-          <span class="toc-arrow" id="arrow-catchments" onclick="toggleTocLegend('legend-catchments','arrow-catchments')">▶</span>
-        </div>
-        <div class="toc-legend collapsed" id="legend-catchments">
-          <div class="legend-item">
-            <span class="legend-dot" style="background:transparent; border-color:#dc2626;"></span>
-            WHD Catchment
+        <div class="toc-item" style="border-bottom:none;">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-catchments" />
+              <span class="legend-dot" style="background:transparent; border-color:#dc2626;"></span>
+              WHD Catchments
+            </label>
           </div>
         </div>
       </div>
@@ -1422,6 +1415,30 @@ map.on('popupclose', () => resetHighlight(_highlighted));
     else map.removeLayer(layer);
   });
 });
+
+// ── Watersheds group parent checkbox ─────────────────────────
+(function () {
+  const groupChk     = document.getElementById('toggle-watersheds-group');
+  const childChks    = ['toggle-watershed', 'toggle-catchments'].map(id => document.getElementById(id));
+  const childLayers  = [watershedLayer, catchmentsLayer];
+
+  groupChk.addEventListener('change', function () {
+    childChks.forEach((chk, i) => {
+      chk.checked = this.checked;
+      if (this.checked) map.addLayer(childLayers[i]);
+      else map.removeLayer(childLayers[i]);
+    });
+  });
+
+  childChks.forEach((chk, i) => {
+    chk.addEventListener('change', function () {
+      const anyChecked = childChks.some(c => c.checked);
+      const allChecked = childChks.every(c => c.checked);
+      groupChk.checked = anyChecked;
+      groupChk.indeterminate = anyChecked && !allChecked;
+    });
+  });
+})();
 
 // ── Resident / property search ────────────────────────────────
 const searchInput   = document.getElementById('search-input');

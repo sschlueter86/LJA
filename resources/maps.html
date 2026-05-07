@@ -91,46 +91,44 @@
 
   <hr class="divider">
 
-  <!-- ── SECTION: LJA Interactive GIS Viewer (Leaflet) ──
-       Self-hosted map built with Leaflet — no subscription required.
-       Full-screen link opens gis/gis.html directly.                 -->
+  <!-- ── SECTION: Interactive Map Viewers ──
+       Two side-by-side cards replacing the previous embedded iframes.
+       Thumbnails give a visual preview; links open each tool in a new tab. -->
   <div class="fade-up" style="margin-bottom: 2rem;">
-    <p class="section-label">GIS</p>
-    <h2 class="section-title sm">LJA Interactive Map</h2>
+    <p class="section-label">Interactive GIS Maps</p>
+    <h2 class="section-title sm">Online Map Viewers</h2>
     <div class="prose" style="margin-bottom: 1.25rem;">
-      <p>An interactive map of Lake Julia and its surrounding landscape. Explore all 49 properties, access roads, hydrology, land parcels, and terrain. Search residents by name, click any feature for details, or use the drawing tools to sketch notes and measurements. Opening in fullscreen opens a new tab in your browswer and is highly recommended.</p>
-      <p><a href="../gis/gis.html" target="_blank">Open in full screen → </a></p>
+      <p>These tools are best experienced in full screen, especially on phones and tablets. Click the link on each card to launch the viewer in a new tab.</p>
     </div>
-    <iframe
-      src="../gis/gis.html"
-      style="width:100%; height:650px; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);"
-      allowfullscreen
-      loading="lazy"
-      title="LJA Interactive Leaflet Map">
-    </iframe>
-  </div>
 
-  <!-- ── SECTION: WI DNR Surface Water Data Viewer ──
-       A second embedded iframe pointing to the Wisconsin DNR's SWDV
-       pre-filtered to Julia Lake's WBIC (Water Body Identification Code
-       1614300). Displays water quality, fisheries, wetlands, floodplains,
-       and construction permit data.
-       loading="lazy" defers load until scrolled into view. -->
-  <div class="fade-up" style="margin-bottom: 2rem; margin-top: 2rem;">
-    <h2 class="section-title sm">Wisconsin DNR Surface Water Data Viewer</h2>
-    <div class="prose" style="margin-bottom: 1.25rem;">
-      <p>The WI DNR tool used to identify water resources, wetlands, floodplains, and dams. It allows users to view, analyze, and download data on water quality, fisheries, and construction permits. Opening in fullscreen opens a new tab in your browswer and is highly recommended.</p>
-      <!-- Full-screen link opens the DNR viewer at Lake Julia's WBIC directly -->
-      <p><a href="https://dnrmaps.wi.gov/H5/?viewer=SWDV&amp;param=LAKE,WATERBODY_WBIC,1614300" target="_blank">Open in full screen →</a></p>
+    <div class="cards-grid" style="margin-top: 1.25rem;">
+
+      <!-- LJA Interactive GIS Map -->
+      <div class="card">
+        <img src="../images/website_thumbnails/LJA_leaflet_thumbnail.jpg"
+             alt="Preview of the LJA interactive property and GIS map"
+             style="width:100%; height:180px; object-fit:cover; object-position:top; border-radius:6px; margin-bottom:0.85rem; display:block; border:1px solid var(--sand-dark);">
+        <span class="card-tag">LJA GIS</span>
+        <h3>LJA Interactive Map</h3>
+        <p>A Lake Julia Association web application built to explore the properties, roads, and natural features of the Lake Julia community. Browse all 49 numbered properties with resident information, and overlay hydrology, land parcels, watershed boundaries, and hillshade terrain. Switch between street, satellite, topo, and USGS basemaps to suit your needs. Search residents or properties by name, click any feature for detailed information, or use the built-in drawing tools to sketch notes and take measurements.</p>
+        <p style="margin-top:0.5rem; font-size:0.78rem; color:var(--text-muted); font-style:italic;">Created and maintained by the LJA Board. Contact the <a href="mailto:scottoschlueter@gmail.com?cc=jrfranke72@gmail.com">site administrator</a> with questions.</p>
+        <a href="../gis/gis.html" target="_blank" class="card-link">Open interactive map →</a>
+      </div>
+
+      <!-- WI DNR Surface Water Data Viewer -->
+      <div class="card">
+        <img src="../images/website_thumbnails/WIDNR_surfacewater_thumbnail.jpg"
+             alt="Preview of the Wisconsin DNR Surface Water Data Viewer"
+             style="width:100%; height:180px; object-fit:cover; object-position:top; border-radius:6px; margin-bottom:0.85rem; display:block; border:1px solid var(--sand-dark);">
+        <span class="card-tag">WI DNR</span>
+        <h3>Surface Water Data Viewer (SWDV)</h3>
+        <p>The Surface Water Data Viewer (SWDV) is a DNR data delivery system that provides interactive web mapping tools for a wide variety of datasets including chemistry (water, sediment), physical and biological (macroinvertebrate, fish) data. As a full-featured enterprise web application, the SWDV offers many capabilities beyond basic mapping — refer to the User Guide below for details.</p>
+        <a href="https://dnrmaps.wi.gov/H5/?viewer=SWDV&amp;param=LAKE,WATERBODY_WBIC,1614300" target="_blank" class="card-link">Open interactive map →</a>
+        <a href="https://apps.dnr.wi.gov/swims/Documents/DownloadDocument?id=358818031" target="_blank" class="card-link" style="display:block; margin-top:0.35rem;">SWDV User Guide (PDF) →</a>
+        
+      </div>
+
     </div>
-    <!-- Embedded WI DNR SWDV iframe pre-filtered to WBIC 1614300 (Julia Lake) -->
-    <iframe
-      src="https://dnrmaps.wi.gov/H5/?viewer=SWDV&param=LAKE,WATERBODY_WBIC,1614300"
-      style="width:100%; height:600px; border-radius:8px; border:1px solid var(--sand-dark); box-shadow:0 2px 12px rgba(0,0,0,0.08);"
-      allowfullscreen
-      loading="lazy"
-      title="Wisconsin DNR Surface Water Data Viewer">
-    </iframe>
   </div>
 
   <hr class="divider">

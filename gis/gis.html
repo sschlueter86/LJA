@@ -578,6 +578,54 @@
       text-align: center;
       font-style: italic;
     }
+
+    /* ── Mobile / tablet layout ──────────────────────────────── */
+    @media (max-width: 768px) {
+      .page-header { padding: 0.4rem 0.75rem; }
+      .page-header h1 { font-size: 0.95rem; line-height: 1.25; }
+      .page-header p { font-size: 0.7rem; }
+
+      #map-wrap {
+        height: calc(100vh - 80px);
+        min-height: 320px;
+      }
+
+      /* Search spans the top, leaving room for Leaflet zoom buttons */
+      .map-search {
+        top: 8px;
+        left: 52px;
+        right: 8px;
+        width: auto;
+      }
+      #search-input {
+        font-size: 16px;       /* prevents iOS auto-zoom on focus */
+        padding: 9px 32px 9px 12px;
+      }
+      .search-results { max-height: 220px; }
+
+      /* Layer panel drops below the search box; scrolls when expanded */
+      .layer-panel {
+        top: 56px;
+        right: 8px;
+        width: 210px;
+        max-height: calc(100vh - 220px);
+        overflow-y: auto;
+        font-size: 0.8rem;
+      }
+
+      #attr-table-btn {
+        bottom: 8px;
+        left: 8px;
+        padding: 7px 13px;
+      }
+      #attr-panel { height: 45vh; }
+    }
+
+    @media (max-width: 480px) {
+      .page-header p { display: none; }
+      #map-wrap { height: calc(100vh - 60px); }
+      .layer-panel { width: 190px; }
+    }
   </style>
 </head>
 <body>

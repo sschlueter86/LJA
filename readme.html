@@ -430,7 +430,7 @@
     <div class="doc-meta">
       <div class="doc-meta-item"><strong>Live URL</strong><a href="https://lakejuliawi.org" style="color:rgba(255,255,255,0.65);">lakejuliawi.org</a></div>
       <div class="doc-meta-item"><strong>Hosted On</strong>GitHub Pages (sschlueter86/LJA)</div>
-      <div class="doc-meta-item"><strong>Last Updated</strong>April 2026</div>
+      <div class="doc-meta-item"><strong>Last Updated</strong>May 2026</div>
       <div class="doc-meta-item"><strong>Built By</strong>Scott Schlueter</div>
     </div>
   </div>
@@ -448,6 +448,9 @@
     <a href="#sitemap">All pages</a>
     <a href="#in-development" class="toc-section">In Development</a>
     <a href="#in-development">Planned pages</a>
+    <a href="#gis-map" class="toc-section">GIS Map</a>
+    <a href="#gis-map">LJA Interactive Map</a>
+    <a href="#updating-residents">Updating residents</a>
     <a href="#files" class="toc-section">File Structure</a>
     <a href="#files">Folder layout</a>
     <a href="#images">Images</a>
@@ -484,6 +487,7 @@
           
           <tr><td>Git / GitHub</td><td>Version control and publishing workflow</td><td>Every change is tracked; push to deploy; easy to roll back</td></tr>
           <tr><td>Cloudflare DNS + SSL</td><td>Domain name and HTTPS certificate</td><td>Free; automatic certificate renewal</td></tr>
+          <tr><td>Leaflet</td><td>Open-source interactive map library</td><td>Powers the LJA Interactive Map at <code>gis/gis.html</code>; replaces the prior ESRI ArcGIS Online subscription (~$100/yr) with a free, self-hosted alternative</td></tr>
           
         </tbody>
       </table>
@@ -538,6 +542,7 @@
               <a class="sm-sec-head sm-r" href="https://lakejuliawi.org/resources/">Resources</a>
               <div class="sm-pages">
                 <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/maps.html">Maps &amp; GIS</a></div>
+                <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/gis/gis.html">↳ LJA Interactive Map</a></div>
                 <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/documents.html">Documents</a></div>
                 <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/attractions.html">Local Attractions</a></div>
                 <div class="sm-page-row"><a class="sm-page" href="https://lakejuliawi.org/resources/links.html">Helpful Links</a></div>
@@ -643,7 +648,11 @@
         </div>
         <div class="page-item">
           <div class="page-path">resources/maps.html</div>
-          <div class="page-desc"><strong>Maps &amp; GIS</strong>House map (PDF download + PNG preview), Bathymetric depth map (PDF + PNG), interactive GIS viewer link, Oneida and Forest County parcel map links.</div>
+          <div class="page-desc"><strong>Maps &amp; GIS</strong>House map (PDF download + PNG preview), Bathymetric depth map (PDF + PNG), thumbnail card linking to the LJA Interactive Map (Leaflet), thumbnail card linking to the WI DNR Surface Water Data Viewer, and Oneida/Forest County parcel map links.</div>
+        </div>
+        <div class="page-item">
+          <div class="page-path">gis/gis.html</div>
+          <div class="page-desc"><strong>LJA Interactive Map</strong>Self-hosted Leaflet map with property points, parcels, watersheds, flowlines, hillshade, basemap switcher, resident search, attribute Table View, draw/measure tools, and a responsive layout for phones and tablets. See the dedicated <a href="#gis-map">GIS Map</a> section for details.</div>
         </div>
         <div class="page-item">
           <div class="page-path">resources/documents.html</div>
@@ -717,11 +726,72 @@
       </ol>
     </section>
 
+    <!-- GIS MAP -->
+    <section id="gis-map">
+      <p class="section-label">GIS Map</p>
+      <h2>LJA Interactive Map (Leaflet)</h2>
+      <p>The Association maintains a self-hosted interactive map at <a href="https://lakejuliawi.org/gis/gis.html">lakejuliawi.org/gis/gis.html</a>, built with the open-source <a href="https://leafletjs.com">Leaflet</a> library. It is also linked from the Maps &amp; GIS page via a thumbnail card. The map runs entirely on free, static infrastructure (the same GitHub Pages that serves the rest of the site) — no separate subscription, server, or login is required.</p>
+
+      <div class="callout success">
+        <div class="callout-icon">💰</div>
+        <div class="callout-body">
+          <h4>Replaces the prior ESRI ArcGIS Online subscription</h4>
+          <p>The Leaflet map replaces the Association's previous ESRI ArcGIS Online subscription, saving roughly $100/year while expanding what the map can show.</p>
+        </div>
+      </div>
+
+      <h3>Layers shown on the map</h3>
+      <table class="detail-table">
+        <thead><tr><th>Layer</th><th>Source &amp; symbology</th></tr></thead>
+        <tbody>
+          <tr><td>Properties</td><td>LJA (maintained in QGIS); color-coded squares by access road</td></tr>
+          <tr><td>NHD Flowlines</td><td>National Hydrography Dataset (Wisconsin DNR); blue lines with directional arrowheads</td></tr>
+          <tr><td>Lake Julia</td><td>Wisconsin DNR polygon</td></tr>
+          <tr><td>Land Parcels</td><td>Oneida County GIS (2024); amber border, transparent fill</td></tr>
+          <tr><td>HUC12 Sub-watershed</td><td>Wisconsin DNR; purple feathered outline (under Watersheds group)</td></tr>
+          <tr><td>WHD-Plus Catchments</td><td>Wisconsin DNR; red feathered outline (under Watersheds group)</td></tr>
+          <tr><td>Hillshade</td><td>ESRI World Hillshade tile layer with opacity slider</td></tr>
+          <tr><td>Basemaps</td><td>OpenStreetMap, ESRI Satellite, ESRI Topo (default), USGS National Map</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Built-in tools</h3>
+      <p>The map provides a collapsible Layer List (top-right) with per-layer legends, a resident/property search box (top), a sortable attribute Table View (bottom), and Leaflet-Geoman draw &amp; measure tools (top-left, below the zoom controls). The page uses a flexbox layout and a responsive media query so the controls reflow correctly on phones and tablets — search box, layer panel, Table View button, and footer all stay visible at any screen size.</p>
+
+      <h3 id="updating-residents">Updating resident data</h3>
+      <p>Resident contact information lives in <code>gis/data/residents.csv</code>. This file is intentionally <strong>not committed to GitHub</strong> to keep private contact data out of the public repository. To update residents:</p>
+      <ol class="step-list">
+        <li><span>Edit <code>gis/data/residents.csv</code> locally with any spreadsheet editor or text editor</span></li>
+        <li><span>From the project root, run <code>node gis/build-residents.js</code>. The script reads the CSV and rewrites the <code>RESIDENTS</code> and <code>ALT_CABINS</code> data blocks inside <code>gis/gis.html</code> automatically</span></li>
+        <li><span>Commit and push <code>gis/gis.html</code> as usual; the new resident list is live on the map within ~30 seconds</span></li>
+      </ol>
+      <p>See <code>gis/WORKFLOW.md</code> for the full data maintenance workflow and <code>gis/README.md</code> for technical reference (layer setup, dependencies, adding new GeoJSON layers).</p>
+
+      <div class="callout warning">
+        <div class="callout-icon">🔐</div>
+        <div class="callout-body">
+          <h4>Never commit residents.csv</h4>
+          <p>The <code>residents.csv</code> file contains private member contact information. It is excluded from the repository and must not be added. Only the compiled output baked into <code>gis/gis.html</code> is published — that output contains household member names but no phone numbers or email addresses.</p>
+        </div>
+      </div>
+
+      <h3>Updating other GIS layers</h3>
+      <p>Other GeoJSON layers (parcels, flowlines, watersheds, catchments, lake polygon) live in <code>gis/data/</code> and rarely change. To update one, export the new layer in <strong>EPSG:4326 (WGS84)</strong> from QGIS or ArcGIS Pro, replace the file in <code>gis/data/</code>, and commit. The map picks up the new file automatically on the next load. See <code>gis/README.md</code> for instructions on adding a brand-new layer.</p>
+
+      <div class="callout info">
+        <div class="callout-icon">🗺️</div>
+        <div class="callout-body">
+          <h4>Local development</h4>
+          <p>Open <code>gis/gis.html</code> with VS Code Live Server (not via <code>file://</code>) so the GeoJSON fetches aren't blocked by browser security. Test at narrow widths (DevTools device toolbar at 375px and 768px) to confirm the responsive layout still works whenever you change the map page.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- FILE STRUCTURE -->
     <section id="files">
       <p class="section-label">File Structure</p>
       <h2>Folder layout</h2>
-      <p>All website files live in the GitHub repository at <a href="https://github.com/sschlueter86/LJA">github.com/sschlueter86/LJA</a>. The local working copy is maintained at <code>D:\LakeJulia_GIS\LakeJulia_stage</code> on Scott's PC. The folder structure is straightforward:</p>
+      <p>All website files live in the GitHub repository at <a href="https://github.com/sschlueter86/LJA">github.com/sschlueter86/LJA</a>. Scott works from local clones of this repo (any folder containing a <code>.git</code> directory will do — e.g. <code>.../path/to/staging/directory</code>) and pushes changes to GitHub. The folder structure inside that working copy is straightforward:</p>
 
       <div class="file-tree">
         <span class="dir">lakejulia/</span><br>
@@ -742,6 +812,13 @@
         &nbsp;&nbsp;<span class="dir">environment/</span> <span class="comment">← 6 pages</span><br>
         &nbsp;&nbsp;<span class="dir">history/</span> <span class="comment">← 5 pages</span><br>
         &nbsp;&nbsp;<span class="dir">resources/</span> <span class="comment">← 5 pages</span><br>
+        &nbsp;&nbsp;<span class="dir">gis/</span> <span class="comment">← LJA Interactive Map (Leaflet)</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">gis.html</span> <span class="comment">← The map application</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">build-residents.js</span> <span class="comment">← Bakes residents.csv into gis.html</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">README.md</span> <span class="comment">← Map technical reference</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">WORKFLOW.md</span> <span class="comment">← Resident data update steps</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">LakeJulia_Q.qgz</span> <span class="comment">← Source QGIS project</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">data/</span> <span class="comment">← GeoJSON layers + residents.csv (residents.csv is NOT committed)</span><br>
       </div>
 
       <div id="images">
@@ -774,7 +851,7 @@
             <tr><td>Repository</td><td><a href="https://github.com/sschlueter86/LJA">github.com/sschlueter86/LJA</a></td></tr>
             <tr><td>GitHub username</td><td>sschlueter86</td></tr>
             <tr><td>Branch</td><td>main</td></tr>
-            <tr><td>Local working copy</td><td>D:\LakeJulia_GIS\LakeJulia_stage</td></tr>
+            <tr><td>Local working copy</td><td>Any local clone of the repo — i.e. <code>.../path/to/staging/directory</code> containing a <code>.git</code> folder</td></tr>
             <tr><td>Pages URL (direct)</td><td>https://sschlueter86.github.io/LJA</td></tr>
             <tr><td>Custom domain</td><td>lakejuliawi.org (via CNAME file in repo root)</td></tr>
           </tbody>
@@ -865,7 +942,7 @@
         <h3>Updating existing content</h3>
         <p>Since the site is plain HTML, any page can be edited directly with a text editor. The recommended workflow is:</p>
         <ol class="step-list">
-          <li><span>Open the local working copy of the staging website at <code>currently "D:\LakeJulia_GIS\LakeJulia_stage"</code> in VS Code (or whatever IDE you prefer)</span></li>
+          <li><span>Open your local working copy of the repo in VS Code (or whatever IDE you prefer) — i.e. <code>.../path/to/staging/directory</code> containing a <code>.git</code> folder. Run <code>git pull</code> before editing so you start from the latest commit</span></li>
           <li><span>Find the page you want to edit and make your changes</span></li>
           <li><span>Preview in a browser locally to verify the changes look correct</span></li>
           <li><span>In VS Code's Source Control panel (or GitHub Desktop), stage the changed files, write a short commit message describing the change, click <strong>Commit</strong>, then click <strong>Sync</strong> to push to GitHub</span></li>
@@ -910,6 +987,8 @@
           <tr><td>Domain renewal</td><td>April - Annually (~$10)</td><td>Auto-renews via Cloudflare; confirm credit card on file is current at dash.cloudflare.com</td></tr>
           <tr><td>Add In Memoriam entries</td><td>As needed</td><td>Add photo to <code>images/inMemoriam/</code>, add entry to <code>history/in-memoriam.html</code></td></tr>
           <tr><td>Update house map</td><td>As needed</td><td>Replace <code>images/2025_LJA_HOUSEMAP.png</code> and <code>images/250530_HOUSEMAP.pdf</code> with new versions. Jay Franke typically evaluates and republishes this each year.</td></tr>
+          <tr><td>Update GIS resident data</td><td>As needed (new residents,<br>contact changes)</td><td>Edit <code>gis/data/residents.csv</code>, run <code>node gis/build-residents.js</code>, then commit and push <code>gis/gis.html</code>. See the <a href="#updating-residents">GIS Map</a> section for details.</td></tr>
+          <tr><td>Refresh GIS layer data</td><td>As needed (e.g. new parcel<br>data each year)</td><td>Re-export the layer in EPSG:4326 from QGIS or ArcGIS Pro, replace the file in <code>gis/data/</code>, and commit. No code changes required.</td></tr>
         </tbody>
       </table>
     </section>

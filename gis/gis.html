@@ -17,7 +17,17 @@
   <style>
     /* ── Page layout ─────────────────────────────────────────── */
     html, body { overflow: hidden; }
-    body { margin: 0; font-family: Georgia, serif; background: #fdf9f4; color: #2c2c2c; }
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: #fdf9f4;
+      color: #2c2c2c;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh; /* respects mobile browser chrome */
+    }
+    .page-header, .map-footer { flex: 0 0 auto; }
 
     .page-header {
       background: linear-gradient(135deg, #1a3d52 0%, #2c5f7a 100%);
@@ -50,8 +60,8 @@
     #map-wrap {
       position: relative;
       width: 100%;
-      height: calc(100vh - 105px);
-      min-height: 500px;
+      flex: 1 1 auto;
+      min-height: 0; /* allow flex child to shrink below intrinsic content size */
     }
     #map { width: 100%; height: 100%; }
 
@@ -585,11 +595,6 @@
       .page-header h1 { font-size: 0.95rem; line-height: 1.25; }
       .page-header p { font-size: 0.7rem; }
 
-      #map-wrap {
-        height: calc(100vh - 80px);
-        min-height: 320px;
-      }
-
       /* Search spans the top, leaving room for Leaflet zoom buttons */
       .map-search {
         top: 8px;
@@ -623,7 +628,6 @@
 
     @media (max-width: 480px) {
       .page-header p { display: none; }
-      #map-wrap { height: calc(100vh - 60px); }
       .layer-panel { width: 190px; }
     }
   </style>

@@ -59,7 +59,7 @@ lakejuliawi.org/
 │
 ├── resources/
 │   ├── index.html                    # Resources overview
-│   ├── maps.html                     # Maps & GIS (embeds Leaflet map + DNR viewer)
+│   ├── maps.html                     # Maps & GIS (thumbnail cards linking to Leaflet map + DNR viewer)
 │   ├── documents.html                # Association documents
 │   ├── attractions.html              # Local attractions
 │   └── links.html                    # Helpful external links
@@ -71,12 +71,13 @@ lakejuliawi.org/
 │   ├── README.md                     # GIS map documentation
 │   ├── WORKFLOW.md                   # Resident data maintenance workflow
 │   └── data/
-│       ├── cabins.geojson            # LJA property points (maintained in QGIS)
-│       ├── residents.csv             # Resident data — NOT committed to git
-│       ├── lkjulia.geojson           # Lake Julia polygon
-│       ├── Subwatershed_HUC12.geojson
-│       ├── parcels.geojson           # Oneida County parcels (2024)
-│       └── NHD_Flowlines.geojson
+│       ├── cabins.geojson                # LJA property points (maintained in QGIS)
+│       ├── residents.csv                 # Resident data — NOT committed to git
+│       ├── lkjulia.geojson               # Lake Julia polygon
+│       ├── Subwatershed_HUC12.geojson    # HUC12 sub-watershed boundary
+│       ├── WHD-Plus_Catchments.geojson   # WHD-Plus catchment polygons
+│       ├── parcels.geojson               # Oneida County parcels (2024)
+│       └── NHD_Flowlines.geojson         # National Hydrography Dataset flowlines
 │
 ├── css/
 │   └── style.css                     # Shared stylesheet (all pages)

@@ -3,7 +3,7 @@
 An interactive web map for the Lake Julia Association, built with [Leaflet](https://leafletjs.com). It displays community property data, environmental layers, and supporting GIS context for the lake and surrounding watershed.
 
 **Live (full screen):** [lakejuliawi.org/gis/gis.html](https://lakejuliawi.org/gis/gis.html)
-**Embedded on site:** [lakejuliawi.org/resources/maps.html](https://lakejuliawi.org/resources/maps.html) — under "LJA Interactive Map"
+**Linked from site:** [lakejuliawi.org/resources/maps.html](https://lakejuliawi.org/resources/maps.html) — thumbnail card under "LJA Interactive Map" opens the full-screen map in a new tab
 
 ---
 
@@ -25,6 +25,7 @@ Four switchable basemaps via radio buttons in the layer panel:
 |---|---|---|---|
 | Lake Julia | Polygon | Wisconsin DNR | Transparent (basemap covers it) |
 | Subwatershed (HUC12) | Polygon | Wisconsin DNR | Purple feathered outline |
+| Catchments (WHD-Plus) | Polygon | Wisconsin DNR | Red feathered outline (nested under Watersheds) |
 | Parcels | Polygon | Oneida County GIS (2024) | Amber border, transparent fill |
 | NHD Flowlines | Line | WDNR / NHD | Blue lines with directional arrowheads |
 | Properties | Point | LJA (QGIS) | Color-coded squares by access road |
@@ -41,7 +42,7 @@ Four switchable basemaps via radio buttons in the layer panel:
 | Red | Puelicher / Scott Lake |
 
 ### Layer List (TOC)
-The layer panel (top-right) is collapsible — click "Layer List" to expand or collapse it. Each layer row has a checkbox to toggle visibility and a ▶ arrow to expand its legend. Section groups (Feature Layers, Basemap) can also be collapsed independently.
+The layer panel (top-right) is collapsible — click "Layer List" to expand or collapse it. Each layer row has a checkbox to toggle visibility and a ▶ arrow to expand its legend. Section groups (Feature Layers, Watersheds, Basemap) can also be collapsed independently. The Watersheds group nests the HUC12 Sub-watershed and Catchments layers under a single parent toggle.
 
 ### Popups
 Every layer has a styled popup on click. Properties additionally show a collapsible resident/visitor list sorted by relationship to the property.
@@ -61,6 +62,17 @@ Powered by [Leaflet-Geoman](https://geoman.io). The toolbar appears in the top-l
 - **Measurements** — completed polylines show length (ft / mi); polygons show area (sq ft / acres). Measurements update live when a feature is edited.
 
 Drawn features are session-only and do not persist on refresh.
+
+### Mobile / Tablet Layout
+The page uses a flexbox column layout (header / map / footer) so the map naturally fills the visible viewport on any device, including phones where the browser URL bar shrinks the usable height.
+
+At ≤768px wide, a media query block reflows the controls:
+- The header shrinks (smaller title and padding).
+- The search box spans the top, offset to leave room for the Leaflet zoom buttons on the left, and uses a 16px input font to prevent iOS Safari's auto-zoom on focus.
+- The Layer List panel drops below the search box on the right, narrows to ~210px, and scrolls internally when expanded so it never runs off-screen.
+- The Table View panel opens to 45vh instead of a fixed 260px so the map stays visible behind it.
+
+At ≤480px the subtitle hides and the layer panel narrows further.
 
 ---
 
@@ -96,12 +108,13 @@ gis/
 ├── build-residents.js      # Script: syncs residents.csv → gis.html
 ├── LakeJulia_Q.qgz         # QGIS project file
 └── data/
-    ├── cabins.geojson          # LJA property points (maintained in QGIS)
-    ├── residents.csv           # Resident source of truth (not committed)
-    ├── lkjulia.geojson         # Lake Julia polygon (Wisconsin DNR)
+    ├── cabins.geojson              # LJA property points (maintained in QGIS)
+    ├── residents.csv               # Resident source of truth (not committed)
+    ├── lkjulia.geojson             # Lake Julia polygon (Wisconsin DNR)
     ├── Subwatershed_HUC12.geojson  # HUC12 watershed boundary (Wisconsin DNR)
-    ├── parcels.geojson         # Oneida County parcel layer (2024)
-    └── NHD_Flowlines.geojson   # National Hydrography Dataset flowlines
+    ├── WHD-Plus_Catchments.geojson # WHD-Plus catchment polygons (Wisconsin DNR)
+    ├── parcels.geojson             # Oneida County parcel layer (2024)
+    └── NHD_Flowlines.geojson       # National Hydrography Dataset flowlines
 ```
 
 ---
@@ -124,6 +137,6 @@ Open `gis.html` with **VS Code Live Server** — do not open via `file://` as th
 http://127.0.0.1:5500/gis/gis.html
 ```
 
-The map is also embedded as an iframe on `resources/maps.html`. Test both views before publishing — the iframe uses a 650px fixed height; the full-screen view fills the browser viewport.
+The map is linked from `resources/maps.html` via a thumbnail card (no iframe — the card opens `gis/gis.html` in a new tab). When testing, also resize the browser narrow (or use DevTools' device toolbar at 375px / 768px) to verify the mobile layout still aligns the search box, layer panel, Table View button, and footer correctly.
 
 See `WORKFLOW.md` for the resident data update process.

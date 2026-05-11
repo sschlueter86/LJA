@@ -1,0 +1,16 @@
+#!/bin/sh
+# Auto-update LAST_UPDATED in js/nav.js to the current timestamp before each commit.
+# Activated per-clone with: git config core.hooksPath .githooks
+
+NAV_FILE="js/nav.js"
+[ -f "$NAV_FILE" ] || exit 0
+
+TIMESTAMP=$(date '+%m/%d/%Y @ %I:%M %p CST')
+
+# Rewrite the LAST_UPDATED line in place
+sed -i "s|^const LAST_UPDATED = '[^']*';|const LAST_UPDATED = '${TIMESTAMP}';|" "$NAV_FILE"
+
+# Re-stage so the new timestamp is included in this commit
+git add "$NAV_FILE"
+
+exit 0

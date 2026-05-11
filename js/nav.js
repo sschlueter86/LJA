@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '05/11/2026 @ 03:46 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '05/11/2026 @ 03:47 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── SEARCH INDEX ──────────────────────────────────────────────────
 // Each entry: { title, url (root-relative), section, snippet, body }

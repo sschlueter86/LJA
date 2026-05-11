@@ -284,6 +284,14 @@
       border-color: #facc15 !important;
     }
 
+    /* ── Oneida County point-of-interest icons ───────────────── */
+    .poi-icon { background: transparent; border: none; }
+    .poi-icon svg { display: block; }
+    .leaflet-marker-icon.poi-highlight {
+      filter: drop-shadow(0 0 5px #facc15) drop-shadow(0 0 3px #facc15);
+    }
+    .legend-svg { flex-shrink: 0; }
+
     /* ── Cabin square marker icon ────────────────────────────── */
     .cabin-icon {
       display: flex;
@@ -672,6 +680,55 @@
       </div>
     </div>
 
+    <!-- ── Oneida County DNR Layers (group) ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-oneida-group" />
+          Oneida County DNR Layers
+        </label>
+        <span class="toc-arrow" id="arrow-oneida-group" onclick="toggleSection('section-oneida','arrow-oneida-group')">▶</span>
+      </div>
+      <div class="section-body collapsed" style="padding-left:18px;" id="section-oneida">
+        <div class="toc-item">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-ais" />
+              <svg class="legend-svg" viewBox="0 0 22 22" width="14" height="14"><polygon points="11,1.5 20.5,11 11,20.5 1.5,11" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5" stroke-linejoin="round"/><text x="11" y="15.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="900" font-size="13">!</text></svg>
+              Aquatic Invasive Species
+            </label>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-tis" />
+              <svg class="legend-svg" viewBox="0 0 22 22" width="14" height="14"><polygon points="11,2 20.5,19.5 1.5,19.5" fill="#ea580c" stroke="#7c2d12" stroke-width="1.5" stroke-linejoin="round"/><text x="11" y="17.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="900" font-size="11">!</text></svg>
+              Terrestrial Invasive Species
+            </label>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-native" />
+              <svg class="legend-svg" viewBox="0 0 22 22" width="14" height="14"><circle cx="11" cy="11" r="9" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/><path d="M11 5 Q5 11 11 17 Q17 11 11 5 Z" fill="white"/><line x1="11" y1="5" x2="11" y2="17" stroke="#16a34a" stroke-width="0.9"/></svg>
+              Native Plants
+            </label>
+          </div>
+        </div>
+        <div class="toc-item" style="border-bottom:none;">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-secchi" />
+              <svg class="legend-svg" viewBox="0 0 22 22" width="14" height="14"><circle cx="11" cy="11" r="9" fill="white" stroke="#1f2937" stroke-width="1.5"/><path d="M11 11 L11 2 A9 9 0 0 1 20 11 Z" fill="#1f2937"/><path d="M11 11 L11 20 A9 9 0 0 1 2 11 Z" fill="#1f2937"/></svg>
+              WDNR Secchi Disk Readings
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Flowlines ── -->
     <div class="toc-item">
       <div class="toc-row">
@@ -820,6 +877,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
 <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
 <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
 <script>
@@ -1061,7 +1119,9 @@ function highlightFeature(layer) {
     layer.setStyle(hl);
     if (layer.bringToFront) layer.bringToFront();
   } else {
-    layer.getElement()?.querySelector('.cabin-icon')?.classList.add('cabin-highlight');
+    const el = layer.getElement();
+    el?.querySelector('.cabin-icon')?.classList.add('cabin-highlight');
+    el?.classList.add('poi-highlight');
   }
   _highlighted = layer;
 }
@@ -1071,7 +1131,9 @@ function resetHighlight(layer) {
   if (layer.setStyle && layer._origStyle) {
     layer.setStyle(layer._origStyle);
   } else {
-    layer.getElement()?.querySelector('.cabin-icon')?.classList.remove('cabin-highlight');
+    const el = layer.getElement();
+    el?.querySelector('.cabin-icon')?.classList.remove('cabin-highlight');
+    el?.classList.remove('poi-highlight');
   }
   _highlighted = null;
 }
@@ -1455,6 +1517,121 @@ function updateLabels() {
 map.on('zoomend', updateLabels);
 map.on('popupclose', () => resetHighlight(_highlighted));
 
+// ── Oneida County DNR Layers (ArcGIS REST via esri-leaflet) ───
+// Layers default off; esri-leaflet only fetches features when added to the map.
+const ONEIDA_BASE = 'https://gis.co.oneida.wi.us/arcgis/rest/services/Conservation/LandAndWater/MapServer';
+
+function oneidaPopup(title, rows) {
+  const body = rows
+    .filter(([, v]) => v != null && v !== '' && String(v).toLowerCase() !== 'null')
+    .map(([label, v]) => popupRow(label, v))
+    .join('');
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Oneida County · Land &amp; Water</div>
+      <div class="popup-name">${title}</div>
+    </div>
+    ${body}
+  `;
+}
+
+function fmtEpoch(ms) {
+  if (!ms) return null;
+  const d = new Date(ms);
+  return isNaN(d) ? null : d.toLocaleDateString();
+}
+
+// SVG icons sized 22×22 to match cabin markers
+const POI_ICONS = {
+  ais: L.divIcon({
+    html: `<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="11,1.5 20.5,11 11,20.5 1.5,11" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5" stroke-linejoin="round"/>
+      <text x="11" y="15.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="900" font-size="13">!</text>
+    </svg>`,
+    className: 'poi-icon',
+    iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -11],
+  }),
+  tis: L.divIcon({
+    html: `<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="11,2 20.5,19.5 1.5,19.5" fill="#ea580c" stroke="#7c2d12" stroke-width="1.5" stroke-linejoin="round"/>
+      <text x="11" y="17.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="900" font-size="11">!</text>
+    </svg>`,
+    className: 'poi-icon',
+    iconSize: [22, 22], iconAnchor: [11, 14], popupAnchor: [0, -14],
+  }),
+  native: L.divIcon({
+    html: `<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="9" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+      <path d="M11 5 Q5 11 11 17 Q17 11 11 5 Z" fill="white"/>
+      <line x1="11" y1="5" x2="11" y2="17" stroke="#16a34a" stroke-width="0.9"/>
+    </svg>`,
+    className: 'poi-icon',
+    iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -11],
+  }),
+  secchi: L.divIcon({
+    html: `<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="9" fill="white" stroke="#1f2937" stroke-width="1.5"/>
+      <path d="M11 11 L11 2 A9 9 0 0 1 20 11 Z" fill="#1f2937"/>
+      <path d="M11 11 L11 20 A9 9 0 0 1 2 11 Z" fill="#1f2937"/>
+    </svg>`,
+    className: 'poi-icon',
+    iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -11],
+  }),
+};
+
+function makeOneidaLayer(serviceId, icon, popupFn) {
+  return L.esri.featureLayer({
+    url: `${ONEIDA_BASE}/${serviceId}`,
+    pointToLayer: (geojson, latlng) => L.marker(latlng, { icon, pmIgnore: true }),
+    onEachFeature: (feature, layer) => {
+      layer.bindPopup(popupFn(feature.properties), { maxWidth: 320, minWidth: 240 });
+      layer.on('click', () => highlightFeature(layer));
+    },
+  });
+}
+
+const aisLayer = makeOneidaLayer(2, POI_ICONS.ais, p => oneidaPopup(
+  p.Label || p.LakeName || 'Aquatic Invasive Species',
+  [
+    ['Lake',       p.LakeName],
+    ['Location',   p.Location],
+    ['If Other',   p.If_other],
+    ['Treatment',  p.Treatment],
+    ['Date',       fmtEpoch(p.Date_)],
+    ['Comments',   p.Comments],
+  ]
+));
+
+const tisLayer = makeOneidaLayer(17, POI_ICONS.tis, p => oneidaPopup(
+  p.Species || 'Terrestrial Invasive Species',
+  [
+    ['Count',      p.Count_],
+    ['Area',       p.AreaSqFt ? `${p.AreaSqFt} sq ft` : null],
+    ['County',     p.County],
+    ['Date',       fmtEpoch(p.GPS_Date)],
+    ['Notes',      p.Notes],
+  ]
+));
+
+const nativeLayer = makeOneidaLayer(10, POI_ICONS.native, p => oneidaPopup(
+  p.Label || p.Type || 'Native Plant',
+  [
+    ['Type',       p.Type],
+    ['Date',       fmtEpoch(p.Date_)],
+    ['Comments',   p.Comments],
+  ]
+));
+
+const secchiLayer = makeOneidaLayer(9, POI_ICONS.secchi, p => oneidaPopup(
+  p.PRIMARY_STATION_NAME || 'Secchi Disk Reading',
+  [
+    ['Station',     p.PRIMARY_STATION_NAME],
+    ['Latitude',    p.LATITUDE != null ? p.LATITUDE.toFixed(5) : null],
+    ['Longitude',   p.LONGITUDE != null ? p.LONGITUDE.toFixed(5) : null],
+    ['Graph',       p.Graph ? `<a href="${p.Graph}" target="_blank" rel="noopener">View readings →</a>` : null],
+  ]
+));
+
 // ── Layer toggles ─────────────────────────────────────────────
 [
   ['toggle-lake',      lakeLayer],
@@ -1463,12 +1640,41 @@ map.on('popupclose', () => resetHighlight(_highlighted));
   ['toggle-parcels',   parcelsLayer],
   ['toggle-watershed',   watershedLayer],
   ['toggle-catchments',  catchmentsLayer],
+  ['toggle-ais',     aisLayer],
+  ['toggle-tis',     tisLayer],
+  ['toggle-native',  nativeLayer],
+  ['toggle-secchi',  secchiLayer],
 ].forEach(([id, layer]) => {
   document.getElementById(id).addEventListener('change', function () {
     if (this.checked) map.addLayer(layer);
     else map.removeLayer(layer);
   });
 });
+
+// ── Oneida group parent checkbox ─────────────────────────────
+(function () {
+  const groupChk    = document.getElementById('toggle-oneida-group');
+  const childIds    = ['toggle-ais', 'toggle-tis', 'toggle-native', 'toggle-secchi'];
+  const childChks   = childIds.map(id => document.getElementById(id));
+  const childLayers = [aisLayer, tisLayer, nativeLayer, secchiLayer];
+
+  groupChk.addEventListener('change', function () {
+    childChks.forEach((chk, i) => {
+      chk.checked = this.checked;
+      if (this.checked) map.addLayer(childLayers[i]);
+      else map.removeLayer(childLayers[i]);
+    });
+  });
+
+  childChks.forEach(chk => {
+    chk.addEventListener('change', function () {
+      const anyChecked = childChks.some(c => c.checked);
+      const allChecked = childChks.every(c => c.checked);
+      groupChk.checked = anyChecked;
+      groupChk.indeterminate = anyChecked && !allChecked;
+    });
+  });
+})();
 
 // ── Watersheds group parent checkbox ─────────────────────────
 (function () {

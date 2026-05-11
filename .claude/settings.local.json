@@ -23,7 +23,8 @@
       "Bash(git update-index *)",
       "Bash(.githooks/pre-commit)",
       "Bash(git add *)",
-      "Bash(git check-attr *)"
+      "Bash(git check-attr *)",
+      "WebFetch(domain:gis.co.oneida.wi.us)"
     ]
   }
 }

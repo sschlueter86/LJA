@@ -15,7 +15,15 @@
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2 --stat)",
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2 -- gis/data/WHD-Plus_Catchments.geojson)",
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" status gis/data/)",
-      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2:gis/data/WHD-Plus_Catchments.geojson)"
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show 90670c2:gis/data/WHD-Plus_Catchments.geojson)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\sschlueter\\\\Documents\\\\LJA\\\\LJA\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(grep -v '\\\\.sample$')",
+      "Bash(git config *)",
+      "Bash(git update-index *)",
+      "Bash(.githooks/pre-commit)",
+      "Bash(git add *)",
+      "Bash(git check-attr *)"
     ]
   }
 }

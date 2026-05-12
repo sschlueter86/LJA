@@ -1,0 +1,8 @@
+# Internal technical documentation (kept local; contains references to credentials & the soft-gate password)
+readme.html
+
+# Resident contact info (names, phone numbers, emails, addresses).
+# The build script gis/build-residents.js reads this locally to generate the
+# RESIDENTS / ALT_CABINS blocks in gis/gis.html. The CSV itself must never
+# be committed.
+gis/data/residents.csv

@@ -6,7 +6,123 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '05/11/2026 @ 04:13 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '05/12/2026 @ 01:48 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+
+// ── PASSWORD GATE (soft) ─────────────────────────────────────────
+// Pages with <body data-protected="true"> show a password overlay before
+// rendering content. This is a soft gate to deter casual visitors — not
+// real security; the password is plainly visible in this file.
+// DEV MODE: sessionStorage (re-prompts each browser session).
+// TODO before going live: switch sessionStorage → localStorage so members
+// aren't re-prompted on every visit.
+const SITE_PASSWORD = 'lakejulia2026';
+const GATE_KEY = 'lja_auth';
+// Pages that require the password. Used both by the gate (which checks
+// the current page) and by the link decorator (which adds a lock icon
+// next to any <a> pointing to one of these). Add new gated pages here
+// AND set <body data-protected="true"> on the page itself.
+const GATED_PATHS = ['/history/properties.html'];
+
+(function gateProtectedPage() {
+  if (document.body.dataset.protected !== 'true') return;
+  if (sessionStorage.getItem(GATE_KEY) === 'ok') return;
+
+  document.body.innerHTML = `
+<style>
+  .lja-gate-overlay {
+    font-family: 'Source Sans 3', sans-serif;
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1a3d52 0%, #2c5f7a 100%);
+    color: #fff; padding: 1.5rem; z-index: 99999;
+  }
+  .lja-gate-card {
+    max-width: 440px; width: 100%; text-align: center;
+    animation: lja-gate-in 0.45s ease-out both;
+  }
+  @keyframes lja-gate-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .lja-gate-wave { width: 72px; height: auto; margin-bottom: 1rem; opacity: 0.95; }
+  .lja-gate-card h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: #fff;
+    margin: 0 0 0.4rem; letter-spacing: 0.01em;
+  }
+  .lja-gate-tagline {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em;
+    opacity: 0.55; margin: 0 0 1.6rem;
+  }
+  .lja-gate-msg {
+    font-size: 1rem; line-height: 1.6; opacity: 0.85;
+    margin: 0 auto 1.5rem; max-width: 340px;
+  }
+  .lja-gate-form {
+    display: flex; gap: 0.5rem; justify-content: center;
+    max-width: 340px; margin: 0 auto;
+  }
+  .lja-gate-input {
+    flex: 1; padding: 0.7rem 0.9rem; font-size: 1rem; font-family: inherit;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08); color: #fff; border-radius: 6px;
+    outline: none; transition: border-color 0.15s, background 0.15s;
+  }
+  .lja-gate-input:focus {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.14);
+  }
+  .lja-gate-input::placeholder { color: rgba(255,255,255,0.45); }
+  .lja-gate-btn {
+    padding: 0.7rem 1.4rem; font-size: 1rem; font-family: inherit; font-weight: 600;
+    background: #fff; color: #1a3d52; border: none; border-radius: 6px;
+    cursor: pointer; transition: background 0.15s, transform 0.05s;
+  }
+  .lja-gate-btn:hover  { background: #e8f0f4; }
+  .lja-gate-btn:active { transform: translateY(1px); }
+  .lja-gate-err {
+    margin: 1rem 0 0; min-height: 1.2em; font-size: 0.9rem;
+    color: #ffcdd2; opacity: 0; transition: opacity 0.15s;
+  }
+  .lja-gate-err.show { opacity: 1; }
+  @media (max-width: 480px) {
+    .lja-gate-form { flex-direction: column; max-width: 260px; }
+    .lja-gate-card h1 { font-size: 1.6rem; }
+  }
+</style>
+<div class="lja-gate-overlay">
+  <div class="lja-gate-card">
+    <svg class="lja-gate-wave" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 16 Q8 8 14 16 Q20 24 26 16 Q32 8 38 16" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M2 10 Q8 2 14 10 Q20 18 26 10 Q32 2 38 10" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.45"/>
+    </svg>
+    <h1>Lake Julia Association</h1>
+    <p class="lja-gate-tagline">Members &amp; Community</p>
+    <p class="lja-gate-msg">This part of the site is shared with members of the Lake Julia community. Please enter the password to continue.</p>
+    <form id="lja-gate-form" class="lja-gate-form" novalidate>
+      <input id="lja-gate-pw" class="lja-gate-input" type="password"
+        autocomplete="current-password" placeholder="Password" autofocus>
+      <button type="submit" class="lja-gate-btn">Enter</button>
+    </form>
+    <p id="lja-gate-err" class="lja-gate-err">Incorrect password — please try again.</p>
+  </div>
+</div>`;
+
+  const form  = document.getElementById('lja-gate-form');
+  const input = document.getElementById('lja-gate-pw');
+  const err   = document.getElementById('lja-gate-err');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (input.value === SITE_PASSWORD) {
+      sessionStorage.setItem(GATE_KEY, 'ok');
+      location.reload();
+    } else {
+      err.classList.add('show');
+      input.select();
+    }
+  });
+  input.addEventListener('input', () => err.classList.remove('show'));
+})();
 
 // ── SEARCH INDEX ──────────────────────────────────────────────────
 // Each entry: { title, url (root-relative), section, snippet, body }
@@ -316,6 +432,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Replace each placeholder div with the fully built header/footer HTML
   if (headerEl) headerEl.outerHTML = buildHeader(activePage);
   if (footerEl) footerEl.outerHTML = buildFooter();
+
+  // ── GATED LINK DECORATION ───────────────────────────────────────
+  // Append a small lock icon to any link pointing to a gated page,
+  // so members can see at a glance that it requires a password.
+  const lockSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:0.35em;opacity:0.6" role="img" aria-label="Members only"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
+  document.querySelectorAll('a[href]').forEach(a => {
+    if (a.dataset.ljaLocked) return;
+    let path;
+    try { path = new URL(a.href, window.location.origin).pathname; }
+    catch (_) { return; }
+    if (GATED_PATHS.some(p => path.endsWith(p))) {
+      a.insertAdjacentHTML('beforeend', lockSvg);
+      a.dataset.ljaLocked = 'true';
+    }
+  });
 
   // ── HAMBURGER MENU TOGGLE ─────────────────────────────────────
   // After header injection, select the newly created toggle elements

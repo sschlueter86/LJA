@@ -1,9 +1,24 @@
 #!/bin/sh
 # Auto-update LAST_UPDATED in js/nav.js to the current timestamp before each commit.
 # Activated per-clone with: git config core.hooksPath .githooks
+#
+# SAFETY: If nav.js has UNSTAGED changes in the working tree, this hook bails
+# out without touching it. Reason: the final `git add nav.js` would otherwise
+# sweep all of those unstaged changes into whatever commit you're making, which
+# can produce misleading commits (e.g. "fix typo" that secretly also contains
+# 100 lines of feature work).
+#
+# Cost of bailing: when YOU are the one actively editing nav.js, the timestamp
+# won't auto-bump on that particular commit. The next commit (after nav.js is
+# clean again) will bump it. Acceptable trade-off.
 
 NAV_FILE="js/nav.js"
 [ -f "$NAV_FILE" ] || exit 0
+
+# Bail if nav.js has unstaged working-tree changes (see SAFETY note above).
+if ! git diff --quiet -- "$NAV_FILE"; then
+  exit 0
+fi
 
 TIMESTAMP=$(date '+%m/%d/%Y @ %I:%M %p CST')
 

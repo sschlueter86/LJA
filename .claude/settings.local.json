@@ -24,7 +24,16 @@
       "Bash(.githooks/pre-commit)",
       "Bash(git add *)",
       "Bash(git check-attr *)",
-      "WebFetch(domain:gis.co.oneida.wi.us)"
+      "WebFetch(domain:gis.co.oneida.wi.us)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA ls-files README.md readme.html)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA ls-files gis/data/residents.csv)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA log --oneline --all -- gis/data/residents.csv)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA log -1 --format=\"%h %ai %s\" -- gis/data/residents.csv)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA rm --cached readme.html gis/data/residents.csv)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA status)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA log --oneline -5)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA show --stat fb8aea4)",
+      "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA show --stat db75e8a)"
     ]
   }
 }

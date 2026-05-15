@@ -1,0 +1,7 @@
+# Lake Julia Association — crawler directives
+# All public pages may be indexed.
+# Pages behind the soft password gate are listed under Disallow.
+
+User-agent: *
+Allow: /
+Disallow: /history/properties.html

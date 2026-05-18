@@ -34,7 +34,9 @@
       "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA log --oneline -5)",
       "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA show --stat fb8aea4)",
       "Bash(git -C c:/Users/sschlueter/Documents/LJA/LJA show --stat db75e8a)",
-      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" rm -rf \"gis/data/gis\")"
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" rm -rf \"gis/data/gis\")",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show fb8aea4 --stat)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show fb8aea4 -- history/properties.html)"
     ]
   }
 }

@@ -107,42 +107,13 @@ The following pages are planned but not yet live:
 
 ## Shared Components
 
-All pages share a common header, navigation, footer, site search, and a soft password gate. These are injected at runtime by `js/nav.js` — edit that file to update navigation, footer, the gated-page list, or the shared password site-wide.
-
-The shared stylesheet is `css/style.css`.
+All pages share a common header, navigation, footer, and site search, injected at runtime by `js/nav.js`. The shared stylesheet is `css/style.css`.
 
 ---
 
-## Page Access Control (Soft Password Gate)
+## Page Access Control
 
-Individual pages can be restricted with a shared community password. This is a **soft gate** — it deters casual visitors but is not real security (the password is plainly visible in `js/nav.js`). It is intended only for pages where members prefer to discourage public discoverability, not for genuinely sensitive data.
-
-**Currently gated:** `history/properties.html`
-
-**To gate a new page (four steps):**
-
-1. In [`js/nav.js`](js/nav.js), add the page's path to the `GATED_PATHS` array:
-   ```js
-   const GATED_PATHS = ['/history/properties.html', '/your-new/page.html'];
-   ```
-2. In the page's HTML, add `data-protected="true"` to the `<body>` tag:
-   ```html
-   <body data-page="..." data-protected="true">
-   ```
-3. Add a `noindex` meta tag to the page's `<head>` so crawlers that fetch the HTML don't index it:
-   ```html
-   <meta name="robots" content="noindex, nofollow">
-   ```
-4. Add the page path to `robots.txt` at the repo root so well-behaved crawlers don't fetch the page at all:
-   ```
-   Disallow: /your-new/page.html
-   ```
-
-The password prompt will then appear when anyone visits that page, and a small lock icon will automatically appear next to every link pointing to it from anywhere on the site. Steps 3 and 4 keep the page out of search engine results — step 3 is the on-page directive, step 4 is the site-root crawler rule. Both together are belt-and-suspenders.
-
-**Storage mode:** Currently `sessionStorage` (re-prompts each browser session) for development. Before sharing the site widely, switch `sessionStorage` → `localStorage` in both spots in `js/nav.js` so members aren't re-prompted on every visit. A `TODO` comment in the file marks this.
-
-For heavier-duty access control with per-member email verification, see the **Cloudflare Access** section in [`readme.html`](readme.html).
+Most pages are protected by a soft password gate intended to discourage casual public access. Add `data-protected="true"` to a page's `<body>` tag to enable it. The password is shared verbally or via the community email list — contact the site maintainer for access.
 
 ---
 

@@ -119,7 +119,7 @@ Individual pages can be restricted with a shared community password. This is a *
 
 **Currently gated:** `history/properties.html`
 
-**To gate a new page (two steps):**
+**To gate a new page (four steps):**
 
 1. In [`js/nav.js`](js/nav.js), add the page's path to the `GATED_PATHS` array:
    ```js
@@ -129,8 +129,16 @@ Individual pages can be restricted with a shared community password. This is a *
    ```html
    <body data-page="..." data-protected="true">
    ```
+3. Add a `noindex` meta tag to the page's `<head>` so crawlers that fetch the HTML don't index it:
+   ```html
+   <meta name="robots" content="noindex, nofollow">
+   ```
+4. Add the page path to `robots.txt` at the repo root so well-behaved crawlers don't fetch the page at all:
+   ```
+   Disallow: /your-new/page.html
+   ```
 
-The password prompt will then appear when anyone visits that page, and a small lock icon will automatically appear next to every link pointing to it from anywhere on the site.
+The password prompt will then appear when anyone visits that page, and a small lock icon will automatically appear next to every link pointing to it from anywhere on the site. Steps 3 and 4 keep the page out of search engine results — step 3 is the on-page directive, step 4 is the site-root crawler rule. Both together are belt-and-suspenders.
 
 **Storage mode:** Currently `sessionStorage` (re-prompts each browser session) for development. Before sharing the site widely, switch `sessionStorage` → `localStorage` in both spots in `js/nav.js` so members aren't re-prompted on every visit. A `TODO` comment in the file marks this.
 

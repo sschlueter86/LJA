@@ -1275,6 +1275,9 @@ const map = L.map('map', {
   zoomControl: true,
 });
 
+map.createPane('onterraPtPane');
+map.getPane('onterraPtPane').style.zIndex = 450;
+
 // ── Basemap definitions ───────────────────────────────────────
 const BASEMAPS = {
   osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1516,7 +1519,7 @@ fetch('data/Onterra_LakeStudy2025_SpeciesList_Pt.geojson')
         const color = SPECIES_COLORS[feature.properties.SP1] || '#9ca3af';
         return L.circleMarker(latlng, {
           radius: 7, fillColor: color, fillOpacity: 0.85,
-          color: '#1f2937', weight: 1.5, pmIgnore: true,
+          color: '#1f2937', weight: 1.5, pmIgnore: true, pane: 'onterraPtPane',
         });
       },
       onEachFeature: (feature, layer) => {

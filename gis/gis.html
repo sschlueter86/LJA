@@ -96,7 +96,7 @@
       user-select: none;
     }
     .panel-title .panel-toggle-arrow { font-size: .65rem; color: #888; }
-    .panel-body { margin-top: 8px; }
+    .panel-body { margin-top: 8px; overflow-y: auto; max-height: calc(100vh - 90px); }
     .panel-body.collapsed { display: none; }
     .layer-panel h3 {
       margin: 0 0 7px;
@@ -784,6 +784,31 @@
       </div>
     </div>
 
+    <!-- ── Lake Depths (Bathymetry) ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-bathymetry" />
+          Lake Depths
+        </label>
+        <span class="toc-arrow" id="arrow-bathymetry" onclick="toggleTocLegend('legend-bathymetry','arrow-bathymetry')">▶</span>
+      </div>
+      <div class="toc-legend collapsed" id="legend-bathymetry">
+        <div class="toc-legend-sublabel">Depth (ft)</div>
+        <div class="access-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#d4eef8; border-color:#a8d8f0;"></span>0 – 5</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#a8d8f0; border-color:#72bde5;"></span>5 – 10</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#72bde5; border-color:#3ea1d6;"></span>10 – 15</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#3ea1d6; border-color:#1f83be;"></span>15 – 20</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#1f83be; border-color:#1165a3;"></span>20 – 25</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#1165a3; border-color:#0b4d89;"></span>25 – 30</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#0b4d89; border-color:#073870;"></span>30 – 35</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#073870; border-color:#042558;"></span>35 – 40</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#042558; border-color:#021540;"></span>45+</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Watersheds group ── -->
     <div class="toc-item">
       <div class="toc-row">
@@ -810,6 +835,65 @@
               <span class="legend-dot" style="background:transparent; border-color:#dc2626;"></span>
               WHD Catchments
             </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Onterra Study 2025 group ── -->
+    <div class="toc-item">
+      <div class="toc-row">
+        <label class="toc-check">
+          <input type="checkbox" id="toggle-onterra-group" />
+          Onterra Study 2025
+        </label>
+        <span class="toc-arrow" id="arrow-onterra-group" onclick="toggleSection('section-onterra','arrow-onterra-group')">▶</span>
+      </div>
+      <div class="section-body collapsed" style="padding-left:18px;" id="section-onterra">
+        <div class="toc-item">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-onterra-pt" />
+              Species Points
+            </label>
+            <span class="toc-arrow" id="arrow-onterra-pt" onclick="toggleTocLegend('legend-onterra-pt','arrow-onterra-pt')">▶</span>
+          </div>
+          <div class="toc-legend collapsed" id="legend-onterra-pt">
+            <div class="toc-legend-sublabel">Species (SP1)</div>
+            <div class="access-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#22c55e; border-color:#16a34a;"></span>Creeping spikerush</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f97316; border-color:#ea580c;"></span>Floating-leaf bur-reed</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#a855f7; border-color:#9333ea;"></span>Hardstem bulrush</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#6366f1; border-color:#4f46e5;"></span>Iris sp.</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#3b82f6; border-color:#2563eb;"></span>Northern blue-flag</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ca8a04; border-color:#a16207;"></span>Northern wild rice</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ec4899; border-color:#db2777;"></span>Pickerelweed</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#eab308; border-color:#ca8a04;"></span>Sedge sp. (sterile)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#14b8a6; border-color:#0d9488;"></span>Spatterdock</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ef4444; border-color:#dc2626;"></span>Water smartweed</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#94a3b8; border-color:#64748b;"></span>White water lily</div>
+            </div>
+          </div>
+        </div>
+        <div class="toc-item" style="border-bottom:none;">
+          <div class="toc-row">
+            <label class="toc-check">
+              <input type="checkbox" id="toggle-onterra-poly" />
+              Species Polygons
+            </label>
+            <span class="toc-arrow" id="arrow-onterra-poly" onclick="toggleTocLegend('legend-onterra-poly','arrow-onterra-poly')">▶</span>
+          </div>
+          <div class="toc-legend collapsed" id="legend-onterra-poly">
+            <div class="toc-legend-sublabel">Species (SP1)</div>
+            <div class="access-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#22c55e; border-color:#16a34a;"></span>Creeping spikerush</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f97316; border-color:#ea580c;"></span>Floating-leaf bur-reed</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#a855f7; border-color:#9333ea;"></span>Hardstem bulrush</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ca8a04; border-color:#a16207;"></span>Northern wild rice</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ec4899; border-color:#db2777;"></span>Pickerelweed</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#14b8a6; border-color:#0d9488;"></span>Spatterdock</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#94a3b8; border-color:#64748b;"></span>White water lily</div>
+            </div>
           </div>
         </div>
       </div>
@@ -859,6 +943,9 @@
         <option value="flowlines">Flowlines</option>
         <option value="lake">Lake Julia</option>
         <option value="watershed">HUC12 Sub-watersheds</option>
+        <option value="onterra_pt">Onterra Species Points</option>
+        <option value="onterra_poly">Onterra Species Polygons</option>
+        <option value="bathymetry">Lake Depths</option>
         <option value="catchments">WHD Catchments</option>
       </select>
       <button class="attr-close-btn" onclick="toggleAttrTable()">&#x2715;</button>
@@ -874,6 +961,7 @@
 
 <div class="map-footer">
   Map data © <a href="https://www.openstreetmap.org/copyright" style="color:#4a8fa8">OpenStreetMap</a> contributors &nbsp;|&nbsp;
+  Species information provided by <a href="https://onterra-eco.com/" target="_blank" style="color:#4a8fa8">Onterra LLC</a> &nbsp;|&nbsp;
   Property locations are approximate &nbsp;|&nbsp; Contact information available to LJA members only
 </div>
 
@@ -1189,7 +1277,7 @@ const map = L.map('map', {
 
 // ── Basemap definitions ───────────────────────────────────────
 const BASEMAPS = {
-  osm: L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+  osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }),
@@ -1348,6 +1436,118 @@ fetch('data/parcels.geojson')
   })
   .catch(err => console.warn('Could not load parcels.geojson:', err));
 
+// ── Lake Bathymetry (depth zones) ────────────────────────────
+const BATHY_COLORS = {
+  5: '#d4eef8', 10: '#a8d8f0', 15: '#72bde5', 20: '#3ea1d6',
+  25: '#1f83be', 30: '#1165a3', 35: '#0b4d89', 40: '#073870', 45: '#042558',
+};
+function bathyColor(contour) { return BATHY_COLORS[contour] || '#d4eef8'; }
+
+function buildBathymetryPopup(p) {
+  const depths = [5, 10, 15, 20, 25, 30, 35, 40, 45];
+  const idx  = depths.indexOf(p.Contour);
+  const prev  = idx > 0 ? depths[idx - 1] : 0;
+  const label = p.Contour === 45 ? '45+ ft' : `${prev} – ${p.Contour} ft`;
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Lake Bathymetry · Depth Zone</div>
+      <div class="popup-name">${label}</div>
+    </div>
+    ${popupRow('Contour', p.Contour + ' ft')}
+  `;
+}
+
+const bathymetryLayer = L.layerGroup();
+fetch('data/lja_bathymetry.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      style: feature => {
+        const c = bathyColor(feature.properties.Contour);
+        return { fillColor: c, fillOpacity: 0.65, color: c, weight: 0.5, opacity: 0.8 };
+      },
+      onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
+        tableData.bathymetry.push({ props: feature.properties, layer });
+        layer.bindPopup(buildBathymetryPopup(feature.properties), { maxWidth: 280, minWidth: 200 });
+        layer.on('click', () => highlightFeature(layer));
+      }
+    }).addTo(bathymetryLayer);
+  })
+  .catch(err => console.warn('Could not load lja_bathymetry.geojson:', err));
+
+// ── Onterra Lake Study 2025 — plant species ───────────────────
+const SPECIES_COLORS = {
+  'Creeping spikerush':    '#22c55e',
+  'Floating-leaf bur-reed':'#f97316',
+  'Hardstem bulrush':      '#a855f7',
+  'Iris sp.':              '#6366f1',
+  'Northern blue-flag':    '#3b82f6',
+  'Northern wild rice':    '#ca8a04',
+  'Pickerelweed':          '#ec4899',
+  'Sedge sp. (sterile)':   '#eab308',
+  'Spatterdock':           '#14b8a6',
+  'Water smartweed':       '#ef4444',
+  'White water lily':      '#94a3b8',
+};
+
+function buildOnterraPopup(p, type) {
+  const extra = ['SP2','SP3','SP4','SP5','SP6','SP7','SP8','SP9','SP10']
+    .map(k => p[k]).filter(Boolean);
+  return `
+    <div class="popup-header">
+      <div class="popup-prop-number">Onterra Lake Study 2025 · ${type}</div>
+      <div class="popup-name">${p.SP1 || 'Unknown species'}</div>
+    </div>
+    ${extra.length ? popupRow('Also present', extra.join(', ')) : ''}
+    ${popupRow('Community Type', p.COMMTYPE)}
+    ${popupRow('Date', p.DATE_)}
+    ${p.Acre != null ? popupRow('Area', p.Acre.toFixed(3) + ' ac') : ''}
+    ${popupRow('Notes', p.NOTES || p.Notes)}
+  `;
+}
+
+const onterraPtLayer = L.layerGroup();
+fetch('data/Onterra_LakeStudy2025_SpeciesList_Pt.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      pointToLayer: (feature, latlng) => {
+        const color = SPECIES_COLORS[feature.properties.SP1] || '#9ca3af';
+        return L.circleMarker(latlng, {
+          radius: 7, fillColor: color, fillOpacity: 0.85,
+          color: '#1f2937', weight: 1.5, pmIgnore: true,
+        });
+      },
+      onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
+        tableData.onterra_pt.push({ props: feature.properties, layer });
+        layer.bindPopup(buildOnterraPopup(feature.properties, 'Survey Point'), { maxWidth: 320, minWidth: 240 });
+        layer.on('click', () => highlightFeature(layer));
+      }
+    }).addTo(onterraPtLayer);
+  })
+  .catch(err => console.warn('Could not load Onterra points:', err));
+
+const onterraPolyLayer = L.layerGroup();
+fetch('data/Onterra_LakeStudy2025_SpeciesList_Poly.geojson')
+  .then(r => r.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      style: feature => {
+        const color = SPECIES_COLORS[feature.properties.SP1] || '#9ca3af';
+        return { fillColor: color, fillOpacity: 0.4, color: color, weight: 1.5, opacity: 0.9 };
+      },
+      onEachFeature: (feature, layer) => {
+        layer.options.pmIgnore = true;
+        tableData.onterra_poly.push({ props: feature.properties, layer });
+        layer.bindPopup(buildOnterraPopup(feature.properties, 'Survey Polygon'), { maxWidth: 320, minWidth: 240 });
+        layer.on('click', () => highlightFeature(layer));
+      }
+    }).addTo(onterraPolyLayer);
+  })
+  .catch(err => console.warn('Could not load Onterra polygons:', err));
+
 // ── NHD Flowlines (line + midpoint & endpoint arrowheads) ─────
 const flowlinesLayer = L.layerGroup();
 fetch('data/NHD_Flowlines.geojson')
@@ -1435,7 +1635,7 @@ fetch('data/cabins.geojson')
 // ── Label conflict detection ──────────────────────────────────
 const featureLayers  = [];
 const searchIndex    = [];
-const tableData      = { cabins: [], parcels: [], flowlines: [], lake: [], watershed: [], catchments: [] };
+const tableData      = { cabins: [], parcels: [], flowlines: [], lake: [], watershed: [], catchments: [], bathymetry: [], onterra_pt: [], onterra_poly: [] };
 const LABEL_MIN_ZOOM = 16;
 const CHAR_W         = 6.5;  // avg px/char at 0.75rem Georgia
 const LABEL_H        = 15;   // label height px
@@ -1639,6 +1839,9 @@ const secchiLayer = makeOneidaLayer(9, POI_ICONS.secchi, p => oneidaPopup(
   ['toggle-cabins',    cabinsLayer],
   ['toggle-flowlines', flowlinesLayer],
   ['toggle-parcels',   parcelsLayer],
+  ['toggle-bathymetry',  bathymetryLayer],
+  ['toggle-onterra-pt',  onterraPtLayer],
+  ['toggle-onterra-poly',onterraPolyLayer],
   ['toggle-watershed',   watershedLayer],
   ['toggle-catchments',  catchmentsLayer],
   ['toggle-ais',     aisLayer],
@@ -1682,6 +1885,30 @@ const secchiLayer = makeOneidaLayer(9, POI_ICONS.secchi, p => oneidaPopup(
   const groupChk     = document.getElementById('toggle-watersheds-group');
   const childChks    = ['toggle-watershed', 'toggle-catchments'].map(id => document.getElementById(id));
   const childLayers  = [watershedLayer, catchmentsLayer];
+
+  groupChk.addEventListener('change', function () {
+    childChks.forEach((chk, i) => {
+      chk.checked = this.checked;
+      if (this.checked) map.addLayer(childLayers[i]);
+      else map.removeLayer(childLayers[i]);
+    });
+  });
+
+  childChks.forEach((chk, i) => {
+    chk.addEventListener('change', function () {
+      const anyChecked = childChks.some(c => c.checked);
+      const allChecked = childChks.every(c => c.checked);
+      groupChk.checked = anyChecked;
+      groupChk.indeterminate = anyChecked && !allChecked;
+    });
+  });
+})();
+
+// ── Onterra group parent checkbox ────────────────────────────
+(function () {
+  const groupChk    = document.getElementById('toggle-onterra-group');
+  const childChks   = ['toggle-onterra-pt', 'toggle-onterra-poly'].map(id => document.getElementById(id));
+  const childLayers = [onterraPtLayer, onterraPolyLayer];
 
   groupChk.addEventListener('change', function () {
     childChks.forEach((chk, i) => {
@@ -1901,6 +2128,32 @@ const TABLE_CONFIG = {
       { key: 'HUC12_CODE',            label: 'HUC12 Code' },
       { key: 'DOWNSTREAM_HUC12_CODE', label: 'Downstream' },
       { key: 'SHAPE__Area',           label: 'Area (acres)', fmt: v => v != null ? Math.round(v * 0.000247105).toLocaleString() : '' },
+    ]
+  },
+  onterra_pt: {
+    chkId: 'toggle-onterra-pt', mapLayer: () => onterraPtLayer,
+    columns: [
+      { key: 'SP1',      label: 'Primary Species' },
+      { key: 'COMMTYPE', label: 'Community Type' },
+      { key: 'DATE_',    label: 'Date' },
+      { key: 'NOTES',    label: 'Notes' },
+    ]
+  },
+  onterra_poly: {
+    chkId: 'toggle-onterra-poly', mapLayer: () => onterraPolyLayer,
+    columns: [
+      { key: 'SP1',      label: 'Primary Species' },
+      { key: 'COMMTYPE', label: 'Community Type' },
+      { key: 'Acre',     label: 'Area (ac)', fmt: v => v != null ? Number(v).toFixed(3) : '' },
+      { key: 'DATE_',    label: 'Date' },
+    ]
+  },
+  bathymetry: {
+    chkId: 'toggle-bathymetry', mapLayer: () => bathymetryLayer,
+    columns: [
+      { key: 'Contour',      label: 'Depth (ft)' },
+      { key: 'Shape_Area',   label: 'Area (acres)', fmt: v => v != null ? (v * 247105).toFixed(2) : '' },
+      { key: 'Shape_Length', label: 'Perimeter (mi)', fmt: v => v != null ? (v * 69).toFixed(2) : '' },
     ]
   },
   catchments: {

@@ -38,7 +38,9 @@
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show fb8aea4 --stat)",
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" show fb8aea4 -- history/properties.html)",
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" status)",
-      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" add robots.txt)"
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" add robots.txt)",
+      "Bash(sort -t: -k2 -n)",
+      "Bash(node -e ' *)"
     ]
   }
 }

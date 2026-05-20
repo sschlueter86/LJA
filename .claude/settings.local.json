@@ -40,7 +40,9 @@
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" status)",
       "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" add robots.txt)",
       "Bash(sort -t: -k2 -n)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" log --oneline -5 -- gis/data/cabins.geojson)",
+      "Bash(git -C \"d:/LakeJulia_GIS/LakeJulia_stage\" status gis/data/cabins.geojson)"
     ]
   }
 }

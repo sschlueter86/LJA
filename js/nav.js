@@ -12,9 +12,7 @@ const LAST_UPDATED = '05/15/2026 @ 04:02 PM CST'; // auto-updated by .githooks/p
 // Pages with <body data-protected="true"> show a password overlay before
 // rendering content. This is a soft gate to deter casual visitors — not
 // real security; the password is plainly visible in this file.
-// DEV MODE: sessionStorage (re-prompts each browser session).
-// TODO before going live: switch sessionStorage → localStorage so members
-// aren't re-prompted on every visit.
+// Uses localStorage so authentication persists across tabs and browser restarts.
 const SITE_PASSWORD = 'lakejulia2026';
 const GATE_KEY = 'lja_auth';
 // Pages that require the password. Used both by the gate (which checks
@@ -25,7 +23,7 @@ const GATED_PATHS = ['/history/properties.html'];
 
 (function gateProtectedPage() {
   if (document.body.dataset.protected !== 'true') return;
-  if (sessionStorage.getItem(GATE_KEY) === 'ok') return;
+  if (localStorage.getItem(GATE_KEY) === 'ok') return;
 
   document.body.innerHTML = `
 <style>
@@ -114,7 +112,7 @@ const GATED_PATHS = ['/history/properties.html'];
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (input.value === SITE_PASSWORD) {
-      sessionStorage.setItem(GATE_KEY, 'ok');
+      localStorage.setItem(GATE_KEY, 'ok');
       location.reload();
     } else {
       err.classList.add('show');

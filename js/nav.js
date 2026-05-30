@@ -22,6 +22,7 @@ const GATE_KEY = 'lja_auth';
 const GATED_PATHS = ['/history/properties.html'];
 
 (function gateProtectedPage() {
+  return; // GATE DISABLED — remove this line to re-enable
   if (document.body.dataset.protected !== 'true') return;
   if (localStorage.getItem(GATE_KEY) === 'ok') return;
 

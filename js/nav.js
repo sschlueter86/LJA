@@ -212,13 +212,6 @@ const SEARCH_INDEX = [
     body: 'recycling waste disposal trash garbage recycling center crandon three lakes drop-off hazardous waste cardboard plastic glass metal compost oneida county forest county landfill solid waste'
   },
   {
-    title: 'Three Lakes Waterfront Association',
-    url: 'environment/tlwa.html',
-    section: 'Lake & Environment',
-    snippet: 'Lake Julia is a member of the Three Lakes Waterfront Association (TLWA) regional federation.',
-    body: 'tlwa three lakes waterfront association three lakes lake association regional federation member advocacy lakes chain of lakes oneida county wisconsin property owners water quality responsible recreation environmental protection eagle river 2021 map amendment forest county eastern extension newsletter onterra virgin lake ewm harvesting'
-  },
-  {
     title: 'History — Overview',
     url: 'history/index.html',
     section: 'History',

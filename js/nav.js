@@ -152,8 +152,8 @@ const SEARCH_INDEX = [
     title: 'Annual Meeting',
     url: 'community/annual-meeting.html',
     section: 'Community',
-    snippet: 'The Annual Meeting is held around the Fourth of July each year.',
-    body: 'annual meeting fourth of july july 4th meeting agenda election vote minutes board elections quorum members attendance past meetings 2021 2020 pandemic picnic lakeside boat parade directors'
+    snippet: 'The 2026 Annual Meeting is July 26th at Rick and Kathy Mayer\'s cabin (#21).',
+    body: 'annual meeting fourth of july july 4th meeting agenda election vote minutes board elections quorum members attendance 2026 july 26 sunday rick kathy mayer cabin 21 9am 9 00 board meeting 10am 10 00 lake meeting all residents boat parade directors picnic lakeside'
   },
   {
     title: 'Resident Directory',
@@ -174,21 +174,28 @@ const SEARCH_INDEX = [
     url: 'community/donate.html',
     section: 'Community',
     snippet: 'Support the Lake Julia Association — a 501(c)(3) nonprofit. Donations fund CBCW and lake stewardship.',
-    body: 'donate donation 501c3 charitable cbcw clean boats clean waters support contribution tax deductible fund financial stewardship give zelle venmo paypal check sally wahl sallywahl@me.com @sally-wahl fox point 53217 $300 300 per family eurasian water milfoil 12000 annual 4000 state 8000 residents lakejuliaassn'
+    body: 'donate donation 501c3 charitable cbcw clean boats clean waters support contribution tax deductible fund financial stewardship give zelle venmo paypal check sally wahl sallywahl@me.com @sally-wahl fox point 53217 $300 300 per family eurasian water milfoil 13000 annual 4000 state 9000 residents lakejuliaassn'
   },
   {
     title: 'Lake & Environment — Overview',
     url: 'environment/index.html',
     section: 'Lake & Environment',
     snippet: 'Protecting Lake Julia\'s water quality, ecology, and natural character for generations to come.',
-    body: 'environment lake overview water quality ecology conservation natural character protection stewardship environmental health eurasian water milfoil virgin lake threat aquatic invasives cbcw boats boating rules flora fauna three lakes waterfront association tlwa 2021 2022 7500 donations'
+    body: 'environment lake overview water quality ecology conservation natural character protection stewardship environmental health eurasian water milfoil virgin lake threat aquatic invasives cbcw clean boats clean waters boats boating rules flora fauna onterra 2013 2025 study excellent water quality donations watershed wetlands forest'
   },
   {
     title: 'Aquatic Invasive Species',
     url: 'environment/aquatic-invasives.html',
     section: 'Lake & Environment',
-    snippet: 'Eurasian Water Milfoil (EWM) is a top threat. The CBCW program inspects boats to keep invasives out.',
-    body: 'aquatic invasives ewm eurasian water milfoil cbcw clean boats clean waters invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed prevention threat property values onterra llc 2010 2013 study chequamegon nicolet national forest three lakes eagle river uw extension stevens point state grants 12000 funding 4000 2022 7500 residents minnesota aquatic invasive species research center 2025 orientation youtube julia creek ecosystem native plants'
+    snippet: 'Eurasian Water Milfoil (EWM) is an active threat. No invasives found in Lake Julia in either the 2013 or 2025 Onterra surveys.',
+    body: 'aquatic invasives ewm eurasian water milfoil invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed purple loosestrife prevention threat property values onterra llc 2010 2013 2025 study no invasives found julia creek ecosystem native plants three lakes eagle river minnesota aquatic invasive species research center maisrc university property values'
+  },
+  {
+    title: 'Clean Boats, Clean Waters',
+    url: 'environment/cbcw.html',
+    section: 'Lake & Environment',
+    snippet: 'Our community-funded boat inspection program at the Lake Julia public landing, running Memorial Day through Labor Day.',
+    body: 'cbcw clean boats clean waters boat inspection landing monitor volunteer cj kraft memorial day labor day 2026 paid monitors part time state grant uw extension stevens point 13000 annual cost 4000 state grant 9000 residents donations fundraising ewm eurasian water milfoil prevention orientation video youtube t-shirt training'
   },
   {
     title: 'Boats & Boating Rules',
@@ -272,7 +279,7 @@ const SEARCH_INDEX = [
     url: 'resources/documents.html',
     section: 'Resources',
     snippet: 'Bylaws, meeting minutes, financial reports, and other official association documents.',
-    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records onterra lake study 2010-13 community surveys memorabilia 2004 articles incorporation thomas drought governance nonprofit 501c3 final report october 2013 maps appendices stakeholder survey november 2011 results july 2013 onterra proposal june 2010 2022 communications survey june 2022 photos clippings keepsakes scrapbook'
+    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records onterra lake study 2010-13 2025 follow-up study community surveys memorabilia 2004 articles incorporation thomas drought governance nonprofit 501c3 final report october 2013 maps appendices stakeholder survey november 2011 results july 2013 onterra proposal june 2010 2022 communications survey june 2022 photos clippings keepsakes scrapbook newsletters may 2026 december 2025 may 2025 november 2024 tommy drought isabel ullrich gail lewis'
   },
   {
     title: 'Helpful Links',

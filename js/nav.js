@@ -188,14 +188,14 @@ const SEARCH_INDEX = [
     url: 'environment/aquatic-invasives.html',
     section: 'Lake & Environment',
     snippet: 'Eurasian Water Milfoil (EWM) is an active threat. No invasives found in Lake Julia in either the 2013 or 2025 Onterra surveys.',
-    body: 'aquatic invasives ewm eurasian water milfoil invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed purple loosestrife prevention threat property values onterra llc 2010 2013 2025 study no invasives found julia creek ecosystem native plants three lakes eagle river minnesota aquatic invasive species research center maisrc university property values'
+    body: 'aquatic invasives ewm eurasian water milfoil invasive species boat inspection virgin lake weed milfoil zebra mussel spiny water flea curly leaf pondweed potamogeton crispus turions purple loosestrife prevention threat property values onterra llc 2010 2013 2025 study no invasives found julia creek ecosystem native plants three lakes eagle river minnesota aquatic invasive species research center maisrc university property values identification northern watermilfoil leaflets whorls native vs invasive comparison diagram'
   },
   {
     title: 'Clean Boats, Clean Waters',
     url: 'environment/cbcw.html',
     section: 'Lake & Environment',
     snippet: 'Our community-funded boat inspection program at the Lake Julia public landing, running Memorial Day through Labor Day.',
-    body: 'cbcw clean boats clean waters boat inspection landing monitor volunteer cj kraft memorial day labor day 2026 paid monitors part time state grant uw extension stevens point 13000 annual cost 4000 state grant 9000 residents donations fundraising ewm eurasian water milfoil prevention orientation video youtube t-shirt training'
+    body: 'cbcw clean boats clean waters boat inspection landing monitor volunteer cj kraft memorial day labor day 2026 paid monitors part time state grant uw extension stevens point 13000 annual cost 4000 state grant 9000 residents donations fundraising ewm eurasian water milfoil prevention orientation video youtube t-shirt training inspect remove drain never move boater core message watercraft inspection'
   },
   {
     title: 'Boats & Boating Rules',
@@ -294,6 +294,13 @@ const SEARCH_INDEX = [
     section: 'Resources',
     snippet: 'Nearby restaurants, shops, activities, and points of interest around the Lake Julia area.',
     body: 'attractions local attractions restaurants dining three lakes eagle river rhinelander shopping activities recreation hiking fishing snowmobile trails golf bowling ice fishing antiques tourism chequamegon-nicolet national forest alltrails hidden lakes trail nicolet north trail luna-white deer lake three eagle trail cycling biking cross-country skiing vilas county petroleum museum northernaire resort aqua devils beach big stone sunset grill three lakes information bureau usfs mountain biking'
+  },
+  {
+    title: 'Site Map',
+    url: 'resources/sitemap.html',
+    section: 'Resources',
+    snippet: 'A complete guide to every page on the site, organized by section.',
+    body: 'site map sitemap navigation index every page directory find lost looking for content where is page list diagram'
   },
 ];
 

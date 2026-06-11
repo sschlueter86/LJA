@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:apps.dnr.wi.gov)"
+      "WebFetch(domain:apps.dnr.wi.gov)",
+      "Bash(start \"\" \"d:\\\\LakeJulia_GIS\\\\LakeJulia_stage\\\\resources\\\\sitemap.html\")"
     ]
   }
 }

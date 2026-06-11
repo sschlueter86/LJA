@@ -407,6 +407,7 @@ function buildFooter() {
       <a href="${_base}environment/index.html">Lake &amp; Environment</a>
       <a href="${_base}history/index.html">History</a>
       <a href="${_base}resources/maps.html">Resources</a>
+      <a href="${_base}resources/sitemap.html">Site Map</a>
     </div>
     <!-- External links column -->
     <div class="footer-col">

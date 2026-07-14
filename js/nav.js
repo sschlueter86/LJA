@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '06/22/2026 @ 03:40 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '07/14/2026 @ 01:50 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── PASSWORD GATE (soft) ─────────────────────────────────────────
 // Pages with <body data-protected="true"> show a password overlay before
@@ -348,10 +348,7 @@ function buildHeader(activePage) {
 <header>
   <div class="header-inner">
     <a class="site-logo" href="${_base}index.html">
-      <svg class="logo-wave" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 16 Q8 8 14 16 Q20 24 26 16 Q32 8 38 16" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.9"/>
-        <path d="M2 10 Q8 2 14 10 Q20 18 26 10 Q32 2 38 10" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.45"/>
-      </svg>
+      <img class="logo-loon-img" src="${_base}images/loon.svg" alt="">
       Lake Julia Association
     </a>
     <nav>${navLinks}</nav>

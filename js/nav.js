@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '07/14/2026 @ 01:50 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '10/26/2026 @ 04:02 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── PASSWORD GATE (soft) ─────────────────────────────────────────
 // Pages with <body data-protected="true"> show a password overlay before
@@ -22,7 +22,6 @@ const GATE_KEY = 'lja_auth';
 const GATED_PATHS = ['/history/properties.html'];
 
 (function gateProtectedPage() {
-  return; // GATE DISABLED — remove this line to re-enable
   if (document.body.dataset.protected !== 'true') return;
   if (localStorage.getItem(GATE_KEY) === 'ok') return;
 

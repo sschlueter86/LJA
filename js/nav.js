@@ -5,8 +5,21 @@
    wires up the mobile hamburger menu, and keeps nav links
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
+const LAST_UPDATED = '11/23/2026 @ 12:43 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
-const LAST_UPDATED = '11/23/2026 @ 12:16 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+// ── CLOUDFLARE WEB ANALYTICS ─────────────────────────────────────
+// Privacy-friendly visitor stats (no cookies). Only runs on the live
+// site, so local testing with Live Server doesn't count as visits.
+(function loadAnalytics() {
+  if (location.hostname !== 'lakejuliawi.org' &&
+      location.hostname !== 'www.lakejuliawi.org') return;
+  const s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "eaba52597aa948a5b150b0070e9896da"}');
+  document.head.appendChild(s);
+})();
+
 
 // ── PASSWORD GATE (soft) ─────────────────────────────────────────
 // Pages with <body data-protected="true"> show a password overlay before

@@ -6,7 +6,7 @@
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATED = '10/27/2026 @ 12:47 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '11/23/2026 @ 12:16 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── PASSWORD GATE (soft) ─────────────────────────────────────────
 // Pages with <body data-protected="true"> show a password overlay before

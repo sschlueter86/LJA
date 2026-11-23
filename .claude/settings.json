@@ -1,4 +1,10 @@
 {
+  "apiKeyHelper": "",
+  "env": {
+    "ANTHROPIC_BASE_URL": "",
+    "ANTHROPIC_API_KEY": "YOUR_PERSONAL_KEY_HERE",
+    "CLAUDE_CODE_SKIP_ANTHROPIC_AUTH": ""
+  },
   "permissions": {
     "allow": [
       "WebFetch(domain:apps.dnr.wi.gov)",

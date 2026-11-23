@@ -26,7 +26,7 @@ The site is designed to be simple, durable, and easy to hand off: no CMS, no dat
 
 ## Site Structure
 
-The site contains **23 pages** organized into five sections, plus a self-hosted GIS application and internal documentation.
+The site contains **27 pages** organized into five sections, plus a self-hosted GIS application and internal documentation.
 
 ```
 lakejuliawi.org/
@@ -40,11 +40,14 @@ lakejuliawi.org/
 │   ├── email-list.html               # Community email list
 │   ├── directory.html                # Resident directory
 │   ├── annual-meeting.html           # Annual meeting info
+│   ├── gallery.html                  # Photo gallery
 │   └── donate.html                   # Donate (PayPal / Venmo)
 │
 ├── environment/
 │   ├── index.html                    # Lake & Environment overview
-│   ├── aquatic-invasives.html        # Aquatic invasive species / CBCW
+│   ├── aquatic-invasives.html        # Aquatic invasive species
+│   ├── cbcw.html                     # Clean Boats, Clean Waters program
+│   ├── ilids.html                    # ILIDS remote lake monitoring
 │   ├── boating-rules.html            # Boating rules & regulations
 │   ├── flora-fauna.html              # Flora & fauna of Lake Julia
 │   ├── recycling.html                # Recycling & waste resources
@@ -62,7 +65,8 @@ lakejuliawi.org/
 │   ├── maps.html                     # Maps & GIS (thumbnail cards linking to Leaflet map + DNR viewer)
 │   ├── documents.html                # Association documents
 │   ├── attractions.html              # Local attractions
-│   └── links.html                    # Helpful external links
+│   ├── links.html                    # Helpful external links
+│   └── sitemap.html                  # Full site map
 │
 ├── gis/
 │   ├── gis.html                      # Leaflet interactive map application
@@ -98,8 +102,6 @@ The following pages are planned but not yet live:
 
 | Page | Description | Planned Location |
 |------|-------------|-----------------|
-| CBCW Expansion | Volunteer info, scheduling, and inspection data for the Clean Boats, Clean Waters program | `environment/cbcw.html` or expand `aquatic-invasives.html` |
-| ILIDS Remote Monitoring | Lake sensor and water quality data via ILIDS remote monitoring | `environment/monitoring.html` |
 | Lake Julia History | Broader narrative history of Lake Julia and the Three Lakes area | `history/lake-history.html` |
 | Property Histories (expanded) | Member-submitted cabin and property histories with photos | `history/properties.html` (expanded) |
 
@@ -113,7 +115,17 @@ All pages share a common header, navigation, footer, and site search, injected a
 
 ## Page Access Control
 
-Most pages are protected by a soft password gate intended to discourage casual public access. Add `data-protected="true"` to a page's `<body>` tag to enable it. The password is shared verbally or via the community email list — contact the site maintainer for access.
+One page — `history/properties.html` — is behind a soft password gate to discourage casual public access. Add `data-protected="true"` to a page's `<body>` tag to gate it; the list of gated paths is also maintained in `GATED_PATHS` in `js/nav.js` (used to decorate links with a lock icon). The password is shared verbally or via the community email list — contact the site maintainer for access.
+
+---
+
+## Analytics
+
+Cloudflare Web Analytics (free, no cookies, no consent banner required) is enabled via a JS beacon in `js/nav.js`. The beacon only loads on `lakejuliawi.org` / `www.lakejuliawi.org`, so local Live Server sessions are never counted.
+
+**Dashboard:** Cloudflare account home → Web Analytics (not under the domain's DNS settings).
+
+**Opt-out (for the site maintainer):** Visit `https://lakejuliawi.org/?nocount=1` once per browser/device to stop counting that browser. Visit `?nocount=0` to re-enable. The flag is stored in `localStorage` and survives until the browser's site data is cleared.
 
 ---
 

@@ -5,14 +5,28 @@
    wires up the mobile hamburger menu, and keeps nav links
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
-const LAST_UPDATED = '11/23/2026 @ 12:43 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '11/23/2026 @ 01:01 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── CLOUDFLARE WEB ANALYTICS ─────────────────────────────────────
 // Privacy-friendly visitor stats (no cookies). Only runs on the live
 // site, so local testing with Live Server doesn't count as visits.
+// "Don't count me": visit any page with ?nocount=1 to exclude this
+// browser from stats (stored in localStorage); ?nocount=0 re-enables.
 (function loadAnalytics() {
   if (location.hostname !== 'lakejuliawi.org' &&
       location.hostname !== 'www.lakejuliawi.org') return;
+
+  const OPTOUT_KEY = 'lja_nocount';
+  try {
+    const flag = new URLSearchParams(location.search).get('nocount');
+    if (flag === '1') localStorage.setItem(OPTOUT_KEY, '1');
+    if (flag === '0') localStorage.removeItem(OPTOUT_KEY);
+    if (localStorage.getItem(OPTOUT_KEY) === '1') {
+      if (flag === '1') console.log('[LJA] Analytics disabled for this browser.');
+      return;
+    }
+  } catch (e) { /* localStorage unavailable: just count normally */ }
+
   const s = document.createElement('script');
   s.defer = true;
   s.src = 'https://static.cloudflareinsights.com/beacon.min.js';

@@ -5,7 +5,7 @@
    wires up the mobile hamburger menu, and keeps nav links
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
-const LAST_UPDATED = '11/23/2026 @ 01:01 PM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '11/25/2026 @ 09:53 AM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── CLOUDFLARE WEB ANALYTICS ─────────────────────────────────────
 // Privacy-friendly visitor stats (no cookies). Only runs on the live

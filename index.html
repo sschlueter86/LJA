@@ -28,13 +28,13 @@
     position: relative;
     overflow: hidden;
   }
-  /* Curved white scallop at the bottom of the hero, bleeding into the content below */
+  /* Curved scallop at the bottom of the hero, fading into the section below */
   .hero::before {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 80px;
-    background: var(--cream);
+    background: var(--sand);
     clip-path: ellipse(55% 100% at 50% 100%);
   }
   /* Decorative concentric ring overlay in the upper-right corner */
@@ -216,7 +216,6 @@
   .about-strip {
     background: var(--sand);
     padding: 3.5rem 2rem;
-    margin-top: 2rem;
   }
   .about-inner {
     max-width: 1100px;
@@ -440,6 +439,7 @@
 <!-- ── QUICK LINKS ───────────────────────────────────────────────────
      Four icon cards linking to the most commonly visited pages.
      The section-label is in its own wrapper to constrain to 1100px. -->
+<div style="background: var(--sand);">
 <div style="max-width:1100px; margin:0 auto; padding:1.5rem 2rem 0;">
   <p class="section-label">Common topics</p>
 </div>
@@ -460,6 +460,7 @@
     <div class="ql-icon">🗺️</div>
     <div><h3>Maps &amp; GIS</h3><p>Lake maps and interactive GIS viewer</p></div>
   </a>
+</div>
 </div>
 
 <!-- ── ABOUT THE LAKE & ASSOCIATION ─────────────────────────────────

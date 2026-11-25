@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="image" href="images/hero_image1.jpg">
 <style>
   /* ── HOME PAGE SPECIFIC STYLES ──────────────────────────────────
      The homepage uses a large hero section, quick-link cards,
@@ -409,7 +410,7 @@
      widget, headline, description, and key lake stats.              -->
 <div class="hero">
   <!-- Decorative background lake-map image (fades in from right via CSS mask) -->
-  <img class="hero-bg-map" src="images/hero_image1.png" alt="">
+  <img class="hero-bg-map" src="images/hero_image1.jpg" alt="" fetchpriority="high">
   <div class="hero-inner">
     <div class="hero-text">
       <!-- Weather widget: date shown immediately; temp/condition loaded via JS API call -->

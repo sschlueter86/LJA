@@ -5,7 +5,7 @@
    wires up the mobile hamburger menu, and keeps nav links
    highlighted based on which section of the site you're in.
    ══════════════════════════════════════════════════════════════ */
-const LAST_UPDATED = '11/25/2026 @ 11:19 AM CST'; // auto-updated by .githooks/pre-commit on every commit
+const LAST_UPDATED = '11/25/2026 @ 12:13 PM CST'; // auto-updated by .githooks/pre-commit on every commit
 
 // ── CLOUDFLARE WEB ANALYTICS ─────────────────────────────────────
 // Privacy-friendly visitor stats (no cookies). Only runs on the live
@@ -238,6 +238,13 @@ const SEARCH_INDEX = [
     body: 'flora fauna plants animals birds wildlife loons eagles osprey herons waterfowl fish walleye bass panfish bluegill perch pike muskie deer bear vegetation native plants shoreline habitat ticks lyme disease cdc bullseye rash fever fatigue joint pain beavers water levels drainage thunder lake otters north american river otters diurnal nocturnal playful fishing dnr licenses northern hardwoods conifers civilian conservation corps 1930s forest ecology mycorrhizal networks forest county association lakes fcal oneida county land water conservation lwcd shoreline erosion fertilizers pesticides shoreland zoning'
   },
   {
+    title: 'I-LIDS Lake Monitoring',
+    url: 'environment/ilids.html',
+    section: 'Lake & Environment',
+    snippet: 'A solar-powered camera and audio system at the boat landing that automatically reminds boaters to Clean, Drain, and Dry.',
+    body: 'ilids i-lids internet landing installed device sensor lake shield solar powered camera audio boat landing motion detection clean drain dry ais aquatic invasive species monitoring 24 hours around the clock video recording boater reminder inspection weeds bait cbcw complement extend coverage off-hours mid-april october november winter storage dismantled board voted install'
+  },
+  {
     title: 'Recycling & Waste Disposal',
     url: 'environment/recycling.html',
     section: 'Lake & Environment',
@@ -305,7 +312,7 @@ const SEARCH_INDEX = [
     url: 'resources/documents.html',
     section: 'Resources',
     snippet: 'Bylaws, meeting minutes, financial reports, and other official association documents.',
-    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records onterra lake study 2010-13 2025 follow-up study community surveys memorabilia 2004 articles incorporation thomas drought governance nonprofit 501c3 final report october 2013 maps appendices stakeholder survey november 2011 results july 2013 onterra proposal june 2010 2022 communications survey june 2022 photos clippings keepsakes scrapbook newsletters may 2026 december 2025 may 2025 november 2024 tommy drought isabel ullrich gail lewis'
+    body: 'documents bylaws meeting minutes financial reports pdf association documents board minutes annual report forms policies procedures official records onterra lake study 2010-13 2025 follow-up study community surveys memorabilia 2004 articles incorporation thomas drought governance nonprofit 501c3 final report october 2013 maps appendices stakeholder survey november 2011 results july 2013 onterra proposal june 2010 2022 communications survey june 2022 photos clippings keepsakes scrapbook newsletters november 2026 may 2026 november 2025 may 2025 november 2024 may 2023 edition 01 02 03 04 05 06 tommy drought isabel ullrich gail lewis'
   },
   {
     title: 'Helpful Links',
